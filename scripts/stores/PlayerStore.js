@@ -10,6 +10,7 @@ var PlayerStore = Reflux.createStore({
             velocity: 0.1,
             color: "#1EBE39",
             status: 1,
+            canAttack: true,
             touches: []
         },
         "2": {
@@ -19,6 +20,7 @@ var PlayerStore = Reflux.createStore({
             velocity: 0.1,
             color: "#1EBE39",
             status: 1,
+            canAttack: true,
             touches: []
         }
     },
@@ -42,15 +44,16 @@ var PlayerStore = Reflux.createStore({
     onTouchStatue: function(id, sid) {
         if(this.data[id].touches.indexOf(sid) == -1) {
             this.data[id].touches.push(sid)
-            console.log("ping")
             if(this.data[id].touches.length == 3) {
                 this.data[id].radius = 1
                 this.data[id].color = "red"
             }
+            new Audio("./sounds/ding.wav").play()
             this.trigger(this.data)
         }
     },
     onAttack: function(id) {
+        var it_hit = false;
         for(var pid in this.data) {
             if(id != pid) {
                 var alpha = this.data[id]
@@ -58,10 +61,24 @@ var PlayerStore = Reflux.createStore({
                 if(omega.status == 1) {
                     if(this.isIntersecting(alpha, omega)) {
                         PlayerActions.Die(pid)
+                        it_hit = true;
                     }
                 }
             }
         }
+        if(it_hit) {
+            new Audio("./sounds/whack.mp3").play()
+        }
+        this.data[id].canAttack = false;
+        this.data[id].color = "green";
+        this.data[id].velocity = 0.05;
+        setTimeout(function()
+        {
+            this.data[id].canAttack = true;
+            this.data[id].color = "#1EBE39";
+            this.data[id].velocity = 0.1;
+        }
+        .bind(this), 500)
     },
     onDie: function(id) {
         this.data[id].status = 0

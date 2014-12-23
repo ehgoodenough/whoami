@@ -6,7 +6,7 @@ var StatueStore = Reflux.createStore({
         "A": {
             x: 5,
             y: 5,
-            radius: 1
+            radius: 0.8
         },
         "B": {
             x: 15,
@@ -16,7 +16,7 @@ var StatueStore = Reflux.createStore({
         "C": {
             x: 11,
             y: 13,
-            radius: 1
+            radius: 0.9
         }
     },
     getInitialState: function() {
