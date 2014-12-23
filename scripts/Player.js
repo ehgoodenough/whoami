@@ -5,20 +5,20 @@ var Player = React.createClass({
         PlayerKeyboardMixin
     ],
     events: {
-        "move up": function() {
-            var yp = this.state.y - this.state.velocity
+        "move up": function(delta) {
+            var yp = this.state.y - (this.state.velocity * delta)
             this.setState({y: yp})
         },
-        "move down": function() {
-            var yp = this.state.y + this.state.velocity
+        "move down": function(delta) {
+            var yp = this.state.y + (this.state.velocity * delta)
             this.setState({y: yp})
         },
-        "move left": function() {
-            var xp = this.state.x - this.state.velocity
+        "move left": function(delta) {
+            var xp = this.state.x - (this.state.velocity * delta)
             this.setState({x: xp})
         },
-        "move right": function() {
-            var xp = this.state.x + this.state.velocity
+        "move right": function(delta) {
+            var xp = this.state.x + (this.state.velocity * delta)
             this.setState({x: xp})
         }
     },
@@ -31,7 +31,7 @@ var Player = React.createClass({
             y: 1,
             width: 1,
             height: 1,
-            velocity: 0.25
+            velocity: 0.075
         }
     },
     render: function() {

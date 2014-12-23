@@ -47,14 +47,21 @@ var PlayerKeyboard = {
     onStroke: function(keycode) {
         if(!this.strokes[keycode]) {
             this.strokes[keycode] = true
-            if(this.events[keycode]) {
+            /*if(this.events[keycode]) {
                 this.events[keycode]()
-            }
+            }*/
         }
     },
     onUnstroke: function(keycode) {
         if(this.strokes[keycode] != null) {
-            this.strokes[keycode] = null
+            delete this.strokes[keycode]
+        }
+    },
+    onInterval: function(delta) {
+        for(var keycode in this.strokes) {
+            if(this.events[keycode]) {
+                this.events[keycode](delta)
+            }
         }
     },
     keycodes: {
@@ -176,5 +183,25 @@ document.addEventListener("keydown", function(event) {
 document.addEventListener("keyup", function(event) {
     PlayerKeyboard.onUnstroke(event.keyCode)
 })
+
+var EventSystem = {
+    loop: function() {
+        var delta = EventSystem.getTimeDelta()
+        PlayerKeyboard.onInterval(delta)
+        EventSystem.resetTime()
+        EventSystem.reloop()
+    },
+    reloop: function() {
+        requestAnimationFrame(this.loop)
+    },
+    getTimeDelta: function() {
+        return (Date.now() - this.time) / 60
+    },
+    resetTime: function() {
+        this.time = Date.now()
+    },
+    time: Date.now()
+}
+EventSystem.loop()
 
 module.exports = PlayerKeyboardMixin
