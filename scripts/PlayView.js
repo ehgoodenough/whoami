@@ -1,7 +1,8 @@
 var Player = require("./Player")
+var Statue = require("./Statue")
 var PlayerStore = require("./PlayerStore")
 
-var PlayingView = React.createClass({
+var PlayView = React.createClass({
     mixins: [
         Reflux.connect(PlayerStore, "players")
     ],
@@ -16,9 +17,10 @@ var PlayingView = React.createClass({
         return (
             <div>
                 {renderedPlayers}
+                <Statue id={"2"} data={{x: 4, y: 4, width: 2, height: 2}}/>
             </div>
         )
     }
 })
 
-module.exports = PlayingView
+module.exports = PlayView

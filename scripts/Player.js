@@ -25,15 +25,22 @@ var Player = React.createClass({
     },
     propTypes: {
         id: React.PropTypes.string.isRequired
+        /*data: React.PropTypes.shape({
+            x: React.PropTypes.number,
+            y: React.PropTypes.number,
+            width: React.PropTypes.number,
+            height: React.PropTypes.number,
+            velocity: React.PropTypes.number,
+        })*/
     },
     render: function() {
         return (
-            <div className="player" style={this.getStyle()}></div>
+            <div className="player" style={this.renderStyle()}/>
         )
     },
-    getStyle: function() {
+    renderStyle: function() {
         return {
-            top: this.props.data.y - (this.props.data.height / 2)  + "rem",
+            top: this.props.data.y - (this.props.data.height / 2) + "rem",
             left: this.props.data.x - (this.props.data.width / 2) + "rem",
             width: this.props.data.width + "rem",
             height: this.props.data.height + "rem"
