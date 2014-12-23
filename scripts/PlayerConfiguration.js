@@ -8,6 +8,16 @@ var PlayerConfiguration = {
                 "move right": "d"
             }
         }
+    },
+    "2": {
+        "input": {
+            "keyboard": {
+                "move up": "up arrow",
+                "move down": "down arrow",
+                "move left": "left arrow",
+                "move right": "right arrow"
+            }
+        }
     }
 }
 

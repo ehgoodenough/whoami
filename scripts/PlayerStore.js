@@ -8,6 +8,13 @@ var PlayerStore = Reflux.createStore({
             width: 1,
             height: 1,
             velocity: 0.1
+        },
+        "2": {
+            x: 10,
+            y: 10,
+            width: 1,
+            height: 1,
+            velocity: 0.1
         }
     },
     getInitialState: function() {
