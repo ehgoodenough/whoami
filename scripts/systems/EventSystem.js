@@ -1,10 +1,12 @@
 var Keyboard = require("<root>/scripts/systems/Keyboard")
+var SystemActions = require("<root>/scripts/actions/SystemActions")
 
 var EventSystem = {
     loop: function() {
         var delta = EventSystem.getTimeDelta()
         
         Keyboard.onLoop(delta)
+        SystemActions.Tick(delta)
         
         EventSystem.resetTime()
         EventSystem.reloop()
