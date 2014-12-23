@@ -4,7 +4,7 @@ var Frame = React.createClass({
     render: function() {
         return (
             <div id="frame">
-                <Player/>
+                <Player id="1"/>
             </div>
         )
     }
