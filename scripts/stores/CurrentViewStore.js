@@ -1,5 +1,5 @@
 var CurrentViewActions = require("<root>/scripts/actions/CurrentViewActions")
-var PlayView = require("<root>/scripts/views/PlayView")
+var TitleView = require("<root>/scripts/views/TitleView")
 
 var CurrentViewStore = Reflux.createStore({
     listenables: CurrentViewActions,
@@ -7,7 +7,7 @@ var CurrentViewStore = Reflux.createStore({
         this.trigger(View)
     },
     getInitialState: function() {
-        return PlayView
+        return TitleView
     }
 })
 

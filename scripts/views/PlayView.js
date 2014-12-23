@@ -10,7 +10,7 @@ var PlayView = React.createClass({
     ],
     render: function() {
         return (
-            <div>
+            <div id="play" className="view">
                 {this.renderEntities(Player, "players")}
                 {this.renderEntities(Statue, "statues")}
             </div>
