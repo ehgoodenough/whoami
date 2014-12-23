@@ -1,0 +1,40 @@
+#frame
+{
+    top: 0rem;
+    left: 0rem;
+    right: 0rem;
+    bottom: 0rem;
+    margin: auto;
+    position: fixed;
+    
+    overflow: hidden;
+    background-color: #EEE;
+}
+
+@media(min-aspect-ratio: 4/3)
+{
+    #frame
+    {
+        height: 100vh;
+        width: 133.333vh;
+    }
+    
+    :root
+    {
+        font-size: 6.666vh;
+    }
+}
+
+@media(max-aspect-ratio: 4/3)
+{
+    #frame
+    {
+        width: 100vw;
+        height: 75vw;
+    }
+
+    :root
+    {
+        font-size: 5vw;
+    }
+}
