@@ -2,13 +2,17 @@
 {
     padding: 2rem;
     
+    background-size: 100%;
+    background-color: #B5E61D;
+    background-image: url("../images/titlescreen.png");
+    
     h1
     {
         color: $white;
         font-size: 3rem;
         font-weight: bold;
         text-align: center;
-        @include stroke(4rem, $black);
+        @include stroke(6, $black);
     }
     
     h2
@@ -20,7 +24,27 @@
         @include stroke(2, $black);
     }
     
-    background-size: 100%;
-    background-color: #B5E61D;
-    background-image: url("../images/titlescreen.png");
+    .link
+    {
+        color: $white;
+        cursor: pointer;
+        font-weight: bold;
+        text-align: center;
+        @include stroke(6, $black);
+        
+        left: 2rem;
+        right: 2rem;
+        bottom: 2rem;
+        position: absolute;
+        
+        animation-name: pulsate;
+        animation-timing-function: ease-out;
+        animation-iteration-count: infinite;
+        animation-duration: 1.5s;
+        
+        &:hover
+        {
+            color: red;
+        }
+    }
 }
