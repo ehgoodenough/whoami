@@ -31,7 +31,7 @@ var Player = React.createClass({
             y: 1,
             width: 1,
             height: 1,
-            velocity: 0.075
+            velocity: 0.1
         }
     },
     render: function() {
