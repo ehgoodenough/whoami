@@ -1,10 +1,10 @@
-var PlayerKeyboard = require("<root>/scripts/systems/PlayerKeyboard")
+var Keyboard = require("<root>/scripts/systems/Keyboard")
 
 var EventSystem = {
     loop: function() {
         var delta = EventSystem.getTimeDelta()
         
-        PlayerKeyboard.onLoop(delta)
+        Keyboard.onLoop(delta)
         
         EventSystem.resetTime()
         EventSystem.reloop()

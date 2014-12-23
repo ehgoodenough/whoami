@@ -1,4 +1,4 @@
-var PlayerKeyboard = require("<root>/scripts/systems/PlayerKeyboard")
+var Keyboard = require("<root>/scripts/systems/Keyboard")
 var PlayerConfiguration = require("<root>/scripts/systems/PlayerConfiguration")
 
 var PlayerKeyboardMixin = {
@@ -7,7 +7,7 @@ var PlayerKeyboardMixin = {
             var event = this.events[eventname].bind(this)
             var config = PlayerConfiguration[this.props.id]
             var keyname = config.input.keyboard[eventname]
-            PlayerKeyboard.bindEvent(keyname, event)
+            Keyboard.bindEvent(keyname, event)
         }
     },
     componentWillUnmount: function() {
@@ -15,7 +15,7 @@ var PlayerKeyboardMixin = {
             var event = this.events[eventname].bind(this)
             var config = PlayerConfiguration[this.props.id]
             var keyname = config.input.keyboard[eventname]
-            PlayerKeyboard.unbindEvent(keyname, event)
+            Keyboard.unbindEvent(keyname, event)
         }
     }
 }

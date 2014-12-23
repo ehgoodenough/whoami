@@ -1,12 +1,12 @@
 var PlayerConfiguration = require("<root>/scripts/systems/PlayerConfiguration")
-var PlayerKeyboard = require("<root>/scripts/systems/PlayerKeyboard")
+var Keyboard = require("<root>/scripts/systems/Keyboard")
 
 var JoinBox = React.createClass({
     componentWillMount: function() {
-        PlayerKeyboard.bindEvent("space bar", this.onJoin)
+        Keyboard.bindEvent("space bar", this.onJoin)
     },
     componentWillUnmount: function() {
-        PlayerKeyboard.unbindEvent("space bar", this.onJoin)
+        Keyboard.unbindEvent("space bar", this.onJoin)
     },
     render: function() {
         var configuration = PlayerConfiguration[this.props.id]

@@ -3,15 +3,15 @@ var TitleView = require("<root>/scripts/views/TitleView")
 var CurrentViewActions = require("<root>/scripts/actions/CurrentViewActions")
 
 var JoinBox = require("<root>/scripts/JoinBox")
-var PlayerKeyboard = require("<root>/scripts/systems/PlayerKeyboard")
+var Keyboard = require("<root>/scripts/systems/Keyboard")
 var PlayerConfiguration = require("<root>/scripts/systems/PlayerConfiguration")
 
 var JoinView = React.createClass({
     componentWillMount: function() {
-        PlayerKeyboard.bindEvent("escape", this.previousView)
+        Keyboard.bindEvent("escape", this.previousView)
     },
     componentWillUnmount: function() {
-        PlayerKeyboard.unbindEvent("escape", this.previousView)
+        Keyboard.unbindEvent("escape", this.previousView)
     },
     render: function() {
         var renderedJoinBoxes = new Array()

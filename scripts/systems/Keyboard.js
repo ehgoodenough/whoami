@@ -1,4 +1,4 @@
-var PlayerKeyboard = {
+var Keyboard = {
     events: new Object(),
     bindEvent: function(keyname, event) {
         var keycode = this.getKeycode(keyname)
@@ -139,11 +139,11 @@ var PlayerKeyboard = {
 }
 
 document.addEventListener("keydown", function(event) {
-    PlayerKeyboard.onStroke(event.keyCode)
+    Keyboard.onStroke(event.keyCode)
 })
 
 document.addEventListener("keyup", function(event) {
-    PlayerKeyboard.onUnstroke(event.keyCode)
+    Keyboard.onUnstroke(event.keyCode)
 })
 
-module.exports = PlayerKeyboard
+module.exports = Keyboard
