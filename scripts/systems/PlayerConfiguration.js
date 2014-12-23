@@ -6,7 +6,8 @@ var PlayerConfiguration = {
                 "move up": "up arrow",
                 "move down": "down arrow",
                 "move left": "left arrow",
-                "move right": "right arrow"
+                "move right": "right arrow",
+                "attack": "."
             }
         }
     },
@@ -17,7 +18,8 @@ var PlayerConfiguration = {
                 "move up": "w",
                 "move down": "s",
                 "move left": "a",
-                "move right": "d"
+                "move right": "d",
+                "attack": "e"
             }
         }
     },
