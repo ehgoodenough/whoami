@@ -6,10 +6,10 @@ var Statue = React.createClass({
     },
     renderStyle: function() {
         return {
-            top: this.props.data.y - (this.props.data.height / 2) + "rem",
-            left: this.props.data.x - (this.props.data.width / 2) + "rem",
-            width: this.props.data.width + "rem",
-            height: this.props.data.height + "rem"
+            top: this.props.data.y - this.props.data.radius + "rem",
+            left: this.props.data.x - this.props.data.radius + "rem",
+            width: this.props.data.radius * 2+ "rem",
+            height: this.props.data.radius * 2+ "rem"
         }
     }
 })

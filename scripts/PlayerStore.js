@@ -5,15 +5,13 @@ var PlayerStore = Reflux.createStore({
         "1": {
             x: 1,
             y: 1,
-            width: 1,
-            height: 1,
+            radius: 0.5,
             velocity: 0.1
         },
         "2": {
             x: 10,
             y: 10,
-            width: 1,
-            height: 1,
+            radius: 0.5,
             velocity: 0.1
         }
     },
