@@ -1,5 +1,5 @@
 var CurrentViewActions = require("<root>/scripts/actions/CurrentViewActions")
-var PlayView = require("<root>/scripts/views/PlayView")
+var HowManyView = require("<root>/scripts/views/HowManyView")
 
 var TitleView = React.createClass({
     render: function() {
@@ -7,14 +7,14 @@ var TitleView = React.createClass({
             <div id="title" className="view">
                 <h1>iamnpc</h1>
                 <h2>A game about being an NPC</h2>
-                <div className="link" onClick={this.onClick}>
-                    Play!!
+                <div className="link" onClick={this.nextView}>
+                    Play!! :D
                 </div>
             </div>
         )
     },
-    onClick: function(event) {
-        CurrentViewActions.ChangeView(PlayView)
+    nextView: function(event) {
+        CurrentViewActions.ChangeView(HowManyView)
     }
 })
 
