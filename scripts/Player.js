@@ -1,4 +1,4 @@
-var PlayerKeyboardMixin = require("<root>/scripts/systems/PlayerKeyboardMixin")
+var PlayerKeyboardMixin = require("<root>/scripts/mixins/PlayerKeyboardMixin")
 var PlayerActions = require("<root>/scripts/actions/PlayerActions")
 
 var Player = React.createClass({

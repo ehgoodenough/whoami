@@ -5,7 +5,7 @@ var PlayerKeyboard = {
         this.events[keycode] = event
     },
     unbindEvent: function(keyname, event) {
-        var keycode = this.getKeyCode(keyString)
+        var keycode = this.getKeycode(keyname)
         this.events[keycode] = null
     },
     strokes: new Object(),
