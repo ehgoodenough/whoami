@@ -7,6 +7,8 @@ var PlayerStore = Reflux.createStore({
             y: 1,
             radius: 0.5,
             velocity: 0.1,
+            color: "#1EBE39",
+            status: 1,
             touches: []
         },
         "2": {
@@ -14,6 +16,8 @@ var PlayerStore = Reflux.createStore({
             y: 10,
             radius: 0.5,
             velocity: 0.1,
+            color: "#1EBE39",
+            status: 1,
             touches: []
         }
     },
@@ -36,7 +40,8 @@ var PlayerStore = Reflux.createStore({
             this.data[id].touches.push(sid)
             console.log("ping")
             if(this.data[id].touches.length == 3) {
-                console.log("you win!")
+                this.data[id].radius = 1
+                this.data[id].color = "red"
             }
         }
     }

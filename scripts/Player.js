@@ -19,6 +19,7 @@ var Player = React.createClass({
             PlayerActions.MoveHorizontally(this.props.id, x)
         },
         "move right": function(delta) {
+            if(this.props.data.status == 0) {return;}
             var x = this.props.data.x + (this.props.data.velocity * delta)
             PlayerActions.MoveHorizontally(this.props.id, x)
         }

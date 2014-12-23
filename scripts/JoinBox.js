@@ -1,24 +1,42 @@
 var PlayerConfiguration = require("<root>/scripts/systems/PlayerConfiguration")
 var Keyboard = require("<root>/scripts/systems/Keyboard")
+var KeyboardMixin = require("<root>/scripts/mixins/KeyboardMixin")
 
 var JoinBox = React.createClass({
-    componentWillMount: function() {
-        Keyboard.bindEvent("space bar", this.onJoin)
+    mixins: [
+        KeyboardMixin
+    ],
+    bindings: {
+        "w": "onJoinGame",
+        "a": "onJoinGame",
+        "s": "onJoinGame",
+        "d": "onJoinGame"
     },
-    componentWillUnmount: function() {
-        Keyboard.unbindEvent("space bar", this.onJoin)
+    propType: {
+        id: React.PropTypes.number.isRequired,
+        config: React.PropTypes.object.isRequired,
+        onJoinGame: React.PropTypes.func.isRequired,
+        hasJoined: React.PropTypes.bool.isRequired
     },
     render: function() {
-        var configuration = PlayerConfiguration[this.props.id]
-        return (
-            <div className="join-box">
-                <b>{configuration.name}</b>
-                <small>Hit a key to join!</small>
-            </div>
-        )
+        if(this.props.hasJoined) {
+            return (
+                <div className="join-box">
+                    <b>{this.props.config.name}</b>
+                    has joined!
+                </div>
+            )
+        } else {
+            return (
+                <div className="join-box">
+                    <b>{this.props.config.name}</b>
+                    <small>Hit a key to join!</small>
+                </div>
+            )
+        }
     },
-    onJoin: function() {
-        console.log("!")
+    onJoinGame: function() {
+        this.props.onJoinGame(this.props.id)
     }
 })
 
