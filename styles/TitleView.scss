@@ -1,14 +1,3 @@
-.view
-{
-    top: 0rem;
-    left: 0rem;
-    right: 0rem;
-    bottom: 0rem;
-    position: absolute;
-    
-    background-color: red;
-}
-
 #title.view
 {
     padding: 2rem;
@@ -30,4 +19,8 @@
         font-weight: normal;
         @include stroke(2, $black);
     }
+    
+    background-size: 100%;
+    background-color: #B5E61D;
+    background-image: url("../images/titlescreen.png");
 }
