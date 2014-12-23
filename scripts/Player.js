@@ -8,19 +8,19 @@ var Player = React.createClass({
     events: {
         "move up": function(delta) {
             var y = this.props.data.y - (this.props.data.velocity * delta)
-            PlayerActions.MoveTo(this.props.id, this.props.data.x, y)
+            PlayerActions.MoveVertically(this.props.id, y)
         },
         "move down": function(delta) {
             var y = this.props.data.y + (this.props.data.velocity * delta)
-            PlayerActions.MoveTo(this.props.id, this.props.data.x, y)
+            PlayerActions.MoveVertically(this.props.id, y)
         },
         "move left": function(delta) {
             var x = this.props.data.x - (this.props.data.velocity * delta)
-            PlayerActions.MoveTo(this.props.id, x, this.props.data.y)
+            PlayerActions.MoveHorizontally(this.props.id, x)
         },
         "move right": function(delta) {
             var x = this.props.data.x + (this.props.data.velocity * delta)
-            PlayerActions.MoveTo(this.props.id, x, this.props.data.y)
+            PlayerActions.MoveHorizontally(this.props.id, x)
         }
     },
     propTypes: {

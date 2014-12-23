@@ -16,11 +16,14 @@ var PlayerStore = Reflux.createStore({
     listenables: [
         PlayerActions
     ],
-    onMoveTo: function(id, x, y) {
+    onMoveHorizontally: function(id, x) {
         this.data[id].x = x
+        this.trigger(this.data)
+    },
+    onMoveVertically: function(id, y) {
         this.data[id].y = y
         this.trigger(this.data)
-    }
+    },
 })
 
 module.exports = PlayerStore
