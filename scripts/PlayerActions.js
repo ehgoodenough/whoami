@@ -1,6 +1,7 @@
 var PlayerActions = Reflux.createActions([
     "MoveHorizontally",
-    "MoveVertically"
+    "MoveVertically",
+    "TouchStatue"
 ])
 
 module.exports = PlayerActions

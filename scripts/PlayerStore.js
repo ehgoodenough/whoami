@@ -6,13 +6,15 @@ var PlayerStore = Reflux.createStore({
             x: 1,
             y: 1,
             radius: 0.5,
-            velocity: 0.1
+            velocity: 0.1,
+            touches: []
         },
         "2": {
             x: 10,
             y: 10,
             radius: 0.5,
-            velocity: 0.1
+            velocity: 0.1,
+            touches: []
         }
     },
     getInitialState: function() {
@@ -29,6 +31,15 @@ var PlayerStore = Reflux.createStore({
         this.data[id].y = y
         this.trigger(this.data)
     },
+    onTouchStatue: function(id, sid) {
+        if(this.data[id].touches.indexOf(sid) == -1) {
+            this.data[id].touches.push(sid)
+            console.log("ping")
+            if(this.data[id].touches.length == 3) {
+                console.log("you win!")
+            }
+        }
+    }
 })
 
 module.exports = PlayerStore

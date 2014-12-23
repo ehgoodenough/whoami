@@ -1,10 +1,21 @@
 var PlayerStore = require("./PlayerStore")
+var PlayerActions = require("./PlayerActions")
 
 var StatueStore = Reflux.createStore({
     data: {
         "A": {
             x: 5,
             y: 5,
+            radius: 1
+        },
+        "B": {
+            x: 15,
+            y: 3,
+            radius: 1
+        },
+        "C": {
+            x: 11,
+            y: 13,
             radius: 1
         }
     },
@@ -15,12 +26,12 @@ var StatueStore = Reflux.createStore({
         this.listenTo(PlayerStore, this.onPlayerStore)
     },
     onPlayerStore: function(data) {
-        for(var i in data) {
-            var alpha = data[i]
-            for(var j in this.data) {
-                var omega = this.data[j]
+        for(var id in data) {
+            var alpha = data[id]
+            for(var sid in this.data) {
+                var omega = this.data[sid]
                 if(this.isIntersecting(alpha, omega)) {
-                    console.log(i, j)
+                    PlayerActions.TouchStatue(id, sid)
                 }
             }
         }
