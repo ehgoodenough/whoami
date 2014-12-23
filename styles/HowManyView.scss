@@ -1,4 +1,40 @@
 #how-many.view
 {
-    background-color: #B5E61D;
+    background-color: #22B14C;
+    
+    .player-box
+    {
+        width: 8.5rem;
+        height: 6rem;
+        padding: 1rem;
+        position: absolute;
+        box-sizing: border-box;
+        
+        text-align: center;
+        border-radius: 0.2rem;
+        background-color: #B5E61D;
+        
+        b
+        {
+            display: block;
+        }
+        
+        small
+        {
+            display: block;
+            
+            font-size: 0.5rem;
+            text-decoration: underline;
+            
+            animation-name: blink;
+            animation-duration: 2s;
+            animation-iteration-count: infinite;
+            animation-timing-function: steps(2, start);
+        }
+    }
+    
+    .player-box:nth-child(1) {top: 1rem; left: 1rem;}
+    .player-box:nth-child(2) {top: 1rem; right: 1rem;}
+    .player-box:nth-child(3) {bottom: 1rem; left: 1rem;}
+    .player-box:nth-child(4) {bottom: 1rem; right: 1rem;}
 }

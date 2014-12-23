@@ -1,3 +1,9 @@
+$root-size: 5;
+$frame-width: 20;
+$frame-height: 15;
+$frame-scaled-width: $frame-width * $root-size;
+$frame-scaled-height: $frame-height * $root-size;
+
 #frame
 {
     top: 0rem;

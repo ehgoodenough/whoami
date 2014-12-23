@@ -1,5 +1,6 @@
 var PlayerConfiguration = {
     "1": {
+        "name": "arrows",
         "input": {
             "keyboard": {
                 "move up": "up arrow",
@@ -10,6 +11,7 @@ var PlayerConfiguration = {
         }
     },
     "2": {
+        "name": "w-a-s-d",
         "input": {
             "keyboard": {
                 "move up": "w",
@@ -20,6 +22,7 @@ var PlayerConfiguration = {
         }
     },
     "3": {
+        "name": "j-i-k-l",
         "input": {
             "keyboard": {
                 "move up": "i",
@@ -29,7 +32,8 @@ var PlayerConfiguration = {
             }
         }
     },
-    "4": {
+    /*"4": {
+        "name": "numpad",
         "input": {
             "keyboard": {
                 "move up": "numpad 5",
@@ -38,8 +42,9 @@ var PlayerConfiguration = {
                 "move right": "numpad 3"
             }
         }
-    },
+    },*/
     "5": {
+        "name": "f-g-h-t",
         "input": {
             "keyboard": {
                 "move up": "t",
@@ -48,7 +53,7 @@ var PlayerConfiguration = {
                 "move right": "h"
             }
         }
-    },
+    }
 }
 
 module.exports = PlayerConfiguration
