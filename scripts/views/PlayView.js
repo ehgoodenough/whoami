@@ -1,7 +1,7 @@
-var Player = require("./Player")
-var Statue = require("./Statue")
-var PlayerStore = require("./PlayerStore")
-var StatueStore = require("./StatueStore")
+var Player = require("<root>/scripts/Player")
+var Statue = require("<root>/scripts/Statue")
+var PlayerStore = require("<root>/scripts/stores/PlayerStore")
+var StatueStore = require("<root>/scripts/stores/StatueStore")
 
 var PlayView = React.createClass({
     mixins: [

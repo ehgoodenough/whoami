@@ -1,4 +1,4 @@
-var PlayerActions = require("./PlayerActions")
+var PlayerActions = require("<root>/scripts/actions/PlayerActions")
 
 var PlayerStore = Reflux.createStore({
     data: {

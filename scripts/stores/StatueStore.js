@@ -1,5 +1,5 @@
-var PlayerStore = require("./PlayerStore")
-var PlayerActions = require("./PlayerActions")
+var PlayerStore = require("<root>/scripts/stores/PlayerStore")
+var PlayerActions = require("<root>/scripts/actions/PlayerActions")
 
 var StatueStore = Reflux.createStore({
     data: {

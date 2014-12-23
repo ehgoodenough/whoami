@@ -1,4 +1,4 @@
-var PlayerKeyboard = require("./PlayerKeyboard")
+var PlayerKeyboard = require("<root>/scripts/systems/PlayerKeyboard")
 
 var EventSystem = {
     loop: function() {
