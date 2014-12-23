@@ -1,4 +1,5 @@
-var PlayerKeyboardMixin = require("./PlayerKeyboardMixin");
+var PlayerKeyboardMixin = require("./PlayerKeyboardMixin")
+var PlayerActions = require("./PlayerActions")
 
 var Player = React.createClass({
     mixins: [
@@ -6,33 +7,24 @@ var Player = React.createClass({
     ],
     events: {
         "move up": function(delta) {
-            var yp = this.state.y - (this.state.velocity * delta)
-            this.setState({y: yp})
+            var y = this.props.data.y - (this.props.data.velocity * delta)
+            PlayerActions.MoveTo(this.props.id, this.props.data.x, y)
         },
         "move down": function(delta) {
-            var yp = this.state.y + (this.state.velocity * delta)
-            this.setState({y: yp})
+            var y = this.props.data.y + (this.props.data.velocity * delta)
+            PlayerActions.MoveTo(this.props.id, this.props.data.x, y)
         },
         "move left": function(delta) {
-            var xp = this.state.x - (this.state.velocity * delta)
-            this.setState({x: xp})
+            var x = this.props.data.x - (this.props.data.velocity * delta)
+            PlayerActions.MoveTo(this.props.id, x, this.props.data.y)
         },
         "move right": function(delta) {
-            var xp = this.state.x + (this.state.velocity * delta)
-            this.setState({x: xp})
+            var x = this.props.data.x + (this.props.data.velocity * delta)
+            PlayerActions.MoveTo(this.props.id, x, this.props.data.y)
         }
     },
     propTypes: {
         id: React.PropTypes.string.isRequired
-    },
-    getInitialState: function() {
-        return {
-            x: 1,
-            y: 1,
-            width: 1,
-            height: 1,
-            velocity: 0.1
-        }
     },
     render: function() {
         return (
@@ -41,10 +33,10 @@ var Player = React.createClass({
     },
     getStyle: function() {
         return {
-            top: this.state.y - (this.state.height / 2)  + "rem",
-            left: this.state.x - (this.state.width / 2) + "rem",
-            width: this.state.width + "rem",
-            height: this.state.height + "rem"
+            top: this.props.data.y - (this.props.data.height / 2)  + "rem",
+            left: this.props.data.x - (this.props.data.width / 2) + "rem",
+            width: this.props.data.width + "rem",
+            height: this.props.data.height + "rem"
         }
     }
 })

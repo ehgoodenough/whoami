@@ -1,10 +1,10 @@
-var Player = require("./Player")
+var PlayingView = require("./PlayingView")
 
 var Frame = React.createClass({
     render: function() {
         return (
             <div id="frame">
-                <Player id="1"/>
+                <PlayingView/>
             </div>
         )
     }
