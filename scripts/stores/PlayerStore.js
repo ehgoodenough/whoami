@@ -11,7 +11,8 @@ var PlayerStore = Reflux.createStore({
             color: "#1EBE39",
             status: 1,
             canAttack: true,
-            touches: []
+            touches: [],
+            direction: "south"
         },
         "2": {
             x: 10,
@@ -21,7 +22,8 @@ var PlayerStore = Reflux.createStore({
             color: "#1EBE39",
             status: 1,
             canAttack: true,
-            touches: []
+            touches: [],
+            direction: "south"
         }
     },
     records: {
@@ -34,10 +36,23 @@ var PlayerStore = Reflux.createStore({
         PlayerActions
     ],
     onMoveHorizontally: function(id, x) {
+        if(this.data[id].x < x) {
+            this.data[id].direction = "east"
+        } else if(this.data[id].x > x) {
+            this.data[id].direction = "west"
+        }
+        
         this.data[id].x = x
+        
         this.trigger(this.data)
     },
     onMoveVertically: function(id, y) {
+        if(this.data[id].y < y) {
+            this.data[id].direction = "south"
+        } else if(this.data[id].y > y) {
+            this.data[id].direction = "north"
+        }
+        
         this.data[id].y = y
         this.trigger(this.data)
     },

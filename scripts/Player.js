@@ -45,7 +45,8 @@ var Player = React.createClass({
             top: this.props.data.y - this.props.data.radius + "rem",
             left: this.props.data.x - this.props.data.radius + "rem",
             width: this.props.data.radius * 2 + "rem",
-            height: this.props.data.radius * 2 + "rem"
+            height: this.props.data.radius * 2 + "rem",
+            backgroundImage: "url('./images/player." + this.props.data.direction + ".png')"
         }
     }
 })
