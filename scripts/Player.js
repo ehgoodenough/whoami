@@ -28,7 +28,6 @@ var Player = React.createClass({
         },
         "attack": function(delta) {
             if(this.props.data.status == 0) {return}
-            if(this.props.data.canAttack == false) {return}
             PlayerActions.Attack(this.props.id, this.props.x, this.props.y, this.props.radius)
         }
     },
@@ -46,8 +45,21 @@ var Player = React.createClass({
             left: this.props.data.x - this.props.data.radius + "rem",
             width: this.props.data.radius * 2 + "rem",
             height: this.props.data.radius * 2 + "rem",
-            backgroundImage: "url('./images/player." + this.props.data.direction + ".png')"
+            backgroundImage: this.renderBackgroundImage()
         }
+    },
+    renderBackgroundImage: function() {
+        var direction, action
+        
+        if(this.props.data.canAttack = false) {
+            action = "attack"
+        } else {
+            action = "move"
+        }
+        
+        direction = this.props.data.direction
+        
+        return "url(./images/player." + action + "." + direction + ".png)"
     }
 })
 
