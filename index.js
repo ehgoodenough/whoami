@@ -1,4 +1,4 @@
-window.React = require("react")
+window.React = require("react/addons")
 window.Reflux = require("reflux")
 
 var GameFrame = require("<root>/scripts/classes/GameFrame")

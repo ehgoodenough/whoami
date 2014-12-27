@@ -33,8 +33,13 @@ var Player = React.createClass({
     },
     render: function() {
         return (
-            <div className="player" style={this.renderStyle()}/>
+            <div className={this.renderClasses()} style={this.renderStyle()}/>
         )
+    },
+    renderClasses: function() {
+        return React.addons.classSet({
+            "player": true
+        })
     },
     renderStyle: function() {
         return {
