@@ -1,3 +1,5 @@
+var LoopActions = require("<root>/scripts/actions/LoopActions")
+
 var Keyboard = {
     events: new Object(),
     bindEvent: function(keyname, event) {
@@ -19,7 +21,7 @@ var Keyboard = {
             delete this.strokes[keycode]
         }
     },
-    onLoop: function(delta) {
+    onTick: function(delta) {
         for(var keycode in this.strokes) {
             if(this.events[keycode]) {
                 this.events[keycode](delta)
@@ -144,6 +146,10 @@ document.addEventListener("keydown", function(event) {
 
 document.addEventListener("keyup", function(event) {
     Keyboard.onUnstroke(event.keyCode)
+})
+
+LoopActions.Tick.listen(function(delta) {
+    Keyboard.onTick(delta)
 })
 
 module.exports = Keyboard
