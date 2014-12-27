@@ -16,8 +16,8 @@ var PlayerStore = Reflux.createStore({
         this.data = {}
         for(var index = 0; index < data.players; index++) {
             this.data[index] = {
-                x: Math.floor(Math.random() * (20 - 2) + (2 / 2)),
-                y: Math.floor(Math.random() * (15 - 2) + (2 / 2)),
+                x: Math.floor(Math.random() * (20 - 2) + 1),
+                y: Math.floor(Math.random() * (15 - 2) + 1),
                 radius: 0.5,
                 scale: 1,
                 velocity: 1,
