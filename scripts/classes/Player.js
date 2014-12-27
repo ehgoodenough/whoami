@@ -24,7 +24,7 @@ var Player = React.createClass({
     },
     render: function() {
         return (
-            <div className={this.renderClasses()} style={this.renderStyle()}/>
+            <div className={this.renderClasses()} style={this.renderStyles()}/>
         )
     },
     renderClasses: function() {
@@ -32,13 +32,13 @@ var Player = React.createClass({
             "player": true
         })
     },
-    renderStyle: function() {
+    renderStyles: function() {
         return {
-            top: this.props.data.y - this.props.data.radius + "rem",
-            left: this.props.data.x - this.props.data.radius + "rem",
-            width: this.props.data.radius * 2 + "rem",
-            height: this.props.data.radius * 2 + "rem",
-            backgroundImage: "url(./images/player.move." + this.props.data.direction + ".png)"
+            top: this.props.data.y - this.props.data.radius * this.props.data.scale + "rem",
+            left: this.props.data.x - this.props.data.radius * this.props.data.scale + "rem",
+            width: this.props.data.radius * 2 * this.props.data.scale + "rem",
+            height: this.props.data.radius * 2 * this.props.data.scale + "rem",
+            backgroundImage: "url(./images/player." + this.props.data.image + ".png)"
         }
     }
 })

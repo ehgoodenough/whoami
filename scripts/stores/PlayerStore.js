@@ -19,9 +19,11 @@ var PlayerStore = Reflux.createStore({
                 x: Math.floor(Math.random() * (20 - 2) + (2 / 2)),
                 y: Math.floor(Math.random() * (15 - 2) + (2 / 2)),
                 radius: 0.5,
+                scale: 1,
                 velocity: 1,
                 direction: "south",
-                cooldown: 0,
+                image: "move.south",
+                attacking: 0,
                 status: 1,
                 touches: []
             }
@@ -31,10 +33,16 @@ var PlayerStore = Reflux.createStore({
     onTick: function(delta) {
         for(var index in this.data) {
             var player = this.data[index]
-            if(player.cooldown > 0) {
-                player.cooldown -= delta;
+            if(player.attacking > 0) {
+                player.attacking -= delta
+            }
+            if(player.attacking < 1
+            && player.status != 2) {
+                player.scale = 1
+                player.image = "move." + player.direction
             }
         }
+        this.trigger(this.data)
     },
     onPlayerMoveNorth: function(id, delta) {
         var player = this.data[id]
@@ -69,22 +77,40 @@ var PlayerStore = Reflux.createStore({
         }
     },
     onPlayerAttack: function(id) {
-        var player1 = this.data[id]
-        if(player1.status != 0) {
-            if(player1.cooldown <= 0) {
-                player1.cooldown = 1.5
+        var player = this.data[id]
+        if(player.status != 0) {
+            if(player.attacking <= 0) {
+                player.attacking = 1.5
+                player.scale = 2
+                player.image = "attack"
+                var attacked = false
                 for(var index in this.data) {
                     if(id != index) {
-                        var player2 = this.data[index]
-                        if(player2.status == 1) {
-                            if(this.isIntersecting(player1, player2)) {
+                        if(this.data[index].status == 1) {
+                            if(this.PlayerCanAttack(id, index)) {
                                 PlayerActions.Die(index)
+                                attacked = true
                             }
                         }
                     }
                 }
+                if(attacked) {
+                    new Audio("./sounds/ahoo.mp3").play()
+                } else {
+                    new Audio("./sounds/hoo.mp3").play()
+                }
+                this.trigger(this.data)
             }
         }
+    },
+    PlayerCanAttack: function(p1id, p2id) {
+        var player1 = this.data[p1id]
+        var player2 = this.data[p2id]
+        var x = player1.x - player2.x
+        var y = player1.y - player2.y
+        var d = Math.sqrt(x * x + y * y)
+        var l = (player1.radius * 2) + player2.radius
+        return d < l
     },
     
     onTouchStatue: function(id, sid) {
@@ -101,15 +127,6 @@ var PlayerStore = Reflux.createStore({
     onDie: function(id) {
         this.data[id].status = 0
         this.trigger(this.data)
-    },
-    isIntersecting: function(alpha, omega) {
-        var x = alpha.x - omega.x
-        var y = alpha.y - omega.y
-        
-        var d = Math.sqrt(x * x + y * y)
-        var l = alpha.radius + omega.radius
-        
-        return d < l
     }
 })
 
