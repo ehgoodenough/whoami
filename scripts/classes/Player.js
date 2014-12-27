@@ -29,7 +29,14 @@ var Player = React.createClass({
     },
     renderClasses: function() {
         return React.addons.classSet({
-            "player": true
+            "player": true,
+            "moving": this.props.data.attacking < 1,
+            "attacking": this.props.data.attacking > 1,
+            "north": this.props.data.direction == "north",
+            "south": this.props.data.direction == "south",
+            "east": this.props.data.direction == "east",
+            "west": this.props.data.direction == "west",
+            "dead": this.props.data.status == 0
         })
     },
     renderStyles: function() {
@@ -37,8 +44,7 @@ var Player = React.createClass({
             top: this.props.data.y - this.props.data.radius * this.props.data.scale + "rem",
             left: this.props.data.x - this.props.data.radius * this.props.data.scale + "rem",
             width: this.props.data.radius * 2 * this.props.data.scale + "rem",
-            height: this.props.data.radius * 2 * this.props.data.scale + "rem",
-            backgroundImage: "url(./images/player." + this.props.data.image + ".png)"
+            height: this.props.data.radius * 2 * this.props.data.scale + "rem"
         }
     }
 })
