@@ -1,8 +1,10 @@
 var PlayerActions = Reflux.createActions([
-    "MoveHorizontally",
-    "MoveVertically",
+    "PlayerMoveNorth",
+    "PlayerMoveSouth",
+    "PlayerMoveEast",
+    "PlayerMoveWest",
+    "PlayerAttack",
     "TouchStatue",
-    "Attack",
     "Die"
 ])
 

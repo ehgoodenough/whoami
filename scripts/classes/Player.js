@@ -6,29 +6,20 @@ var Player = React.createClass({
         PlayerKeyboardMixin
     ],
     events: {
-        "move up": function(delta) {
-            if(this.props.data.status == 0) {return}
-            var y = this.props.data.y - (this.props.data.velocity * delta)
-            PlayerActions.MoveVertically(this.props.id, y)
+        "move north": function(delta) {
+            PlayerActions.PlayerMoveNorth(this.props.id, delta)
         },
-        "move down": function(delta) {
-            if(this.props.data.status == 0) {return}
-            var y = this.props.data.y + (this.props.data.velocity * delta)
-            PlayerActions.MoveVertically(this.props.id, y)
+        "move south": function(delta) {
+            PlayerActions.PlayerMoveSouth(this.props.id, delta)
         },
-        "move left": function(delta) {
-            if(this.props.data.status == 0) {return}
-            var x = this.props.data.x - (this.props.data.velocity * delta)
-            PlayerActions.MoveHorizontally(this.props.id, x)
+        "move west": function(delta) {
+            PlayerActions.PlayerMoveWest(this.props.id, delta)
         },
-        "move right": function(delta) {
-            if(this.props.data.status == 0) {return}
-            var x = this.props.data.x + (this.props.data.velocity * delta)
-            PlayerActions.MoveHorizontally(this.props.id, x)
+        "move east": function(delta) {
+            PlayerActions.PlayerMoveEast(this.props.id, delta)
         },
         "attack": function(delta) {
-            if(this.props.data.status == 0) {return}
-            PlayerActions.Attack(this.props.id, this.props.x, this.props.y, this.props.radius)
+            PlayerActions.PlayerAttack(this.props.id)
         }
     },
     render: function() {

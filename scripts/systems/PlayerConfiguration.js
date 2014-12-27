@@ -3,10 +3,10 @@ var PlayerConfiguration = {
         "name": "arrows",
         "input": {
             "keyboard": {
-                "move up": "up arrow",
-                "move down": "down arrow",
-                "move left": "left arrow",
-                "move right": "right arrow",
+                "move north": "up arrow",
+                "move south": "down arrow",
+                "move west": "left arrow",
+                "move east": "right arrow",
                 "attack": "."
             }
         }
@@ -15,10 +15,10 @@ var PlayerConfiguration = {
         "name": "w-a-s-d",
         "input": {
             "keyboard": {
-                "move up": "w",
-                "move down": "s",
-                "move left": "a",
-                "move right": "d",
+                "move north": "w",
+                "move south": "s",
+                "move west": "a",
+                "move east": "d",
                 "attack": "e"
             }
         }
@@ -27,10 +27,10 @@ var PlayerConfiguration = {
         "name": "j-i-k-l",
         "input": {
             "keyboard": {
-                "move up": "i",
-                "move down": "k",
-                "move left": "j",
-                "move right": "l",
+                "move north": "i",
+                "move south": "k",
+                "move west": "j",
+                "move east": "l",
                 "attack": "o"
             }
         }
@@ -39,10 +39,10 @@ var PlayerConfiguration = {
         "name": "numpad",
         "input": {
             "keyboard": {
-                "move up": "numpad 5",
-                "move down": "numpad 2",
-                "move left": "numpad 1",
-                "move right": "numpad 3"
+                "move north": "numpad 5",
+                "move south": "numpad 2",
+                "move west": "numpad 1",
+                "move east": "numpad 3"
             }
         }
     },*/
@@ -50,10 +50,11 @@ var PlayerConfiguration = {
         "name": "f-g-h-t",
         "input": {
             "keyboard": {
-                "move up": "t",
-                "move down": "g",
-                "move left": "f",
-                "move right": "h"
+                "move north": "t",
+                "move south": "g",
+                "move west": "f",
+                "move east": "h",
+                "attack": "y"
             }
         }
     }

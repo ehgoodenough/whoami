@@ -36,14 +36,57 @@ var PlayerStore = Reflux.createStore({
             }
         }
     },
-    onMoveHorizontally: function(id, x) {
-        this.data[id].x = x
-        this.trigger(this.data)
+    onPlayerMoveNorth: function(id, delta) {
+        var player = this.data[id]
+        if(player.status != 0) {
+            player.direction = "north"
+            player.y -= (player.velocity * delta)
+            this.trigger(this.data)
+        }
     },
-    onMoveVertically: function(id, y) {
-        this.data[id].y = y
-        this.trigger(this.data)
+    onPlayerMoveSouth: function(id, delta) {
+        var player = this.data[id]
+        if(player.status != 0) {
+            player.direction = "south"
+            player.y += (player.velocity * delta)
+            this.trigger(this.data)
+        }
     },
+    onPlayerMoveEast: function(id, delta) {
+        var player = this.data[id]
+        if(player.status != 0) {
+            player.direction = "east"
+            player.x += (player.velocity * delta)
+            this.trigger(this.data)
+        }
+    },
+    onPlayerMoveWest: function(id, delta) {
+        var player = this.data[id]
+        if(player.status != 0) {
+            player.direction = "west"
+            player.x -= (player.velocity * delta)
+            this.trigger(this.data)
+        }
+    },
+    onPlayerAttack: function(id) {
+        var player1 = this.data[id]
+        if(player1.status != 0) {
+            if(player1.cooldown <= 0) {
+                player1.cooldown = 1.5
+                for(var index in this.data) {
+                    if(id != index) {
+                        var player2 = this.data[index]
+                        if(player2.status == 1) {
+                            if(this.isIntersecting(player1, player2)) {
+                                PlayerActions.Die(index)
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    },
+    
     onTouchStatue: function(id, sid) {
         if(this.data[id].touches.indexOf(sid) == -1) {
             this.data[id].touches.push(sid)
@@ -53,22 +96,6 @@ var PlayerStore = Reflux.createStore({
             }
             //new Audio("./sounds/ding.wav").play()
             this.trigger(this.data)
-        }
-    },
-    onAttack: function(id) {
-        var me = this.data[id]
-        if(me.cooldown <= 0) {
-            me.cooldown = 1.5
-            for(var index in this.data) {
-                if(id != index) {
-                    var them = this.data[index]
-                    if(them.status == 1) {
-                        if(this.isIntersecting(me, them)) {
-                            PlayerActions.Die(index)
-                        }
-                    }
-                }
-            }
         }
     },
     onDie: function(id) {
