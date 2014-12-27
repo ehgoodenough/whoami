@@ -38,8 +38,10 @@ var NonplayerStore = Reflux.createStore({
 	            nonplayer.gotodir = Math.floor(Math.random() * 8)
 			}
             
-            if(nonplayer.x <= 1 || this.data[i].x >= 20 - 1
-			|| nonplayer.y <= 1 || this.data[i].y >= 15 - 1)
+            if(nonplayer.x <= 1 && nonplayer.gotodir >= 3 && nonplayer.gotodir <= 5
+            || nonplayer.y <= 1 && nonplayer.gotodir >= 5 && nonplayer.gotodir <= 7
+            || nonplayer.x >= 20 - 1 && (nonplayer.gotodir == 7 || nonplayer.gotodir <= 1)
+            || nonplayer.y >= 15 - 1 && nonplayer.gotodir >= 1 && nonplayer.gotodir <= 3)
             {
                 nonplayer.gotodir = (nonplayer.gotodir + 4) % 8
             }
