@@ -11,4 +11,9 @@
     background-position: center;
     background-repeat: no-repeat;
     background-image: url("./images/statue.png");
+    
+    animation-name: spin;
+    animation-timing-function: ease;
+    animation-iteration-count: infinite;
+    animation-duration: random(15) + 10s;
 }

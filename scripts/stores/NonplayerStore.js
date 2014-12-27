@@ -12,7 +12,7 @@ var NonplayerStore = Reflux.createStore({
 		LoopActions
 	],
     onBeginPlaythrough: function() {
-		for(var i = 0; i < 50; i++) {
+		for(var i = 0; i < 35; i++) {
 			this.data.push({
 	            x: Math.floor(Math.random() * (20 - 2) + 1),
 	            y: Math.floor(Math.random() * (15 - 2) + 1),
