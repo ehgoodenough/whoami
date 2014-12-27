@@ -30,13 +30,13 @@ var Player = React.createClass({
     renderClasses: function() {
         return React.addons.classSet({
             "player": true,
+            "dead": this.props.data.status == 0,
             "moving": this.props.data.attacking < 1,
             "attacking": this.props.data.attacking > 1,
             "north": this.props.data.direction == "north",
             "south": this.props.data.direction == "south",
             "east": this.props.data.direction == "east",
-            "west": this.props.data.direction == "west",
-            "dead": this.props.data.status == 0
+            "west": this.props.data.direction == "west"
         })
     },
     renderStyles: function() {

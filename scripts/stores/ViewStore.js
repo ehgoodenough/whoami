@@ -1,15 +1,19 @@
 var ViewActions = require("<root>/scripts/actions/ViewActions")
-var InitialView = require("<root>/scripts/views/TitleView")
 
 var ViewStore = Reflux.createStore({
     listenables: [
         ViewActions,
     ],
-    onChangeTo: function(View) {
-        this.trigger(View)
+    views: {
+        "TitleView": require("<root>/scripts/views/TitleView"),
+        "JoinView": require("<root>/scripts/views/JoinView"),
+        "PlaythroughView": require("<root>/scripts/views/PlaythroughView")
+    },
+    onChangeTo: function(view) {
+        this.trigger(this.views[view])
     },
     getInitialState: function() {
-        return InitialView
+        return this.views["TitleView"]
     }
 })
 

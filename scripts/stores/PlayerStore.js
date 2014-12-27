@@ -22,7 +22,6 @@ var PlayerStore = Reflux.createStore({
                 scale: 1,
                 velocity: 1,
                 direction: "south",
-                image: "move.south",
                 attacking: 0,
                 status: 1,
                 touches: []
@@ -37,7 +36,6 @@ var PlayerStore = Reflux.createStore({
                 player.attacking -= delta
             }
             if(player.attacking < 1) {
-                player.image = "move." + player.direction
                 if(player.status != 2) {
                     player.scale = 1
                 }
@@ -83,7 +81,6 @@ var PlayerStore = Reflux.createStore({
             if(player.attacking <= 0) {
                 player.attacking = 1.5
                 player.scale = 2
-                player.image = "attack." + player.direction
                 var attacked = false
                 for(var index in this.data) {
                     if(id != index) {
