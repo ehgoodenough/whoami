@@ -26,12 +26,12 @@ var StatueStore = Reflux.createStore({
         this.listenTo(PlayerStore, this.onPlayerStore)
     },
     onPlayerStore: function(data) {
-        for(var id in data) {
-            var alpha = data[id]
+        for(var pid in data) {
+            var p = data[pid]
             for(var sid in this.data) {
-                var omega = this.data[sid]
-                if(this.isIntersecting(alpha, omega)) {
-                    PlayerActions.TouchStatue(id, sid)
+                var s = this.data[sid]
+                if(this.isIntersecting(p, s)) {
+                    PlayerActions.PlayerTouchStatue(pid, sid)
                 }
             }
         }

@@ -36,10 +36,11 @@ var PlayerStore = Reflux.createStore({
             if(player.attacking > 0) {
                 player.attacking -= delta
             }
-            if(player.attacking < 1
-            && player.status != 2) {
-                player.scale = 1
+            if(player.attacking < 1) {
                 player.image = "move." + player.direction
+                if(player.status != 2) {
+                    player.scale = 1
+                }
             }
         }
         this.trigger(this.data)
@@ -112,15 +113,21 @@ var PlayerStore = Reflux.createStore({
         var l = (player1.radius * 2) + player2.radius
         return d < l
     },
-    
-    onTouchStatue: function(id, sid) {
-        if(this.data[id].touches.indexOf(sid) == -1) {
-            this.data[id].touches.push(sid)
-            if(this.data[id].touches.length == 3) {
-                this.data[id].radius = 1
-                this.data[id].color = "red"
+    onPlayerTouchStatue: function(id, sid) {
+        var player = this.data[id]
+        if(player.touches.indexOf(sid) == -1) {
+            player.touches.push(sid)
+            if(player.touches.length == 3) {
+                player.scale = 2
+                player.status = 2
+                player.velocity = 1.5
             }
-            //new Audio("./sounds/ding.wav").play()
+            new Audio("./sounds/ding.wav").play()
+            for(var i = 1; i < player.touches.length; i++) {
+                setTimeout(function() {
+                    new Audio("./sounds/ding.wav").play()
+                }, i * player.touches.length * 100)
+            }
             this.trigger(this.data)
         }
     },
