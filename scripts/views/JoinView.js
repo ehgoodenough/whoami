@@ -2,7 +2,7 @@ var PlayView = require("<root>/scripts/views/PlayView")
 var TitleView = require("<root>/scripts/views/TitleView")
 var CurrentViewActions = require("<root>/scripts/actions/CurrentViewActions")
 
-var JoinBox = require("<root>/scripts/JoinBox")
+var JoinBox = require("<root>/scripts/classes/JoinBox")
 var Keyboard = require("<root>/scripts/systems/Keyboard")
 var KeyboardMixin = require("<root>/scripts/mixins/KeyboardMixin")
 var PlayerConfiguration = require("<root>/scripts/systems/PlayerConfiguration")

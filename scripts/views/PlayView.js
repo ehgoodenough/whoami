@@ -1,6 +1,6 @@
-var Player = require("<root>/scripts/Player")
-var Statue = require("<root>/scripts/Statue")
-var Nonplayer = require("<root>/scripts/Nonplayer")
+var Player = require("<root>/scripts/classes/Player")
+var Statue = require("<root>/scripts/classes/Statue")
+var Nonplayer = require("<root>/scripts/classes/Nonplayer")
 
 var PlayerStore = require("<root>/scripts/stores/PlayerStore")
 var StatueStore = require("<root>/scripts/stores/StatueStore")

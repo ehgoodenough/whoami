@@ -1,7 +1,7 @@
 window.React = require("react")
 window.Reflux = require("reflux")
 
-var Frame = require("<root>/scripts/Frame")
+var Frame = require("<root>/scripts/classes/Frame")
 React.render(<Frame/>, document.body)
 
 window.EventSystem = require("<root>/scripts/systems/EventSystem")

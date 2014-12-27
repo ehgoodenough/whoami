@@ -1,5 +1,5 @@
 var PlayerActions = require("<root>/scripts/actions/PlayerActions")
-var CurrentViewActions= require("<root>/scripts/actions/CurrentViewActions")
+var CurrentViewActions = require("<root>/scripts/actions/CurrentViewActions")
 
 var PlayerStore = Reflux.createStore({
     data: {

@@ -28,11 +28,9 @@ var Player = React.createClass({
         },
         "attack": function(delta) {
             if(this.props.data.status == 0) {return}
-            PlayerActions.Attack(this.props.id, this.props.x, this.props.y, this.props.radius)
+            console.log("is attacking")
+            //PlayerActions.Attack(this.props.id, this.props.x, this.props.y, this.props.radius)
         }
-    },
-    propTypes: {
-        id: React.PropTypes.string.isRequired
     },
     render: function() {
         return (
