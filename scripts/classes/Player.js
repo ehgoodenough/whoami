@@ -43,21 +43,8 @@ var Player = React.createClass({
             left: this.props.data.x - this.props.data.radius + "rem",
             width: this.props.data.radius * 2 + "rem",
             height: this.props.data.radius * 2 + "rem",
-            backgroundImage: this.renderBackgroundImage()
+            backgroundImage: "url(./images/player.move." + this.props.data.direction + ".png)"
         }
-    },
-    renderBackgroundImage: function() {
-        var direction, action
-        
-        if(this.props.data.canAttack = false) {
-            action = "attack"
-        } else {
-            action = "move"
-        }
-        
-        direction = this.props.data.direction
-        
-        return "url(./images/player." + action + "." + direction + ".png)"
     }
 })
 

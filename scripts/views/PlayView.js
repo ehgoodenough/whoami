@@ -4,13 +4,13 @@ var Nonplayer = require("<root>/scripts/classes/Nonplayer")
 
 var PlayerStore = require("<root>/scripts/stores/PlayerStore")
 var StatueStore = require("<root>/scripts/stores/StatueStore")
-/*var NonplayerStore = require("<root>/scripts/stores/NonplayerStore")*/
+//var NonplayerStore = require("<root>/scripts/stores/NonplayerStore")
 
 var PlayView = React.createClass({
     mixins: [
         Reflux.connect(PlayerStore, "players"),
         Reflux.connect(StatueStore, "statues"),
-        /*Reflux.connect(NonplayerStore, "nonplayers")*/
+        //Reflux.connect(NonplayerStore, "nonplayers")
     ],
     render: function() {
         return (
@@ -21,12 +21,12 @@ var PlayView = React.createClass({
             </div>
         )
     },
-    renderEntities: function(Class, pointer) {
+    renderEntities: function(Class, entities) {
         var renderings = new Array()
-        for(var id in this.state[pointer]) {
-            var data = this.state[pointer][id]
+        for(var id in this.state[entities]) {
+            var data = this.state[entities][id]
             renderings.push(
-                <Class id={id} data={data} key={id}/>
+                <Class id={id} key={id} data={data}/>
             )
         }
         return renderings
