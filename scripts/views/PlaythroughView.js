@@ -6,7 +6,7 @@ var PlayerStore = require("<root>/scripts/stores/PlayerStore")
 var StatueStore = require("<root>/scripts/stores/StatueStore")
 //var NonplayerStore = require("<root>/scripts/stores/NonplayerStore")
 
-var PlayView = React.createClass({
+var PlaythroughView = React.createClass({
     mixins: [
         Reflux.connect(PlayerStore, "players"),
         Reflux.connect(StatueStore, "statues"),
@@ -33,4 +33,4 @@ var PlayView = React.createClass({
     }
 })
 
-module.exports = PlayView
+module.exports = PlaythroughView

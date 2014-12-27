@@ -1,5 +1,5 @@
 var ViewActions = require("<root>/scripts/actions/ViewActions")
-var InitialView = require("<root>/scripts/views/PlayView")
+var InitialView = require("<root>/scripts/views/TitleView")
 
 var ViewStore = Reflux.createStore({
     listenables: [

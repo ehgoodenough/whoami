@@ -1,5 +1,6 @@
-var PlayView = require("<root>/scripts/views/PlayView")
 var ViewStore = require("<root>/scripts/stores/ViewStore")
+var PlaythroughActions = require("<root>/scripts/actions/PlaythroughActions")
+var PlaythroughStore = require("<root>/scripts/stores/PlaythroughStore")
 var Loop = require("<root>/scripts/systems/Loop")
 
 var GameFrame = React.createClass({
@@ -7,6 +8,9 @@ var GameFrame = React.createClass({
         Reflux.connect(ViewStore, "view")
     ],
     componentDidMount: function() {
+        PlaythroughActions.BeginPlaythrough({
+            players: 3
+        })
         Loop.tick()
     },
     render: function() {

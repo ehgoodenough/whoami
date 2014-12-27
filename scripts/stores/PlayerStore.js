@@ -1,58 +1,35 @@
 var PlayerActions = require("<root>/scripts/actions/PlayerActions")
-var ViewActions = require("<root>/scripts/actions/ViewActions")
-
+var PlaythroughActions = require("<root>/scripts/actions/PlaythroughActions")
+window.PlaythroughActions = PlaythroughActions
 var PlayerStore = Reflux.createStore({
-    data: {
-        "1": {
-            x: 1,
-            y: 1,
-            radius: 0.5,
-            velocity: 0.1,
-            color: "#1EBE39",
-            status: 1,
-            canAttack: true,
-            touches: [],
-            direction: "south"
-        },
-        "2": {
-            x: 10,
-            y: 10,
-            radius: 0.5,
-            velocity: 0.1,
-            color: "#1EBE39",
-            status: 1,
-            canAttack: true,
-            touches: [],
-            direction: "south"
-        }
-    },
-    records: {
-        deaths: 0
-    },
+    data: {},
     getInitialState: function() {
         return this.data
     },
     listenables: [
-        PlayerActions
+        PlayerActions,
+        PlaythroughActions
     ],
-    onMoveHorizontally: function(id, x) {
-        if(this.data[id].x < x) {
-            this.data[id].direction = "east"
-        } else if(this.data[id].x > x) {
-            this.data[id].direction = "west"
+    onBeginPlaythrough: function(data) {
+        this.data = {}
+        for(var index = 0; index < data.players; index++) {
+            this.data[index] = {
+                x: Math.floor(Math.random() * (20 - 2) + (2 / 2)),
+                y: Math.floor(Math.random() * (15 - 2) + (2 / 2)),
+                radius: 0.5,
+                velocity: 0.1,
+                direction: "south",
+                status: 1,
+                touches: []
+            }
         }
-        
+        this.trigger(this.data)
+    },
+    onMoveHorizontally: function(id, x) {
         this.data[id].x = x
-        
         this.trigger(this.data)
     },
     onMoveVertically: function(id, y) {
-        if(this.data[id].y < y) {
-            this.data[id].direction = "south"
-        } else if(this.data[id].y > y) {
-            this.data[id].direction = "north"
-        }
-        
         this.data[id].y = y
         this.trigger(this.data)
     },
@@ -68,43 +45,21 @@ var PlayerStore = Reflux.createStore({
         }
     },
     onAttack: function(id) {
-        var it_hit = false;
         for(var pid in this.data) {
             if(id != pid) {
-                var alpha = this.data[id]
-                var omega = this.data[pid]
-                if(omega.status == 1) {
-                    if(this.isIntersecting(alpha, omega)) {
+                var me = this.data[id]
+                var them = this.data[pid]
+                if(them.status == 1) {
+                    if(this.isIntersecting(me, them)) {
                         PlayerActions.Die(pid)
-                        it_hit = true;
                     }
                 }
             }
         }
-        if(it_hit) {
-            new Audio("./sounds/whack.mp3").play()
-        }
-        this.data[id].canAttack = false;
-        this.data[id].color = "green";
-        this.data[id].velocity = 0.05;
-        setTimeout(function()
-        {
-            this.data[id].canAttack = true;
-            this.data[id].color = "#1EBE39";
-            this.data[id].velocity = 0.1;
-        }
-        .bind(this), 500)
     },
     onDie: function(id) {
         this.data[id].status = 0
-        this.data[id].color = "black"
         this.trigger(this.data)
-
-        this.records.deaths += 1
-        if(this.records.deaths == Object.keys(this.data).length - 1) {
-            var TitleView = require("<root>/scripts/views/TitleView")
-            ViewActions.ChangeTo(TitleView)
-        }
     },
     isIntersecting: function(alpha, omega) {
         var x = alpha.x - omega.x

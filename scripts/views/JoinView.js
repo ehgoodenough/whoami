@@ -1,4 +1,3 @@
-var PlayView = require("<root>/scripts/views/PlayView")
 var TitleView = require("<root>/scripts/views/TitleView")
 var ViewActions = require("<root>/scripts/actions/ViewActions")
 

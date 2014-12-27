@@ -1,5 +1,5 @@
 var PlayerConfiguration = {
-    "1": {
+    0: {
         "name": "arrows",
         "input": {
             "keyboard": {
@@ -11,7 +11,7 @@ var PlayerConfiguration = {
             }
         }
     },
-    "2": {
+    1: {
         "name": "w-a-s-d",
         "input": {
             "keyboard": {
@@ -23,18 +23,19 @@ var PlayerConfiguration = {
             }
         }
     },
-    "3": {
+    2: {
         "name": "j-i-k-l",
         "input": {
             "keyboard": {
                 "move up": "i",
                 "move down": "k",
                 "move left": "j",
-                "move right": "l"
+                "move right": "l",
+                "attack": "o"
             }
         }
     },
-    /*"4": {
+    /*3: {
         "name": "numpad",
         "input": {
             "keyboard": {
@@ -45,7 +46,7 @@ var PlayerConfiguration = {
             }
         }
     },*/
-    "5": {
+    4: {
         "name": "f-g-h-t",
         "input": {
             "keyboard": {
