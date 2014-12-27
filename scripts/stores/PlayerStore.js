@@ -1,6 +1,7 @@
 var PlayerActions = require("<root>/scripts/actions/PlayerActions")
 var PlaythroughActions = require("<root>/scripts/actions/PlaythroughActions")
-window.PlaythroughActions = PlaythroughActions
+var LoopActions = require("<root>/scripts/actions/LoopActions")
+
 var PlayerStore = Reflux.createStore({
     data: {},
     getInitialState: function() {
@@ -8,7 +9,8 @@ var PlayerStore = Reflux.createStore({
     },
     listenables: [
         PlayerActions,
-        PlaythroughActions
+        PlaythroughActions,
+        LoopActions
     ],
     onBeginPlaythrough: function(data) {
         this.data = {}
@@ -17,13 +19,22 @@ var PlayerStore = Reflux.createStore({
                 x: Math.floor(Math.random() * (20 - 2) + (2 / 2)),
                 y: Math.floor(Math.random() * (15 - 2) + (2 / 2)),
                 radius: 0.5,
-                velocity: 0.1,
+                velocity: 1,
                 direction: "south",
+                cooldown: 0,
                 status: 1,
                 touches: []
             }
         }
         this.trigger(this.data)
+    },
+    onTick: function(delta) {
+        for(var index in this.data) {
+            var player = this.data[index]
+            if(player.cooldown > 0) {
+                player.cooldown -= delta;
+            }
+        }
     },
     onMoveHorizontally: function(id, x) {
         this.data[id].x = x
@@ -40,18 +51,21 @@ var PlayerStore = Reflux.createStore({
                 this.data[id].radius = 1
                 this.data[id].color = "red"
             }
-            new Audio("./sounds/ding.wav").play()
+            //new Audio("./sounds/ding.wav").play()
             this.trigger(this.data)
         }
     },
     onAttack: function(id) {
-        for(var pid in this.data) {
-            if(id != pid) {
-                var me = this.data[id]
-                var them = this.data[pid]
-                if(them.status == 1) {
-                    if(this.isIntersecting(me, them)) {
-                        PlayerActions.Die(pid)
+        var me = this.data[id]
+        if(me.cooldown <= 0) {
+            me.cooldown = 1.5
+            for(var index in this.data) {
+                if(id != index) {
+                    var them = this.data[index]
+                    if(them.status == 1) {
+                        if(this.isIntersecting(me, them)) {
+                            PlayerActions.Die(index)
+                        }
                     }
                 }
             }

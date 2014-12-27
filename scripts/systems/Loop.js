@@ -2,7 +2,7 @@ var LoopActions = require("<root>/scripts/actions/LoopActions")
 
 var Loop = {
     tick: function() {
-        Loop.time = (Date.now() - Loop.time) / 60
+        Loop.time = (Date.now() - Loop.time) / 1000
         
         LoopActions.Tick(Loop.time)
         
