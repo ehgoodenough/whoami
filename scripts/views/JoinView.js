@@ -1,6 +1,6 @@
 var PlayView = require("<root>/scripts/views/PlayView")
 var TitleView = require("<root>/scripts/views/TitleView")
-var CurrentViewActions = require("<root>/scripts/actions/CurrentViewActions")
+var ViewActions = require("<root>/scripts/actions/ViewActions")
 
 var JoinBox = require("<root>/scripts/classes/JoinBox")
 var Keyboard = require("<root>/scripts/systems/Keyboard")
@@ -41,7 +41,7 @@ var JoinView = React.createClass({
     },
     OnGotoTitleView: function() {
         var TitleView = require("<root>/scripts/views/TitleView")
-        CurrentViewActions.ChangeView(TitleView)
+        ViewActions.ChangeTo(TitleView)
     },
     onJoinGame: function(id) {
         this.setState({players: this.state.players.concat([id])})

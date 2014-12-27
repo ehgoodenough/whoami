@@ -1,4 +1,4 @@
-var SystemActions = require("<root>/scripts/actions/SystemActions")
+var LoopActions = require("<root>/scripts/actions/LoopActions")
 
 var directions = [
 	"north", "south", "east", "west",
@@ -22,7 +22,7 @@ var NonplayerStore = Reflux.createStore({
 		}
 	},
 	listenables: [
-		SystemActions
+		GameLoop
 	],
 	onTick: function(delta) {
 		for(var i = 0; i < this.data.length; i++) {

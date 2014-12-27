@@ -1,4 +1,4 @@
-var CurrentViewActions = require("<root>/scripts/actions/CurrentViewActions")
+var ViewActions = require("<root>/scripts/actions/ViewActions")
 var JoinView = require("<root>/scripts/views/JoinView")
 
 var TitleView = React.createClass({
@@ -14,7 +14,7 @@ var TitleView = React.createClass({
         )
     },
     nextView: function(event) {
-        CurrentViewActions.ChangeView(JoinView)
+        ViewActions.ChangeTo(JoinView)
     }
 })
 

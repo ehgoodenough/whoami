@@ -1,10 +1,4 @@
-$root-size: 5;
-$frame-width: 20;
-$frame-height: 15;
-$frame-scaled-width: $frame-width * $root-size;
-$frame-scaled-height: $frame-height * $root-size;
-
-#frame
+#game-frame
 {
     top: 0rem;
     left: 0rem;
@@ -19,7 +13,7 @@ $frame-scaled-height: $frame-height * $root-size;
 
 @media(min-aspect-ratio: 4/3)
 {
-    #frame
+    #game-frame
     {
         height: 100vh;
         width: 133.333vh;
@@ -33,7 +27,7 @@ $frame-scaled-height: $frame-height * $root-size;
 
 @media(max-aspect-ratio: 4/3)
 {
-    #frame
+    #game-frame
     {
         width: 100vw;
         height: 75vw;

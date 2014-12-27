@@ -1,5 +1,5 @@
 var PlayerActions = require("<root>/scripts/actions/PlayerActions")
-var CurrentViewActions = require("<root>/scripts/actions/CurrentViewActions")
+var ViewActions = require("<root>/scripts/actions/ViewActions")
 
 var PlayerStore = Reflux.createStore({
     data: {
@@ -103,7 +103,7 @@ var PlayerStore = Reflux.createStore({
         this.records.deaths += 1
         if(this.records.deaths == Object.keys(this.data).length - 1) {
             var TitleView = require("<root>/scripts/views/TitleView")
-            CurrentViewActions.ChangeView(TitleView)
+            ViewActions.ChangeTo(TitleView)
         }
     },
     isIntersecting: function(alpha, omega) {
