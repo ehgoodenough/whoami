@@ -17,11 +17,11 @@ var PlaythroughStore = Reflux.createStore({
             players: data.players
         }
     },
-    onFinishPlaythrough: function(data) {
+    onFinishPlaythrough: function() {
         ViewActions.ChangeTo(TitleView)
         delete this.data
     },
-    onDie: function() {
+    onPlayerDies: function(id) {
         this.data.dead_players += 1
         if(this.data.dead_players == this.data.players) {
             PlaythroughActions.FinishPlaythrough()

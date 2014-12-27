@@ -83,13 +83,13 @@ var PlayerStore = Reflux.createStore({
             if(player.attacking <= 0) {
                 player.attacking = 1.5
                 player.scale = 2
-                player.image = "attack"
+                player.image = "attack." + player.direction
                 var attacked = false
                 for(var index in this.data) {
                     if(id != index) {
                         if(this.data[index].status == 1) {
                             if(this.PlayerCanAttack(id, index)) {
-                                PlayerActions.Die(index)
+                                PlayerActions.PlayerDies(index)
                                 attacked = true
                             }
                         }
@@ -131,7 +131,7 @@ var PlayerStore = Reflux.createStore({
             this.trigger(this.data)
         }
     },
-    onDie: function(id) {
+    onPlayerDies: function(id) {
         this.data[id].status = 0
         this.trigger(this.data)
     }
