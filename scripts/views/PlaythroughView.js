@@ -27,7 +27,7 @@ var PlaythroughView = React.createClass({
                 {this.renderEntities(Player, "players")}
                 {this.renderEntities(Statue, "statues")}
                 {this.renderEntities(Smoke, "smokes")}
-                {/*this.renderEntities(Nonplayer, "nonplayers")*/}
+                {this.renderEntities(Nonplayer, "nonplayers")}
                 {message}
             </div>
         )
