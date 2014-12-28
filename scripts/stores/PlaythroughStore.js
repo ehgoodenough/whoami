@@ -25,7 +25,6 @@ var PlaythroughStore = Reflux.createStore({
     },
     onPlayerDies: function(id) {
         this.data.dead_players += 1
-        console.log(this.data)
         if(this.data.dead_players == this.data.players - 1) {
             PlaythroughActions.FinishPlaythrough()
         }

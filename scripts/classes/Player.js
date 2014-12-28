@@ -22,6 +22,9 @@ var Player = React.createClass({
         },
         "attack": function(delta) {
             PlayerActions.PlayerAttack(this.props.id)
+        },
+        "drop bomb": function(delta) {
+            PlayerActions.PlayerDropBomb(this.props.id)
         }
     },
     render: function() {

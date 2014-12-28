@@ -1,9 +1,11 @@
 var Player = require("<root>/scripts/classes/Player")
 var Statue = require("<root>/scripts/classes/Statue")
+var Smoke = require("<root>/scripts/classes/Smoke")
 var Nonplayer = require("<root>/scripts/classes/Nonplayer")
 
 var PlayerStore = require("<root>/scripts/stores/PlayerStore")
 var StatueStore = require("<root>/scripts/stores/StatueStore")
+var SmokeStore = require("<root>/scripts/stores/SmokeStore")
 var NonplayerStore = require("<root>/scripts/stores/NonplayerStore")
 var PlaythroughStore = require("<root>/scripts/stores/PlaythroughStore")
 
@@ -11,6 +13,7 @@ var PlaythroughView = React.createClass({
     mixins: [
         Reflux.connect(PlayerStore, "players"),
         Reflux.connect(StatueStore, "statues"),
+        Reflux.connect(SmokeStore, "smokes"),
         Reflux.connect(NonplayerStore, "nonplayers"),
         Reflux.connect(PlaythroughStore, "playthrough"),
     ],
@@ -23,7 +26,8 @@ var PlaythroughView = React.createClass({
             <div id="playthrough" className="view">
                 {this.renderEntities(Player, "players")}
                 {this.renderEntities(Statue, "statues")}
-                {this.renderEntities(Nonplayer, "nonplayers")}
+                {this.renderEntities(Smoke, "smokes")}
+                {/*this.renderEntities(Nonplayer, "nonplayers")*/}
                 {message}
             </div>
         )

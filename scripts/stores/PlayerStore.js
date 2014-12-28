@@ -1,6 +1,7 @@
 var PlayerActions = require("<root>/scripts/actions/PlayerActions")
 var PlaythroughActions = require("<root>/scripts/actions/PlaythroughActions")
 var LoopActions = require("<root>/scripts/actions/LoopActions")
+var SmokeActions = require("<root>/scripts/actions/SmokeActions")
 
 var PlayerStore = Reflux.createStore({
     data: {},
@@ -24,7 +25,9 @@ var PlayerStore = Reflux.createStore({
                 direction: "south",
                 attacking: 0,
                 status: 1,
-                touches: []
+                touches: [],
+                hasBomb: true,
+                id: index
             }
         }
         this.trigger(this.data)
@@ -125,6 +128,14 @@ var PlayerStore = Reflux.createStore({
                     new Audio("./sounds/ding.wav").play()
                 }, i * player.touches.length * 100)
             }
+            this.trigger(this.data)
+        }
+    },
+    onPlayerDropBomb: function(id) {
+        var player = this.data[id]
+        if(player.hasBomb) {
+            player.hasBomb = false
+            SmokeActions.CreateSmoke(player)
             this.trigger(this.data)
         }
     },

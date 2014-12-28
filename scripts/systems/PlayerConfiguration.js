@@ -7,7 +7,8 @@ var PlayerConfiguration = {
                 "move south": "down arrow",
                 "move west": "left arrow",
                 "move east": "right arrow",
-                "attack": "."
+                "attack": ".",
+                "drop bomb": ","
             }
         }
     },
@@ -19,7 +20,8 @@ var PlayerConfiguration = {
                 "move south": "s",
                 "move west": "a",
                 "move east": "d",
-                "attack": "e"
+                "attack": "e",
+                "drop bomb": "q"
             }
         }
     },
@@ -31,22 +33,12 @@ var PlayerConfiguration = {
                 "move south": "k",
                 "move west": "j",
                 "move east": "l",
-                "attack": "o"
+                "attack": "o",
+                "drop bomb": "u"
             }
         }
     },
-    /*3: {
-        "name": "numpad",
-        "input": {
-            "keyboard": {
-                "move north": "numpad 5",
-                "move south": "numpad 2",
-                "move west": "numpad 1",
-                "move east": "numpad 3"
-            }
-        }
-    },*/
-    4: {
+    3: {
         "name": "f-g-h-t",
         "input": {
             "keyboard": {
@@ -54,7 +46,8 @@ var PlayerConfiguration = {
                 "move south": "g",
                 "move west": "f",
                 "move east": "h",
-                "attack": "y"
+                "attack": "y",
+                "drop bomb": "r"
             }
         }
     }
