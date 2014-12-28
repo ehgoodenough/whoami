@@ -16,4 +16,19 @@
     animation-timing-function: ease;
     animation-iteration-count: infinite;
     animation-duration: random(15) + 10s;
+    
+    &:nth-child(4n)
+    {
+        animation-duration: random(15) + 10s;
+    }
+    
+    &:nth-child(5n)
+    {
+        animation-duration: random(15) + 10s;
+    }
+    
+    &:nth-child(6n)
+    {
+        animation-duration: random(15) + 10s;
+    }
 }
