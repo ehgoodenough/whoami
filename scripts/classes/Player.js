@@ -1,9 +1,11 @@
 var PlayerKeyboardMixin = require("<root>/scripts/mixins/PlayerKeyboardMixin")
 var PlayerActions = require("<root>/scripts/actions/PlayerActions")
+var PlaythroughStore = require("<root>/scripts/stores/PlaythroughStore")
 
 var Player = React.createClass({
     mixins: [
-        PlayerKeyboardMixin
+        PlayerKeyboardMixin,
+        Reflux.connect(PlaythroughStore, "playthrough")
     ],
     events: {
         "move north": function(delta) {
@@ -36,7 +38,8 @@ var Player = React.createClass({
             "north": this.props.data.direction == "north",
             "south": this.props.data.direction == "south",
             "east": this.props.data.direction == "east",
-            "west": this.props.data.direction == "west"
+            "west": this.props.data.direction == "west",
+            "victory": this.props.data.status != 0 && this.state.playthrough.finished
         })
     },
     renderStyles: function() {
