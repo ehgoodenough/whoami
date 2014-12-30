@@ -1,14 +1,20 @@
 var LoopActions = require("<root>/scripts/actions/LoopActions")
 var SmokeActions = require("<root>/scripts/actions/SmokeActions")
+var PlaythroughActions = require("<root>/scripts/actions/PlaythroughActions")
 
 var SmokeStore = Reflux.createStore({
     listenables: [
         SmokeActions,
-        LoopActions
+        LoopActions,
+        PlaythroughActions
     ],
     data: [],
     getInitialState: function() {
         return this.data
+    },
+    onQuitPlaythrough: function() {
+        this.data = []
+        this.trigger(this.data)
     },
     onCreateSmoke: function(data) {
         this.data.push({

@@ -1,6 +1,7 @@
 var PlaythroughActions = Reflux.createActions([
     "BeginPlaythrough",
-    "FinishPlaythrough"
+    "FinishPlaythrough",
+	"QuitPlaythrough"
 ])
 
 module.exports = PlaythroughActions

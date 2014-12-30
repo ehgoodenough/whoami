@@ -22,6 +22,12 @@ var PlaythroughStore = Reflux.createStore({
         this.data.finished = true
         this.data.message = "Game Over!"
         this.trigger(this.data)
+        setTimeout(function() {
+            PlaythroughActions.QuitPlaythrough()
+        }, 10 * 1000)
+    },
+    onQuitPlaythrough: function() {
+        ViewActions.ChangeTo("TitleView")
     },
     onPlayerDies: function(id) {
         this.data.dead_players += 1

@@ -32,6 +32,10 @@ var PlayerStore = Reflux.createStore({
         }
         this.trigger(this.data)
     },
+    onQuitPlaythrough: function() {
+        this.data = {}
+        this.trigger(this.data)
+    },
     onTick: function(delta) {
         for(var index in this.data) {
             var player = this.data[index]

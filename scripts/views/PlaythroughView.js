@@ -3,20 +3,28 @@ var Statue = require("<root>/scripts/classes/Statue")
 var Smoke = require("<root>/scripts/classes/Smoke")
 var Nonplayer = require("<root>/scripts/classes/Nonplayer")
 
+var KeyboardMixin = require("<root>/scripts/mixins/KeyboardMixin")
+
 var PlayerStore = require("<root>/scripts/stores/PlayerStore")
 var StatueStore = require("<root>/scripts/stores/StatueStore")
 var SmokeStore = require("<root>/scripts/stores/SmokeStore")
 var NonplayerStore = require("<root>/scripts/stores/NonplayerStore")
 var PlaythroughStore = require("<root>/scripts/stores/PlaythroughStore")
 
+var PlaythroughActions = require("<root>/scripts/actions/PlaythroughActions")
+
 var PlaythroughView = React.createClass({
     mixins: [
+        KeyboardMixin,
         Reflux.connect(PlayerStore, "players"),
         Reflux.connect(StatueStore, "statues"),
         Reflux.connect(SmokeStore, "smokes"),
         Reflux.connect(NonplayerStore, "nonplayers"),
         Reflux.connect(PlaythroughStore, "playthrough"),
     ],
+    bindings: {
+        "escape": "quitPlaythrough"
+    },
     render: function() {
         var message = new String()
         if(this.state.playthrough.message) {
@@ -41,6 +49,9 @@ var PlaythroughView = React.createClass({
             )
         }
         return renderings
+    },
+    quitPlaythrough: function() {
+        PlaythroughActions.QuitPlaythrough()
     }
 })
 

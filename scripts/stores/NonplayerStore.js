@@ -32,6 +32,10 @@ var NonplayerStore = Reflux.createStore({
 		}
         this.trigger(this.data)
     },
+    onQuitPlaythrough: function(data) {
+        this.data = []
+        this.trigger(this.data)
+    },
 	onTick: function(delta) {
 		for(var i = 0; i < this.data.length; i++) {
 			var nonplayer = this.data[i]

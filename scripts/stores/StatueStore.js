@@ -1,5 +1,6 @@
 var PlayerStore = require("<root>/scripts/stores/PlayerStore")
 var PlayerActions = require("<root>/scripts/actions/PlayerActions")
+var PlaythroughActions = require("<root>/scripts/actions/PlaythroughActions")
 
 var StatueStore = Reflux.createStore({
     data: {
@@ -22,6 +23,8 @@ var StatueStore = Reflux.createStore({
     getInitialState: function() {
         return this.data
     },
+    //onBeginPlaythrough: create all the statues
+    //onQuitPlaythrough: destroy all the statues
     init: function() {
         this.listenTo(PlayerStore, this.onPlayerStore)
     },
