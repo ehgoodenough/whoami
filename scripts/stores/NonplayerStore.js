@@ -1,10 +1,6 @@
 var LoopActions = require("<root>/scripts/actions/LoopActions")
 var PlaythroughActions = require("<root>/scripts/actions/PlaythroughActions")
 
-var directions = [
-	0, 45, 90, 
-]
-
 var NonplayerStore = Reflux.createStore({
 	data: [],
 	listenables: [

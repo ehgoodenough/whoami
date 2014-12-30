@@ -52,7 +52,7 @@ var PlayerStore = Reflux.createStore({
     },
     onPlayerMoveNorth: function(id, delta) {
         var player = this.data[id]
-        if(player.status != 0) {
+        if(player && player.status != 0) {
             player.direction = "north"
             player.y -= (player.velocity * delta)
             this.trigger(this.data)
@@ -60,7 +60,7 @@ var PlayerStore = Reflux.createStore({
     },
     onPlayerMoveSouth: function(id, delta) {
         var player = this.data[id]
-        if(player.status != 0) {
+        if(player && player.status != 0) {
             player.direction = "south"
             player.y += (player.velocity * delta)
             this.trigger(this.data)
@@ -68,7 +68,7 @@ var PlayerStore = Reflux.createStore({
     },
     onPlayerMoveEast: function(id, delta) {
         var player = this.data[id]
-        if(player.status != 0) {
+        if(player && player.status != 0) {
             player.direction = "east"
             player.x += (player.velocity * delta)
             this.trigger(this.data)
@@ -76,7 +76,7 @@ var PlayerStore = Reflux.createStore({
     },
     onPlayerMoveWest: function(id, delta) {
         var player = this.data[id]
-        if(player.status != 0) {
+        if(player && player.status != 0) {
             player.direction = "west"
             player.x -= (player.velocity * delta)
             this.trigger(this.data)
@@ -84,7 +84,7 @@ var PlayerStore = Reflux.createStore({
     },
     onPlayerAttack: function(id) {
         var player = this.data[id]
-        if(player.status != 0) {
+        if(player && player.status != 0) {
             if(player.attacking <= 0) {
                 player.attacking = 1.5
                 player.scale = 2
@@ -119,7 +119,7 @@ var PlayerStore = Reflux.createStore({
     },
     onPlayerTouchStatue: function(id, sid) {
         var player = this.data[id]
-        if(player.touches.indexOf(sid) == -1) {
+        if(player && player.touches.indexOf(sid) == -1) {
             player.touches.push(sid)
             if(player.touches.length == 3) {
                 player.scale = 2
@@ -137,15 +137,18 @@ var PlayerStore = Reflux.createStore({
     },
     onPlayerDropBomb: function(id) {
         var player = this.data[id]
-        if(player.hasBomb) {
+        if(player && player.hasBomb) {
             player.hasBomb = false
             SmokeActions.CreateSmoke(player)
             this.trigger(this.data)
         }
     },
     onPlayerDies: function(id) {
-        this.data[id].status = 0
-        this.trigger(this.data)
+        var player = this.data[id]
+        if(player) {
+            this.data[id].status = 0
+            this.trigger(this.data)
+        }
     }
 })
 

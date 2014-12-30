@@ -24,7 +24,7 @@ var PlaythroughStore = Reflux.createStore({
         this.trigger(this.data)
         setTimeout(function() {
             PlaythroughActions.QuitPlaythrough()
-        }, 10 * 1000)
+        }, 5 * 1000)
     },
     onQuitPlaythrough: function() {
         ViewActions.ChangeTo("TitleView")
