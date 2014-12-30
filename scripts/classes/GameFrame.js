@@ -8,9 +8,6 @@ var GameFrame = React.createClass({
         Reflux.connect(ViewStore, "view")
     ],
     componentDidMount: function() {
-        PlaythroughActions.BeginPlaythrough({
-            players: 3
-        })
         Loop.tick()
     },
     render: function() {

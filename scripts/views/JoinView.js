@@ -1,17 +1,15 @@
-var TitleView = require("<root>/scripts/views/TitleView")
 var ViewActions = require("<root>/scripts/actions/ViewActions")
+var PlaythroughActions = require("<root>/scripts/actions/PlaythroughActions")
 
-var JoinBox = require("<root>/scripts/classes/JoinBox")
 var Keyboard = require("<root>/scripts/systems/Keyboard")
 var KeyboardMixin = require("<root>/scripts/mixins/KeyboardMixin")
-var PlayerConfiguration = require("<root>/scripts/systems/PlayerConfiguration")
 
 var JoinView = React.createClass({
     mixins: [
         KeyboardMixin
     ],
     bindings: {
-        "escape": "OnGotoTitleView"
+        "escape": "gotoTitleView"
     },
     getInitialState: function() {
         return {
@@ -19,31 +17,34 @@ var JoinView = React.createClass({
         }
     },
     render: function() {
-        var renderedJoinBoxes = new Array()
-        for(var id in PlayerConfiguration) {
-            var config = PlayerConfiguration[id]
-            renderedJoinBoxes.push(
-                <JoinBox config={config} id={id}
-                         onJoinGame={this.onJoinGame}
-                         hasJoined={this.hasJoined(id)}
-                         key={id}/>
-            )
-        }
         return (
             <div id="join" className="view">
-                {renderedJoinBoxes}
+                <div className="join-box">
+                    <b>1 Player</b>
+                    <small>Tutorial</small>
+                </div>
+                <div className="join-box" onClick={this.beginPlaythrough}>
+                    <b>2 Players</b>
+                    <small>Confused Ouroboros</small>
+                </div>
+                <div className="join-box">
+                    <b>3 Players</b>
+                    <small>Digital Identity Crisis</small>
+                </div>
+                <div className="join-box">
+                    <b>4 Players</b>
+                    <small>Simulated Agoraphobia</small>
+                </div>
             </div>
         )
     },
-    hasJoined: function(id) {
-        return this.state.players.indexOf(id) != -1
+    gotoTitleView: function() {
+        ViewActions.ChangeTo("TitleView")
     },
-    OnGotoTitleView: function() {
-        var TitleView = require("<root>/scripts/views/TitleView")
-        ViewActions.ChangeTo(TitleView)
-    },
-    onJoinGame: function(id) {
-        this.setState({players: this.state.players.concat([id])})
+    beginPlaythrough: function() {
+        PlaythroughActions.BeginPlaythrough({
+            players: 2
+        })
     }
 })
 

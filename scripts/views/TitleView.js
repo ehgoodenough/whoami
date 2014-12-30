@@ -5,16 +5,16 @@ var TitleView = React.createClass({
     render: function() {
         return (
             <div id="title" className="view">
-                <h1>iamnpc</h1>
-                <h2>A game about being an NPC</h2>
-                <div className="link" onClick={this.nextView}>
+                <h1>whoami</h1>
+                <h2>a game about being an npc</h2>
+                <div className="link" onClick={this.gotoNextView}>
                     Play!! :D
                 </div>
             </div>
         )
     },
-    nextView: function(event) {
-        ViewActions.ChangeTo(JoinView)
+    gotoNextView: function(event) {
+        ViewActions.ChangeTo("JoinView")
     }
 })
 
