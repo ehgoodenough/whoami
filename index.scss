@@ -3,6 +3,11 @@
     margin: 0px;
 }
 
+body
+{
+    background-color: #111;
+}
+
 @import "./styles/Fonts.scss";
 @import "./styles/Colors.scss";
 @import "./styles/Animations.scss";
