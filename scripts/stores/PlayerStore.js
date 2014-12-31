@@ -100,9 +100,9 @@ var PlayerStore = Reflux.createStore({
                     }
                 }
                 if(attacked) {
-                    new Audio("./sounds/ahoo.mp3").play()
+                    new Audio("./assets/sounds/ahoo.mp3").play()
                 } else {
-                    new Audio("./sounds/hoo.mp3").play()
+                    new Audio("./assets/sounds/hoo.mp3").play()
                 }
                 this.trigger(this.data)
             }
@@ -126,10 +126,10 @@ var PlayerStore = Reflux.createStore({
                 player.status = 2
                 player.velocity = 1.5
             }
-            new Audio("./sounds/ding.wav").play()
+            new Audio("./assets/sounds/ding.wav").play()
             for(var i = 1; i < player.touches.length; i++) {
                 setTimeout(function() {
-                    new Audio("./sounds/ding.wav").play()
+                    new Audio("./assets/sounds/ding.wav").play()
                 }, i * player.touches.length * 100)
             }
             this.trigger(this.data)

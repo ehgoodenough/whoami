@@ -3,12 +3,6 @@
     margin: 0px;
 }
 
-:root
-{
-    background-color: $black;
-    font-family: goldfish, monospace;
-}
-
 @import "./styles/references/Fonts.scss";
 @import "./styles/references/Colors.scss";
 @import "./styles/references/Animations.scss";
@@ -23,3 +17,9 @@
 @import "./styles/views/TitleView.scss";
 @import "./styles/views/JoinView.scss";
 @import "./styles/views/PlaythroughView.scss";
+
+:root
+{
+    background-color: $black;
+    font-family: goldfish, monospace;
+}
