@@ -24,7 +24,7 @@ var TitlescreenView = React.createClass({
         )
     },
     gotoNextView: function(event) {
-        ViewActions.ChangeTo("JoinView")
+        ViewActions.ChangeView("JoinView")
     }
 })
 

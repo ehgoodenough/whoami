@@ -1,5 +1,5 @@
 var ViewActions = Reflux.createActions([
-    "ChangeTo"
+    "ChangeView"
 ])
 
 module.exports = ViewActions

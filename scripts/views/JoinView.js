@@ -38,7 +38,7 @@ var JoinView = React.createClass({
         )
     },
     gotoPreviousView: function() {
-        ViewActions.ChangeTo("TitlescreenView")
+        ViewActions.ChangeView("TitlescreenView")
     },
     beginPlaythrough: function(players) {
         PlaythroughActions.BeginPlaythrough({

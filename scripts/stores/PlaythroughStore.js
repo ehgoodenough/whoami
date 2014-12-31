@@ -10,7 +10,7 @@ var PlaythroughStore = Reflux.createStore({
         PlayerActions
     ],
     onBeginPlaythrough: function(data) {
-        ViewActions.ChangeTo("PlaythroughView")
+        ViewActions.ChangeView("PlaythroughView")
         this.data = {
             dead_players: 0,
             players: data.players,
@@ -27,7 +27,7 @@ var PlaythroughStore = Reflux.createStore({
         }, 5 * 1000)
     },
     onQuitPlaythrough: function() {
-        ViewActions.ChangeTo("TitlescreenView")
+        ViewActions.ChangeView("TitlescreenView")
     },
     onPlayerDies: function(id) {
         this.data.dead_players += 1
