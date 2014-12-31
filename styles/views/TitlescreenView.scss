@@ -1,0 +1,62 @@
+#titlescreen.view
+{
+    background-size: 100%;
+    background-repeat: no-repeat;
+    background-color: $light-green;
+    background-image: url("../assets/images/titlescreen.png");
+    
+    header
+    {
+        top: 2rem;
+        left: 2rem;
+        right: 2rem;
+        position: absolute;
+        
+        h1
+        {
+            color: $white;
+            font-size: 3rem;
+            font-weight: bold;
+            text-align: center;
+            @include stroke(6, $black);
+        }
+        
+        h2
+        {
+            color: $white;
+            text-align: center;
+            font-size: 0.75rem;
+            font-weight: normal;
+            @include stroke(2, $black);
+        }
+    }
+    
+    .action
+    {
+        left: 2rem;
+        right: 2rem;
+        bottom: 2rem;
+        position: absolute;
+        
+        text-align: center;
+        
+        span
+        {
+            color: $white;
+            font-weight: bold;
+            text-align: center;
+            @include stroke(6, $black);
+            
+            animation-name: pulsate;
+            animation-timing-function: ease-in-out;
+            animation-iteration-count: infinite;
+            animation-duration: 1.5s;
+            
+            &:hover
+            {
+                color: $red;
+                cursor: pointer;
+            }
+        }
+    }
+}

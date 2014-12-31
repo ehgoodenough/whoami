@@ -1,7 +1,7 @@
-var Player = require("<root>/scripts/classes/Player")
-var Statue = require("<root>/scripts/classes/Statue")
-var Smoke = require("<root>/scripts/classes/Smoke")
-var Nonplayer = require("<root>/scripts/classes/Nonplayer")
+var Player = require("<root>/scripts/components/Player")
+var Statue = require("<root>/scripts/components/Statue")
+var Smoke = require("<root>/scripts/components/Smoke")
+var Nonplayer = require("<root>/scripts/components/Nonplayer")
 
 var KeyboardMixin = require("<root>/scripts/mixins/KeyboardMixin")
 
@@ -22,9 +22,6 @@ var PlaythroughView = React.createClass({
         Reflux.connect(NonplayerStore, "nonplayers"),
         Reflux.connect(PlaythroughStore, "playthrough"),
     ],
-    bindings: {
-        "escape": "quitPlaythrough"
-    },
     render: function() {
         var message = new String()
         if(this.state.playthrough.message) {

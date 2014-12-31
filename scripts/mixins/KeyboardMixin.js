@@ -1,17 +1,14 @@
 var Keyboard = require("<root>/scripts/systems/Keyboard")
 
 var KeyboardMixin = {
-	binds: new Object(),
-	componentWillMount: function() {
-		for(var key in this.bindings) {
-			var event = this.bindings[key]
-			this.binds[key] = this[event]
-			Keyboard.bindEvent(key, this[event])
-		}
-	},
+	bindings: new Object(),
+    bind: function(key, event) {
+        this.bindings[key] = event
+        Keyboard.bindEvent(key, event)
+    },
     componentWillUnmount: function() {
-        for(var key in this.binds) {
-            var event = this.binds[key]
+        for(var key in this.bindings) {
+            var event = this.bindings[key]
             Keyboard.unbindEvent(key, event)
         }
     }

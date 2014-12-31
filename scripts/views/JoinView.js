@@ -1,15 +1,14 @@
 var ViewActions = require("<root>/scripts/actions/ViewActions")
 var PlaythroughActions = require("<root>/scripts/actions/PlaythroughActions")
 
-var Keyboard = require("<root>/scripts/systems/Keyboard")
 var KeyboardMixin = require("<root>/scripts/mixins/KeyboardMixin")
 
 var JoinView = React.createClass({
     mixins: [
         KeyboardMixin
     ],
-    bindings: {
-        "escape": "gotoTitleView"
+    componentWillMount: function() {
+        this.bind("escape", this.gotoPreviousView)
     },
     getInitialState: function() {
         return {
@@ -38,8 +37,8 @@ var JoinView = React.createClass({
             </div>
         )
     },
-    gotoTitleView: function() {
-        ViewActions.ChangeTo("TitleView")
+    gotoPreviousView: function() {
+        ViewActions.ChangeTo("TitlescreenView")
     },
     beginPlaythrough: function(players) {
         PlaythroughActions.BeginPlaythrough({

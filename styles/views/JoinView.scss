@@ -1,6 +1,6 @@
 #join.view
 {
-    background-color: #22B14C;
+    background-color: $dark-green;
     
     .join-box
     {
@@ -11,7 +11,7 @@
         position: absolute;
         
         border-radius: 0.5rem;
-        background-color: #B5E61D;
+        background-color: $light-green;
         
         &:nth-child(1) {top: 1rem; left: 1rem;}
         &:nth-child(2) {top: 1rem; right: 1rem;}

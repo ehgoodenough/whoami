@@ -27,7 +27,7 @@ var PlaythroughStore = Reflux.createStore({
         }, 5 * 1000)
     },
     onQuitPlaythrough: function() {
-        ViewActions.ChangeTo("TitleView")
+        ViewActions.ChangeTo("TitlescreenView")
     },
     onPlayerDies: function(id) {
         this.data.dead_players += 1
