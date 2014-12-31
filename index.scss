@@ -3,22 +3,23 @@
     margin: 0px;
 }
 
-body
+:root
 {
-    background-color: #111;
+    background-color: $black;
+    font-family: goldfish, monospace;
 }
 
-@import "./styles/Fonts.scss";
-@import "./styles/Colors.scss";
-@import "./styles/Animations.scss";
-@import "./styles/Mixins.scss";
+@import "./styles/references/Fonts.scss";
+@import "./styles/references/Colors.scss";
+@import "./styles/references/Animations.scss";
+@import "./styles/references/Mixins.scss";
 
-@import "./styles/GameFrame.scss";
-@import "./styles/Player.scss";
-@import "./styles/Statue.scss";
-@import "./styles/Smoke.scss";
+@import "./styles/components/GameFrame.scss";
+@import "./styles/components/Player.scss";
+@import "./styles/components/Statue.scss";
+@import "./styles/components/Smoke.scss";
 
-@import "./styles/View.scss";
-@import "./styles/TitleView.scss";
-@import "./styles/JoinView.scss";
-@import "./styles/PlaythroughView.scss";
+@import "./styles/views/View.scss";
+@import "./styles/views/TitleView.scss";
+@import "./styles/views/JoinView.scss";
+@import "./styles/views/PlaythroughView.scss";
