@@ -8,7 +8,11 @@ var JoinView = React.createClass({
         KeyboardMixin
     ],
     componentWillMount: function() {
-        this.bind("escape", this.gotoPreviousView)
+        this.connect("escape", this.gotoPreviousView)
+        this.connect("1", this.beginPlaythrough.bind(null, 1))
+        this.connect("2", this.beginPlaythrough.bind(null, 2))
+        this.connect("3", this.beginPlaythrough.bind(null, 3))
+        this.connect("4", this.beginPlaythrough.bind(null, 4))
     },
     getInitialState: function() {
         return {

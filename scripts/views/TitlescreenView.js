@@ -6,7 +6,7 @@ var TitlescreenView = React.createClass({
         KeyboardMixin
     ],
     componentWillMount: function() {
-        this.bind("enter", this.gotoNextView)
+        this.connect("enter", this.gotoNextView)
     },
     render: function() {
         return (

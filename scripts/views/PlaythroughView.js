@@ -22,6 +22,9 @@ var PlaythroughView = React.createClass({
         Reflux.connect(NonplayerStore, "nonplayers"),
         Reflux.connect(PlaythroughStore, "playthrough"),
     ],
+    componentWillMount: function() {
+        this.connect("escape", PlaythroughActions.QuitPlaythrough)
+    },
     render: function() {
         var message = new String()
         if(this.state.playthrough.message) {
@@ -46,9 +49,6 @@ var PlaythroughView = React.createClass({
             )
         }
         return renderings
-    },
-    quitPlaythrough: function() {
-        PlaythroughActions.QuitPlaythrough()
     }
 })
 
