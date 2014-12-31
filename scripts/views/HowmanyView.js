@@ -31,7 +31,7 @@ var HowmanyView = React.createClass({
         ]
         for(var index = 0; index < 4; index++) {
             renderedHowmanyBoxes.push(
-                <div className="howmany-box" onClick={this.beginPlaythrough.bind(null, index)}>
+                <div className="howmany-box" key={index} onClick={this.beginPlaythrough.bind(null, index)}>
                     <b>{index + 1} Player{index > 0 ? "s" : ""}</b>
                     <span className="subtitle">
                         {subtitles[index]}
