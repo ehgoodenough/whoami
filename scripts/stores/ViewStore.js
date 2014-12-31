@@ -6,7 +6,7 @@ var ViewStore = Reflux.createStore({
     ],
     views: {
         "TitlescreenView": require("<root>/scripts/views/TitlescreenView"),
-        "JoinView": require("<root>/scripts/views/JoinView"),
+        "HowmanyView": require("<root>/scripts/views/HowmanyView"),
         "PlaythroughView": require("<root>/scripts/views/PlaythroughView")
     },
     onChangeView: function(view) {

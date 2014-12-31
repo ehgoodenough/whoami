@@ -1,39 +1,46 @@
-#join.view
+#howmany.view
 {
     background-color: $dark-green;
     
-    .join-box
+    .howmany-box
     {
-        width: 8.5rem;
-        height: 6rem;
         padding: 2rem 1rem;
         box-sizing: border-box;
+        width: ((20rem - 3) / 2);
+        height: ((15rem - 3) / 2);
         position: absolute;
-        
-        border-radius: 0.5rem;
-        background-color: $light-green;
         
         &:nth-child(1) {top: 1rem; left: 1rem;}
         &:nth-child(2) {top: 1rem; right: 1rem;}
         &:nth-child(3) {bottom: 1rem; left: 1rem;}
         &:nth-child(4) {bottom: 1rem; right: 1rem;}
         
+        color: $white;
+        text-align: center;
+        
+        border-radius: 0.5rem;
+        background-color: $light-green;
+        
+        &:hover
+        {
+            color: $red;
+            cursor: pointer;
+        }
+        
         b
         {
             display: block;
             margin-bottom: 0.25rem;
             
-            color: $white;
-            text-align: center;
             @include stroke(6, $black);
         }
         
-        small
+        .subtitle
         {
             display: block;
             
+            color: $black;
             font-size: 0.5rem;
-            text-align: center;
             text-decoration: underline;
         }
     }
