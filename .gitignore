@@ -1,1 +1,10 @@
+node_modules
+bower_components
+node_webkit_parts
+
+build
+
+*.log
 .DS_Store
+.DS_Store?
+.Trashes
