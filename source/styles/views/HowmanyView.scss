@@ -32,7 +32,7 @@
             display: block;
             margin-bottom: 0.25rem;
             
-            @include stroke(6, $black);
+            @include stroke($black);
         }
         
         .subtitle

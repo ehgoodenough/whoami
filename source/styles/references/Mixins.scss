@@ -1,25 +1,16 @@
-@mixin stroke($width, $color)
+@mixin stroke($color)
 {
-    $width: $width + 0;
+    $width: 13;
     $shadow: 0 0 0 transparent;
-    $i: 0;
-    $w: 1;
 
-    @while ($i < $width)
+    @for $r from -10 through 10
     {
-        $i: $i + 1;
-        $j: 0;
-        $w: $w + 2;
-
-        @for $r from 1 through $w
+        @for $c from -10 through 10
         {
-            @for $c from 1 through $w
-            {
-                $x: $c - ceil($w / 2);
-                $y: $r - ceil($w / 2);
+            $x: $c / ($width * 5);
+            $y: $r / ($width * 5);
 
-                $shadow: #{$shadow}, #{$x}px #{$y}px 0 $color;
-            }
+            $shadow: #{$shadow}, #{$x}em #{$y}em 0 $color;
         }
     }
 

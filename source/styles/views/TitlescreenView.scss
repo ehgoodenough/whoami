@@ -18,7 +18,7 @@
             font-size: 3rem;
             font-weight: bold;
             text-align: center;
-            @include stroke(6, $black);
+            @include stroke($black);
         }
         
         h2
@@ -27,7 +27,7 @@
             text-align: center;
             font-size: 0.75rem;
             font-weight: normal;
-            @include stroke(2, $black);
+            @include stroke($black);
         }
     }
     
@@ -45,7 +45,7 @@
             color: $white;
             font-weight: bold;
             text-align: center;
-            @include stroke(6, $black);
+            @include stroke($black);
             
             animation-name: pulsate;
             animation-timing-function: ease-in-out;
