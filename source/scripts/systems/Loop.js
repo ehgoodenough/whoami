@@ -1,4 +1,4 @@
-var LoopActions = require("<root>/scripts/actions/LoopActions")
+var LoopActions = require("<scripts>/actions/LoopActions")
 
 var Loop = {
     tick: function() {

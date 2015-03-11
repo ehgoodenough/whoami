@@ -1,7 +1,7 @@
-var ViewStore = require("<root>/scripts/stores/ViewStore")
-var PlaythroughActions = require("<root>/scripts/actions/PlaythroughActions")
-var PlaythroughStore = require("<root>/scripts/stores/PlaythroughStore")
-var Loop = require("<root>/scripts/systems/Loop")
+var ViewStore = require("<scripts>/stores/ViewStore")
+var PlaythroughActions = require("<scripts>/actions/PlaythroughActions")
+var PlaythroughStore = require("<scripts>/stores/PlaythroughStore")
+var Loop = require("<scripts>/systems/Loop")
 
 var GameFrame = React.createClass({
     mixins: [

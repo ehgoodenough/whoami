@@ -3,8 +3,8 @@ bower_components
 node_webkit_parts
 
 build
-ghpages
-nwapps
+gh-pages
+nw-apps
 
 *.log
 .DS_Store

@@ -1,5 +1,5 @@
-var Keyboard = require("<root>/scripts/systems/Keyboard")
-var PlayerConfiguration = require("<root>/scripts/systems/PlayerConfiguration")
+var Keyboard = require("<scripts>/systems/Keyboard")
+var PlayerConfiguration = require("<scripts>/systems/PlayerConfiguration")
 
 var PlayerKeyboardMixin = {
     componentWillMount: function() {

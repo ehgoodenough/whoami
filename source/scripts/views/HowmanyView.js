@@ -1,7 +1,7 @@
-var ViewActions = require("<root>/scripts/actions/ViewActions")
-var PlaythroughActions = require("<root>/scripts/actions/PlaythroughActions")
+var ViewActions = require("<scripts>/actions/ViewActions")
+var PlaythroughActions = require("<scripts>/actions/PlaythroughActions")
 
-var KeyboardMixin = require("<root>/scripts/mixins/KeyboardMixin")
+var KeyboardMixin = require("<scripts>/mixins/KeyboardMixin")
 
 var HowmanyView = React.createClass({
     mixins: [

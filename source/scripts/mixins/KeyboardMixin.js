@@ -1,4 +1,4 @@
-var Keyboard = require("<root>/scripts/systems/Keyboard")
+var Keyboard = require("<scripts>/systems/Keyboard")
 
 var KeyboardMixin = {
 	connections: new Object(),

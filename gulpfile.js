@@ -2,6 +2,7 @@ var gulp = require("gulp")
 var gulp_if = require("gulp-if")
 var gulp_util = require("gulp-util")
 var gulp_sass = require("gulp-sass")
+var gulp_watch = require("gulp-watch")
 var gulp_uglify = require("gulp-uglify")
 var gulp_connect = require("gulp-connect")
 var gulp_minify_css = require("gulp-minify-css")
@@ -9,70 +10,82 @@ var gulp_minify_html = require("gulp-minify-html")
 var gulp_prefixify_css = require("gulp-autoprefixer")
 var gulp_json_transform = require("gulp-json-transform")
 
-var del = require("del")
-var yargs = require("yargs")
-var chalk = require("chalk")
-var vinyl_buffer = require("vinyl-buffer")
-var vinyl_source = require("vinyl-source-stream")
-
+var watchify = require("watchify")
 var browserify = require("browserify")
 var reactify = require("reactify")
 var envify = require("envify/custom")
 var aliasify = require("aliasify")
 
-gulp.task("scripts", function()
-{
-    browserify("./source/index.js")
-        .transform("reactify")
-        .transform(envify({
-            platform: process.env.platform
-        }))
-        .transform(aliasify.configure({
-            configDir: __dirname,
-            aliases: {
-                "<root>": "./source"
-            }
-        }))
-        .bundle()
-        .on('error', on_error)
+var opn = require("opn")
+var del = require("del")
+var chalk = require("chalk")
+var yargs = require("yargs")
+var vinyl_buffer = require("vinyl-buffer")
+var vinyl_source = require("vinyl-source-stream")
+
+browserify = browserify(watchify.args)
+    .add("./source/index.js")
+    .transform("reactify")
+    .transform(envify({
+        devmode: yargs.argv.devmode
+    }))
+    .transform(aliasify.configure({
+        configDir: __dirname,
+        aliases: {
+            "<source>": "./source",
+            "<scripts>": "./source/scripts",
+            "<styles>": "./source/styles",
+            "<assets>": "./source/assets"
+        }
+    }))
+
+gulp.task("default", function() {
+    gulp.start("build")
+})
+
+gulp.task("build", function() {
+    gulp.start([
+        "build:scripts",
+        "build:styles",
+        "build:markup",
+        "build:assets",
+        "build:package"
+    ])
+})
+
+gulp.task("build:scripts", function() {
+    return browserify.bundle()
         .pipe(vinyl_source("index.js"))
         .pipe(vinyl_buffer())
-        .pipe(gulp_if(yargs.argv.truncate, gulp_uglify()))
+        .pipe(gulp_if(yargs.argv.minify, gulp_uglify()))
         .pipe(gulp.dest("./build"))
         .pipe(gulp_connect.reload())
 })
 
-gulp.task("styles", function()
-{
-    gulp.src("./source/index.scss")
+gulp.task("build:styles", function() {
+    return gulp.src("./source/index.scss")
         .pipe(gulp_sass())
-        .on('error', on_error)
         .pipe(gulp_prefixify_css())
-        .pipe(gulp_if(yargs.argv.truncate, gulp_minify_css()))
+        .pipe(gulp_if(yargs.argv.minify, gulp_minify_css()))
         .pipe(gulp.dest("./build"))
         .pipe(gulp_connect.reload())
 })
 
-gulp.task("markup", function()
-{
-    gulp.src("./source/index.html")
-        .pipe(gulp_if(yargs.argv.truncate, gulp_minify_html()))
+gulp.task("build:markup", function() {
+    return gulp.src("./source/index.html")
+        .pipe(gulp_if(yargs.argv.minify, gulp_minify_html()))
+        .pipe(gulp.dest("./build"))
+})
+
+gulp.task("build:assets", function() {
+    return gulp.src("./source/assets/**/*", {base: "./source"})
         .pipe(gulp.dest("./build"))
         .pipe(gulp_connect.reload())
 })
 
-gulp.task("assets", function()
-{
-    gulp.src("./source/assets/**/*", {base: "./source"})
-        .pipe(gulp.dest("./build"))
-        .pipe(gulp_connect.reload())
-})
-
-gulp.task("configs", function()
-{
-    gulp.src("./package.json")
-        .pipe(gulp_json_transform(function(data)
-        {
+gulp.task("build:package", function() {
+    return gulp.src("./package.json")
+        .pipe(gulp_json_transform(function(data) {
             delete data["dependencies"]
             delete data["devDependencies"]
             return data
@@ -80,30 +93,61 @@ gulp.task("configs", function()
         .pipe(gulp.dest("./build"))
 })
 
-gulp.task("default", function()
-{
-    del(["./build"], function()
-    {
-        gulp.start(["scripts", "styles", "markup", "assets", "configs"])
+gulp.task("watch", function() {
+    gulp.start([
+        "watch:scripts",
+        "watch:styles",
+        "watch:markup",
+        "watch:assets",
+        "watch:package"
+    ])
+})
+
+gulp.task("watch:scripts", function() {
+    gulp.start("build:scripts")
+    browserify = watchify(browserify).on("update", function() {
+        gulp.start("build:scripts")
     })
 })
 
-gulp.task("watch", function()
-{
+gulp.task("watch:styles", function() {
+    gulp.start("build:styles")
+    gulp_watch("./source/**/*.scss", function() {
+        gulp.start("build:styles")
+    })
+})
+
+gulp.task("watch:markup", function() {
+    gulp.start("build:markup")
+    gulp_watch("./source/**/*.html", function() {
+        gulp.start("build:markup")
+    })
+})
+
+gulp.task("watch:assets", function() {
+    gulp.start("build:assets")
+    gulp_watch("./source/assets/**/*", function() {
+        gulp.start("build:assets")
+    })
+})
+
+gulp.task("watch:package", function() {
+    gulp.start("build:package")
+    gulp_watch("./package.json", function() {
+        gulp.start("build:package")
+    })
+})
+
+gulp.task("server", function() {
+    gulp.start("watch")
     gulp_connect.server({
-        root: "./build",
-        livereload: true
+        root: __dirname + "/build",
+        livereload: true,
+        port: 8080
     })
-
-    gulp.watch("./source/**/*.js", ["scripts"])
-    gulp.watch("./source/**/*.scss", ["styles"])
-    gulp.watch("./source/index.html", ["markup"])
-    gulp.watch("./source/assets/**/*", ["assets"])
-    gulp.watch("./package.json", ["configs"])
+    opn("http://localhost:8080")
 })
 
-function on_error(error)
-{
-    gulp_util.log(chalk.bold.red(error.message))
-    gulp_util.beep()
-}
+process.on("uncaughtException", function (error) {
+    console.log(chalk.red(error))
+})

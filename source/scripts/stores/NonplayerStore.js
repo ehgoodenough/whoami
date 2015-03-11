@@ -1,5 +1,5 @@
-var LoopActions = require("<root>/scripts/actions/LoopActions")
-var PlaythroughActions = require("<root>/scripts/actions/PlaythroughActions")
+var LoopActions = require("<scripts>/actions/LoopActions")
+var PlaythroughActions = require("<scripts>/actions/PlaythroughActions")
 
 var NonplayerStore = Reflux.createStore({
 	data: [],

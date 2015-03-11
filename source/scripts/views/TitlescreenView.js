@@ -1,5 +1,5 @@
-var ViewActions = require("<root>/scripts/actions/ViewActions")
-var KeyboardMixin = require("<root>/scripts/mixins/KeyboardMixin")
+var ViewActions = require("<scripts>/actions/ViewActions")
+var KeyboardMixin = require("<scripts>/mixins/KeyboardMixin")
 
 var TitlescreenView = React.createClass({
     mixins: [

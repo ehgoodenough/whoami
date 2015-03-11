@@ -1,6 +1,6 @@
-var LoopActions = require("<root>/scripts/actions/LoopActions")
-var SmokeActions = require("<root>/scripts/actions/SmokeActions")
-var PlaythroughActions = require("<root>/scripts/actions/PlaythroughActions")
+var LoopActions = require("<scripts>/actions/LoopActions")
+var SmokeActions = require("<scripts>/actions/SmokeActions")
+var PlaythroughActions = require("<scripts>/actions/PlaythroughActions")
 
 var SmokeStore = Reflux.createStore({
     listenables: [

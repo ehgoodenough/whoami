@@ -4,5 +4,5 @@ window.Reflux = require("reflux")
 window.Reflux.StoreMethods.getInitialState = function() {if(this.getData) {return this.getData()}}
 window.Reflux.StoreMethods.retrigger = function() {if(this.getData) {this.trigger(this.getData())}}
 
-var GameFrame = require("<root>/scripts/components/GameFrame")
+var GameFrame = require("<scripts>/components/GameFrame")
 React.render(<GameFrame/>, document.body)

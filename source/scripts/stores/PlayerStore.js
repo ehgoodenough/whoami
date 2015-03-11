@@ -1,7 +1,7 @@
-var PlayerActions = require("<root>/scripts/actions/PlayerActions")
-var PlaythroughActions = require("<root>/scripts/actions/PlaythroughActions")
-var LoopActions = require("<root>/scripts/actions/LoopActions")
-var SmokeActions = require("<root>/scripts/actions/SmokeActions")
+var PlayerActions = require("<scripts>/actions/PlayerActions")
+var PlaythroughActions = require("<scripts>/actions/PlaythroughActions")
+var LoopActions = require("<scripts>/actions/LoopActions")
+var SmokeActions = require("<scripts>/actions/SmokeActions")
 
 var PlayerStore = Reflux.createStore({
     data: {},

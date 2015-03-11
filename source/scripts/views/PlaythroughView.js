@@ -1,17 +1,17 @@
-var Player = require("<root>/scripts/components/Player")
-var Statue = require("<root>/scripts/components/Statue")
-var Smoke = require("<root>/scripts/components/Smoke")
-var Nonplayer = require("<root>/scripts/components/Nonplayer")
+var Player = require("<scripts>/components/Player")
+var Statue = require("<scripts>/components/Statue")
+var Smoke = require("<scripts>/components/Smoke")
+var Nonplayer = require("<scripts>/components/Nonplayer")
 
-var KeyboardMixin = require("<root>/scripts/mixins/KeyboardMixin")
+var KeyboardMixin = require("<scripts>/mixins/KeyboardMixin")
 
-var PlayerStore = require("<root>/scripts/stores/PlayerStore")
-var StatueStore = require("<root>/scripts/stores/StatueStore")
-var SmokeStore = require("<root>/scripts/stores/SmokeStore")
-var NonplayerStore = require("<root>/scripts/stores/NonplayerStore")
-var PlaythroughStore = require("<root>/scripts/stores/PlaythroughStore")
+var PlayerStore = require("<scripts>/stores/PlayerStore")
+var StatueStore = require("<scripts>/stores/StatueStore")
+var SmokeStore = require("<scripts>/stores/SmokeStore")
+var NonplayerStore = require("<scripts>/stores/NonplayerStore")
+var PlaythroughStore = require("<scripts>/stores/PlaythroughStore")
 
-var PlaythroughActions = require("<root>/scripts/actions/PlaythroughActions")
+var PlaythroughActions = require("<scripts>/actions/PlaythroughActions")
 
 var PlaythroughView = React.createClass({
     mixins: [

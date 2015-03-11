@@ -1,7 +1,7 @@
-var LoopActions = require("<root>/scripts/actions/LoopActions")
-var PlayerActions = require("<root>/scripts/actions/PlayerActions")
-var PlaythroughActions = require("<root>/scripts/actions/PlaythroughActions")
-var ViewActions = require("<root>/scripts/actions/ViewActions")
+var LoopActions = require("<scripts>/actions/LoopActions")
+var PlayerActions = require("<scripts>/actions/PlayerActions")
+var PlaythroughActions = require("<scripts>/actions/PlaythroughActions")
+var ViewActions = require("<scripts>/actions/ViewActions")
 
 var PlaythroughStore = Reflux.createStore({
     listenables: [
