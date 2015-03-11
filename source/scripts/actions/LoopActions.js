@@ -1,5 +1,5 @@
 var LoopActions = Reflux.createActions([
-	"Tick"
+    "Tick"
 ])
 
 module.exports = LoopActions

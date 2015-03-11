@@ -1,7 +1,7 @@
 var Keyboard = require("<scripts>/systems/Keyboard")
 
 var KeyboardMixin = {
-	connections: new Object(),
+    connections: new Object(),
     connect: function(key, event) {
         this.connections[key] = event
         Keyboard.bindEvent(key, event)
