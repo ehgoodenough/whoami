@@ -5,15 +5,16 @@ var ViewStore = Reflux.createStore({
         ViewActions,
     ],
     views: {
+        "LobbyView": require("<scripts>/views/LobbyView"),
         "TitlescreenView": require("<scripts>/views/TitlescreenView"),
         "HowmanyView": require("<scripts>/views/HowmanyView"),
         "PlaythroughView": require("<scripts>/views/PlaythroughView")
     },
-    onChangeView: function(view) {
-        this.trigger(this.views[view])
+    onChangeView: function(name) {
+        this.trigger(this.views[name])
     },
     getInitialState: function() {
-        return this.views["TitlescreenView"]
+        return this.views["LobbyView"]
     }
 })
 
