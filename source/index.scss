@@ -14,8 +14,13 @@
 @import "./styles/views/HowmanyView.scss";
 @import "./styles/views/PlaythroughView.scss";
 
-:root
+html
 {
     background-color: $black;
     font-family: goldfish, monospace;
+
+    #game-frame
+    {
+    	background-color: $white;
+    }
 }

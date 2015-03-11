@@ -1,20 +1,14 @@
-var ViewStore = require("<scripts>/stores/ViewStore")
-var PlaythroughActions = require("<scripts>/actions/PlaythroughActions")
-var PlaythroughStore = require("<scripts>/stores/PlaythroughStore")
-var Loop = require("<scripts>/systems/Loop")
-
 var GameFrame = React.createClass({
-    mixins: [
-        Reflux.connect(ViewStore, "view")
-    ],
-    componentDidMount: function() {
-        Loop.tick()
+    getDefaultProps: function() {
+        return {
+            ratio: "4x3"
+        }
     },
     render: function() {
-        var View = this.state.view
         return (
-            <div id="game-frame">
-                <View/>
+            <div id="game-frame" onClick={this.props.onClick}
+                className={"_" + this.props.ratio}>
+                {this.props.children}
             </div>
         )
     }
