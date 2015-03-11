@@ -4,16 +4,16 @@
     
     b
     {
-        top: 0rem;
-        left: 0rem;
-        right: 0rem;
-        bottom: 0rem;
+        top: 0em;
+        left: 0em;
+        right: 0em;
+        bottom: 0em;
         z-index: 3;
         position: absolute;
         
         color: $white;
-        font-size: 2rem;
-        line-height: 15rem;
+        font-size: 2em;
+        line-height: 15em;
         text-align: center;
         @include stroke($black);
     }

@@ -6,7 +6,6 @@ window.Reflux.StoreMethods.getInitialState = function() {if(this.getData) {retur
 window.Reflux.StoreMethods.retrigger = function() {if(this.getData) {this.trigger(this.getData())}}
 
 var ViewRoutes = require("<scripts>/references/ViewRoutes")
-
-ReactRouter.run(ViewRoutes, function(Handler) {
-    React.render(<Handler/>, document.body)
+ReactRouter.run(ViewRoutes, function(RenderedViews) {
+    React.render(<RenderedViews/>, document.body)
 })

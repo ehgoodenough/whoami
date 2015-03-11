@@ -4,21 +4,21 @@
     
     .howmany-box
     {
-        padding: 2rem 1rem;
+        padding: 2em 1em;
         box-sizing: border-box;
-        width: ((20rem - 3) / 2);
-        height: ((15rem - 3) / 2);
+        width: ((20em - 3) / 2);
+        height: ((15em - 3) / 2);
         position: absolute;
         
-        &:nth-child(1) {top: 1rem; left: 1rem;}
-        &:nth-child(2) {top: 1rem; right: 1rem;}
-        &:nth-child(3) {bottom: 1rem; left: 1rem;}
-        &:nth-child(4) {bottom: 1rem; right: 1rem;}
+        &:nth-child(1) {top: 1em; left: 1em;}
+        &:nth-child(2) {top: 1em; right: 1em;}
+        &:nth-child(3) {bottom: 1em; left: 1em;}
+        &:nth-child(4) {bottom: 1em; right: 1em;}
         
         color: $white;
         text-align: center;
         
-        border-radius: 0.5rem;
+        border-radius: 0.5em;
         background-color: $light-green;
         
         &:hover
@@ -30,7 +30,7 @@
         b
         {
             display: block;
-            margin-bottom: 0.25rem;
+            margin-bottom: 0.25em;
             
             @include stroke($black);
         }
@@ -40,7 +40,7 @@
             display: block;
             
             color: $black;
-            font-size: 0.5rem;
+            font-size: 0.5em;
             text-decoration: underline;
         }
     }

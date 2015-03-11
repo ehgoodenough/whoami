@@ -47,10 +47,10 @@ var Player = React.createClass({
     },
     renderStyles: function() {
         return {
-            top: this.props.data.y - this.props.data.radius * this.props.data.scale + "rem",
-            left: this.props.data.x - this.props.data.radius * this.props.data.scale + "rem",
-            width: this.props.data.radius * 2 * this.props.data.scale + "rem",
-            height: this.props.data.radius * 2 * this.props.data.scale + "rem"
+            top: this.props.data.y - this.props.data.radius * this.props.data.scale + "em",
+            left: this.props.data.x - this.props.data.radius * this.props.data.scale + "em",
+            width: this.props.data.radius * 2 * this.props.data.scale + "em",
+            height: this.props.data.radius * 2 * this.props.data.scale + "em"
         }
     }
 })

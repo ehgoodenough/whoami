@@ -7,15 +7,15 @@
     
     header
     {
-        top: 2rem;
-        left: 2rem;
-        right: 2rem;
+        top: 2em;
+        left: 2em;
+        right: 2em;
         position: absolute;
         
         h1
         {
             color: $white;
-            font-size: 3rem;
+            font-size: 3em;
             font-weight: bold;
             text-align: center;
             @include stroke($black);
@@ -25,7 +25,7 @@
         {
             color: $white;
             text-align: center;
-            font-size: 0.75rem;
+            font-size: 0.75em;
             font-weight: normal;
             @include stroke($black);
         }
@@ -33,9 +33,9 @@
     
     .action
     {
-        left: 2rem;
-        right: 2rem;
-        bottom: 2rem;
+        left: 2em;
+        right: 2em;
+        bottom: 2em;
         position: absolute;
         
         text-align: center;

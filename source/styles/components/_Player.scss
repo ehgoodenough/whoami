@@ -1,9 +1,9 @@
 .player
 {
-    top: 0rem;
-    left: 0rem;
-    width: 1rem;
-    height: 1rem;
+    top: 0em;
+    left: 0em;
+    width: 1em;
+    height: 1em;
     z-index: 1;
     position: absolute;
     
@@ -11,7 +11,7 @@
     background-position: center;
     background-repeat: no-repeat;
     
-    border-radius: 1rem;
+    border-radius: 1em;
 }
 
 .player.moving.north
