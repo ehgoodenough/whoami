@@ -8,7 +8,7 @@ var Game = React.createClass({
     render: function() {
         return (
             <GameFrame>
-                <RouteHandler/>
+                <RouteHandler {...this.props}/>
             </GameFrame>
         )
     }

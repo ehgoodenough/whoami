@@ -11,6 +11,7 @@
     "url": "https://github.com/arcym/wifiquest.git"
   },
   "dependencies": {
+    "firebase": "^2.2.2",
     "react": "~0.12.2",
     "react-router": "^0.12.4",
     "reflux": "~0.2.4"
