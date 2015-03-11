@@ -12,16 +12,16 @@ var TitlescreenView = React.createClass({
     },
     render: function() {
         return (
-            <div id="titlescreen" className="view">
+            <div className="titlescreen view">
                 <header>
                     <h1>whoami?</h1>
-                    <h2>a game about being an npc</h2>
+                    <h2>a game of utter confusion</h2>
                 </header>
-                <div className="action">
-                    <Link to="lobby">
+                <menu>
+                    <Link to="lobby" params={{name: "123"}}>
                         Play!! :D
                     </Link>
-                </div>
+                </menu>
             </div>
         )
     },

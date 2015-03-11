@@ -1,4 +1,4 @@
-#titlescreen.view
+.titlescreen.view
 {
     background-size: 100%;
     background-repeat: no-repeat;
@@ -11,40 +11,39 @@
         left: 2em;
         right: 2em;
         position: absolute;
+        text-align: center;
         
         h1
         {
             color: $white;
             font-size: 3em;
             font-weight: bold;
-            text-align: center;
             @include stroke($black);
         }
         
         h2
         {
             color: $white;
-            text-align: center;
             font-size: 0.75em;
             font-weight: normal;
             @include stroke($black);
         }
     }
     
-    .action
+    menu
     {
         left: 2em;
         right: 2em;
         bottom: 2em;
+        padding: 0em;
         position: absolute;
-        
         text-align: center;
         
-        span
+        a
         {
             color: $white;
             font-weight: bold;
-            text-align: center;
+            text-decoration: none;
             @include stroke($black);
             
             animation-name: pulsate;
