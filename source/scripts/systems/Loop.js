@@ -15,4 +15,6 @@ var Loop = {
     time: Date.now()
 }
 
+Loop.tick()
+
 module.exports = Loop
