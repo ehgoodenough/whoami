@@ -9,7 +9,7 @@ var NonplayerStore = Reflux.createStore({
     ],
     onBeginPlaythrough: function(data) {
         this.data = []
-        var amount = data.players * 12.5;
+        var amount = data.players * 12.5
         if(data.players == 1) {
             amount = 0;
         }

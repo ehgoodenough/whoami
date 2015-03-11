@@ -1,6 +1,8 @@
 var ViewActions = require("<scripts>/actions/ViewActions")
 var KeyboardMixin = require("<scripts>/mixins/KeyboardMixin")
 
+var Link = ReactRouter.Link
+
 var TitlescreenView = React.createClass({
     mixins: [
         KeyboardMixin
@@ -16,9 +18,9 @@ var TitlescreenView = React.createClass({
                     <h2>a game about being an npc</h2>
                 </header>
                 <div className="action">
-                    <span onClick={this.gotoNextView}>
+                    <Link to="lobby">
                         Play!! :D
-                    </span>
+                    </Link>
                 </div>
             </div>
         )
