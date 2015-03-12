@@ -3,4 +3,11 @@
     margin: 0px;
     cursor: default;
     user-select: none;
+    box-sizing: border-box;
+}
+
+a
+{
+    color: inherit;
+    text-decoration: none;
 }

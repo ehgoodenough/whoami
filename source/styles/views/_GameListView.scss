@@ -1,0 +1,51 @@
+.game-list.view
+{
+    h3
+    {
+        color: $white;
+        font-size: 1em;
+        font-weight: bold;
+        text-align: center;
+        @include stroke($black);
+        
+        margin-bottom: 0.5em;
+    }
+    
+    #join-game
+    {
+        top: 0em;
+        right: 0em;
+        width: 50%;
+        bottom: 0em;
+        padding: 0.5em;
+        overflow-y: scroll;
+        position: absolute;
+        
+        background-color: $dark-green;
+        
+        .joinable-game
+        {
+            font-size: 0.65em;
+            font-weight: bold;
+            margin-bottom: 0.25em;
+            
+            a:hover
+            {
+                color: $red;
+                cursor: pointer;
+            }
+        }
+    }
+    
+    #make-game
+    {
+        top: 0em;
+        left: 0em;
+        width: 50%;
+        bottom: 0em;
+        padding: 0.5em;
+        position: absolute;
+        
+        background-color: $light-green;
+    }
+}

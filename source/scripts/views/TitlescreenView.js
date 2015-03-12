@@ -5,10 +5,10 @@ var Link = ReactRouter.Link
 
 var TitlescreenView = React.createClass({
     mixins: [
-        KeyboardMixin
+        //KeyboardMixin
     ],
     componentWillMount: function() {
-        this.connect("enter", this.gotoNextView)
+        //this.connect("enter", this.gotoNextView)
     },
     render: function() {
         return (
@@ -18,15 +18,15 @@ var TitlescreenView = React.createClass({
                     <h2>a game of utter confusion</h2>
                 </header>
                 <menu>
-                    <Link to="lobby" params={{name: "123"}}>
+                    <Link to="game-list" onClick={this.onExitView}>
                         Play!! :D
                     </Link>
                 </menu>
             </div>
         )
     },
-    gotoNextView: function(event) {
-        ViewActions.ChangeView("HowmanyView")
+    onExitView: function(event) {
+        new Audio("./assets/sounds/hoo.mp3").play()
     }
 })
 
