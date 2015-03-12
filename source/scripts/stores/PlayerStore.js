@@ -3,6 +3,8 @@ var PlayerActions = require("<scripts>/actions/PlayerActions")
 var LoopActions = require("<scripts>/actions/LoopActions")
 var SmokeActions = require("<scripts>/actions/SmokeActions")
 
+var isIntersecting = require("<scripts>/references/isIntersecting")
+
 var PlayerStore = Reflux.createStore({
     data: new Object(),
     getData: function() {
@@ -38,11 +40,8 @@ var PlayerStore = Reflux.createStore({
     onTick: function(tick) {
         for(var id in this.data) {
             var player = this.data[id]
-            if(player.isAttacking > 0) {
-                player.isAttacking -= tick
-            }
+            player.isAttacking -= tick
             if(player.isAttacking < 1) {
-                player.isAttacking = 0
                 if(player.status != "awesome") {
                     player.velocity = 1
                     player.scale = 1
@@ -53,7 +52,7 @@ var PlayerStore = Reflux.createStore({
     },
     onPlayerMoveNorth: function(id, tick) {
         var player = this.data[id]
-        if(player) {
+        if(player != undefined) {
             if(player.status != "dead") {
                 player.y -= (player.velocity * tick)
                 player.direction = "north"
@@ -63,7 +62,7 @@ var PlayerStore = Reflux.createStore({
     },
     onPlayerMoveSouth: function(id, tick) {
         var player = this.data[id]
-        if(player) {
+        if(player != undefined) {
             if(player.status != "dead") {
                 player.y += (player.velocity * tick)
                 player.direction = "south"
@@ -73,7 +72,7 @@ var PlayerStore = Reflux.createStore({
     },
     onPlayerMoveEast: function(id, tick) {
         var player = this.data[id]
-        if(player) {
+        if(player != undefined) {
             if(player.status != "dead") {
                 player.x += (player.velocity * tick)
                 player.direction = "east"
@@ -83,7 +82,7 @@ var PlayerStore = Reflux.createStore({
     },
     onPlayerMoveWest: function(id, tick) {
         var player = this.data[id]
-        if(player) {
+        if(player != undefined) {
             if(player.status != "dead") {
                 player.x -= (player.velocity * tick)
                 player.direction = "west"
@@ -93,9 +92,9 @@ var PlayerStore = Reflux.createStore({
     },
     onPlayerAttack: function(id) {
         var player = this.data[id]
-        if(player) {
+        if(player != undefined) {
             if(player.status != "dead"
-            && player.isAttacking == 0) {
+            && player.isAttacking < 0) {
                 player.scale = 2
                 player.velocity = 2
                 player.isAttacking = 1.5
@@ -103,8 +102,9 @@ var PlayerStore = Reflux.createStore({
                 PlayerActions.PlayerHasAttacked(player)
                 for(var oid in this.data) {
                     if(id != oid) {
-                        if(this.data[oid].status == "normal") {
-                            if(this.arePlayersOverlapping(id, oid)) {
+                        var otherplayer = this.data[oid]
+                        if(otherplayer.status == "normal") {
+                            if(isIntersecting(player, otherplayer)) {
                                 player.sound = new Audio("./assets/sounds/ahoo.mp3")
                                 PlayerActions.PlayerDies(oid)
                             }
@@ -118,11 +118,12 @@ var PlayerStore = Reflux.createStore({
     },
     onPlayerTouchStatue: function(id, sid) {
         var player = this.data[id]
-        if(player) {
+        if(player != undefined) {
             if(!player.touches[sid]) {
                 player.touches[sid] = true
                 new Audio("./assets/sounds/ding.wav").play()
                 if(Object.keys(player.touches).length == 3) {
+                    PlayerActions.PlayerIsAwesome(id)
                     player.status = "awesome"
                     player.velocity = 2
                     player.scale = 2
@@ -133,7 +134,7 @@ var PlayerStore = Reflux.createStore({
     },
     onPlayerDropBomb: function(id) {
         var player = this.data[id]
-        if(player) {
+        if(player != undefined) {
             if(player.hasBomb) {
                 SmokeActions.CreateSmoke({
                     x: player.x,
@@ -146,17 +147,10 @@ var PlayerStore = Reflux.createStore({
     },
     onPlayerDies: function(id) {
         var player = this.data[id]
-        if(player) {
+        if(player != undefined) {
             this.data[id].status = "dead"
             this.retrigger()
         }
-    },
-    arePlayersOverlapping: function(p1id, p2id) {
-        var x = this.data[p1id].x - this.data[p2id].x
-        var y = this.data[p1id].y - this.data[p2id].y
-        var d = Math.sqrt(x * x + y * y)
-        var l = (this.data[p1id].scale / 2) + (this.data[p2id].scale / 2)
-        return d < l
     }
 })
 

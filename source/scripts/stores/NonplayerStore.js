@@ -2,6 +2,8 @@ var PlaythroughActions = require("<scripts>/actions/PlaythroughActions")
 var PlayerActions = require("<scripts>/actions/PlayerActions")
 var LoopActions = require("<scripts>/actions/LoopActions")
 
+var isIntersecting = require("<scripts>/references/isIntersecting")
+
 var NonplayerStore = Reflux.createStore({
     data: new Array(),
     getData: function() {
@@ -35,9 +37,9 @@ var NonplayerStore = Reflux.createStore({
         this.retrigger()
     },
     onPlayerHasAttacked: function(player) {
-        for(var index = 0; index < this.data.length; index++) {
+        for(var index in this.data) {
             var nonplayer = this.data[index]
-            if(this.isIntersecting(player, nonplayer)) {
+            if(isIntersecting(player, nonplayer)) {
                 nonplayer.status = "dead"
                 nonplayer.respawn = 7.5
             }
@@ -45,7 +47,7 @@ var NonplayerStore = Reflux.createStore({
         this.retrigger()
     },
     onTick: function(tick) {
-        for(var index = 0; index < this.data.length; index++) {
+        for(var index in this.data) {
             var nonplayer = this.data[index]
             if(nonplayer.status == "dead") {
                 nonplayer.respawn -= tick
@@ -88,15 +90,6 @@ var NonplayerStore = Reflux.createStore({
             }
         }
         this.retrigger()
-    },
-    isIntersecting: function(alpha, omega) {
-        var x = alpha.x - omega.x
-        var y = alpha.y - omega.y
-        
-        var d = Math.sqrt(x * x + y * y)
-        var l = (alpha.scale / 2) + (omega.scale / 2)
-        
-        return d < l
     }
 })
 

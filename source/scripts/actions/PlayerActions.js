@@ -6,6 +6,7 @@ var PlayerActions = Reflux.createActions([
     "PlayerAttack",
     "PlayerHasAttacked",
     "PlayerTouchStatue",
+    "PlayerIsAwesome",
     "PlayerDropBomb",
     "PlayerDies"
 ])

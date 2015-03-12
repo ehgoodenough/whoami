@@ -1,42 +1,46 @@
-var LoopActions = require("<scripts>/actions/LoopActions")
-var SmokeActions = require("<scripts>/actions/SmokeActions")
 var PlaythroughActions = require("<scripts>/actions/PlaythroughActions")
+var SmokeActions = require("<scripts>/actions/SmokeActions")
+var LoopActions = require("<scripts>/actions/LoopActions")
 
 var SmokeStore = Reflux.createStore({
-    listenables: [
-        SmokeActions,
-        LoopActions,
-        PlaythroughActions
-    ],
-    data: [],
-    getInitialState: function() {
+    data: new Array(),
+    getData: function() {
         return this.data
     },
-    onQuitPlaythrough: function() {
-        this.data = []
-        this.trigger(this.data)
+    listenables: [
+        PlaythroughActions,
+        SmokeActions,
+        LoopActions
+    ],
+    onBeginPlaythrough: function() {
+        this.data = new Array()
+        this.retrigger()
     },
-    onCreateSmoke: function(data) {
+    onQuitPlaythrough: function() {
+        this.data = new Array()
+        this.retrigger()
+    },
+    onCreateSmoke: function(smoke) {
         this.data.push({
-            x: data.x,
-            y: data.y,
+            x: smoke.x,
+            y: smoke.y,
             radius: 0.25,
             opacity: 3
         })
+        this.retrigger()
     },
-    onTick: function(delta) {
+    onTick: function(tick) {
         for(var index in this.data) {
             var smoke = this.data[index]
             if(smoke != undefined) {
-                smoke.opacity -= 0.5 * delta
-                smoke.radius += 0.5 * delta
-                
+                smoke.opacity -= 0.5 * tick
+                smoke.radius += 0.5 * tick
                 if(smoke.opacity < 0) {
                     delete this.data[index]
                 }
             }
         }
-        this.trigger(this.data)
+        this.retrigger()
     }
 })
 

@@ -1,10 +1,5 @@
 .statue
 {
-    top: 0em;
-    left: 0em;
-    width: 2em;
-    height: 2em;
-    
     position: absolute;
     
     background-size: contain;
@@ -15,20 +10,8 @@
     animation-name: spin;
     animation-timing-function: ease;
     animation-iteration-count: infinite;
-    animation-duration: random(15) + 10s;
+    animation-duration: 10s;
     
-    &:nth-child(4n)
-    {
-        animation-duration: random(15) + 10s;
-    }
-    
-    &:nth-child(5n)
-    {
-        animation-duration: random(15) + 10s;
-    }
-    
-    &:nth-child(6n)
-    {
-        animation-duration: random(15) + 10s;
-    }
+    transition-property: opacity;
+    transition-duration: 3s;
 }

@@ -1,13 +1,8 @@
 .smoke
 {
-    top: 0em;
-    left: 0em;
-    width: 1em;
-    height: 1em;
-    z-index: 2;
+    z-index: 3;
     position: absolute;
     
-    opacity: 0.9;
     border-radius: 10em;
     background-color: gray;
 }

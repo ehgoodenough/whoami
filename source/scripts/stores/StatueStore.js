@@ -2,51 +2,66 @@ var PlayerStore = require("<scripts>/stores/PlayerStore")
 var PlayerActions = require("<scripts>/actions/PlayerActions")
 var PlaythroughActions = require("<scripts>/actions/PlaythroughActions")
 
+var isIntersecting = require("<scripts>/references/isIntersecting")
+
 var StatueStore = Reflux.createStore({
-    data: {
-        "A": {
-            x: 5,
-            y: 5,
-            radius: 0.8
-        },
-        "B": {
-            x: 15,
-            y: 3,
-            radius: 1
-        },
-        "C": {
-            x: 11,
-            y: 13,
-            radius: 0.9
-        }
-    },
-    getInitialState: function() {
+    data: new Object(),
+    getData: function() {
         return this.data
     },
-    //onBeginPlaythrough: create all the statues
-    //onQuitPlaythrough: destroy all the statues
     init: function() {
+        this.listenTo(PlaythroughActions.BeginPlaythrough, this.onBeginPlaythrough)
+        this.listenTo(PlaythroughActions.QuitPlaythrough, this.onQuitPlaythrough)
         this.listenTo(PlayerStore, this.onPlayerStore)
+        this.listenTo(PlayerActions.PlayerIsAwesome, this.onPlayerIsAwesome)
+    },
+    onBeginPlaythrough: function(playthrough) {
+        this.data = {
+            "A": {
+                x: 5,
+                y: 5,
+                scale: 0.7*2,
+                status: "normal"
+            },
+            "B": {
+                x: 15,
+                y: 3,
+                scale: 0.8*2,
+                status: "normal"
+            },
+            "C": {
+                x: 11,
+                y: 13,
+                scale: 0.9*2,
+                status: "normal"
+            }
+        }
+        this.retrigger()
+    },
+    onQuitPlaythrough: function() {
+        this.data = new Object()
     },
     onPlayerStore: function(data) {
-        for(var pid in data) {
-            var p = data[pid]
-            for(var sid in this.data) {
-                var s = this.data[sid]
-                if(this.isIntersecting(p, s)) {
-                    PlayerActions.PlayerTouchStatue(pid, sid)
+        for(var sid in this.data) {
+            var statue = this.data[sid]
+            if(statue.status == "normal") {
+                for(var pid in data) {
+                    var player = data[pid]
+                    if(isIntersecting(player, statue)) {
+                        PlayerActions.PlayerTouchStatue(pid, sid)
+                    }
                 }
             }
         }
+        this.retrigger()
     },
-    isIntersecting: function(alpha, omega) {
-        var x = alpha.x - omega.x
-        var y = alpha.y - omega.y
-        
-        var d = Math.sqrt(x * x + y * y)
-        var l = alpha.radius + omega.radius
-        
-        return d < l
+    onPlayerIsAwesome: function(pid) {
+        console.log("it's done")
+        for(var sid in this.data) {
+            var statue = this.data[sid]
+            statue.status = "awesome"
+        }
+        this.retrigger()
     }
 })
 
