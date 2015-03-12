@@ -4,7 +4,7 @@ var LobbyView = React.createClass({
         this.firebase = this.firebase.child(this.props.params.name)
         
         this.firebase.child("players").on("value", function(data) {
-            this.setState(data.val())
+            //this.setState(data.val())
         }.bind(this))
         this.firebase.child("players").child("andrew").set({
             "x": 1,

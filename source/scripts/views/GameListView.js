@@ -15,7 +15,7 @@ var GameListView = React.createClass({
         this.firebase.off("value", this.updateState)
     },
     updateState: function(data) {
-        this.setState({"games": data.val()})
+        this.setState({"games": data.val() || {}})
     },
     render: function() {
         return (
@@ -50,7 +50,10 @@ var GameListView = React.createClass({
         for(var name in this.state.games) {
             var game = this.state.games[name]
             if(game.type != "private") {
-                var size = Object.keys(game.players).length
+                var size = 0
+                if(game.players) {
+                    size = Object.keys(game.players).length
+                }
                 renderings.push(
                     <div className="joinable-game" key={name}>
                         <Link to="game-lobby" params={{"name": name}}
@@ -74,12 +77,19 @@ var GameListView = React.createClass({
         event.preventDefault()
         var name = this.refs["name"].getDOMNode().value
         var maxsize = this.refs["maxsize"].getDOMNode().value || 5
-        if(name) {
-            console.log(name, maxsize)
-            window.location += "/" + name
-        } else {
-            console.error("..?")
+        if(!name) {
+            console.error("no name")
+            return
         }
+        if(this.state.games[name] != undefined) {
+            console.error("already exists")
+            return
+        }
+        
+        this.firebase.child(name).set({
+            "maxsize": maxsize
+        })
+        window.location += "/" + name
     }
 })
 
