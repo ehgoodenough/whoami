@@ -1,32 +1,41 @@
-.titlescreen.view
+.game-type.view
 {
     background-size: 100%;
     background-repeat: no-repeat;
     background-color: $light-green;
-    background-image: url("./assets/images/titlescreen.png");
+    background-image: url("./assets/images/background.png");
     
-    header
+    .selectable-game-type
     {
-        top: 2em;
-        left: 2em;
-        right: 2em;
-        position: absolute;
-        text-align: center;
-        
-        h1
+        &:first-of-type
         {
+            top: 2em;
+            left: 2em;
+        }
+        &:last-of-type
+        {
+            bottom: 2em;
+            right: 2em;
+        }
+        
+        position: absolute;
+        
+        a
+        {
+            display: block;
+            
             color: $white;
-            font-size: 3em;
             font-weight: bold;
+            text-align: center;
             @include stroke($black);
         }
         
-        h2
+        small
         {
-            color: $white;
-            font-size: 0.75em;
-            font-weight: normal;
-            @include stroke($black);
+            display: block;
+            
+            font-size: 0.5em;
+            text-align: center;
         }
     }
     
@@ -49,6 +58,12 @@
             animation-timing-function: ease-in-out;
             animation-iteration-count: infinite;
             animation-duration: 1.5s;
+            
+            &:hover
+            {
+                color: $red;
+                cursor: pointer;
+            }
         }
     }
 }

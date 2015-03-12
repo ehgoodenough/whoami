@@ -21,7 +21,7 @@ var OnlineGameListView = React.createClass({
         return (
             <div className="game-list view">
                 <div id="make-game">
-                    <h3>Make Game</h3>
+                    <h3>Make a Game</h3>
                     <form onSubmit={this.onMakeGame}>
                         <div className="make-game-section">
                             <label htmlFor="name">Name of session?</label>
@@ -37,7 +37,7 @@ var OnlineGameListView = React.createClass({
                     </form>
                 </div>
                 <div id="join-game">
-                    <h3>Join Game</h3>
+                    <h3>Join a Game</h3>
                     {this.renderJoinableGames()}
                 </div>
             </div>

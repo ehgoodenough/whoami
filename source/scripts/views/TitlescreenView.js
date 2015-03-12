@@ -21,14 +21,12 @@ var TitlescreenView = React.createClass({
                     <h2>a game of utter confusion</h2>
                 </header>
                 <menu>
-                    <Link to="online-game-list" onClick={this.onExitView}>
+                    <Link to="game-type">
                         Play!! :D
                     </Link>
                 </menu>
             </div>
         )
-    },
-    onExitView: function(event) {
     }
 })
 

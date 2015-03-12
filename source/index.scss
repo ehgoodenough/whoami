@@ -1,6 +1,6 @@
-@import "./styles/references/Defaults.scss";
 @import "./styles/references/Fonts.scss";
 @import "./styles/references/Colors.scss";
+@import "./styles/references/Defaults.scss";
 @import "./styles/references/Animations.scss";
 @import "./styles/references/Mixins.scss";
 
@@ -11,6 +11,7 @@
 
 @import "./styles/views/View.scss";
 @import "./styles/views/TitlescreenView.scss";
+@import "./styles/views/GameTypeView.scss";
 @import "./styles/views/GameListView.scss";
 @import "./styles/views/HowmanyView.scss";
 @import "./styles/views/PlaythroughView.scss";

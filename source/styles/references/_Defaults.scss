@@ -9,5 +9,11 @@
 a
 {
     color: inherit;
+    cursor: pointer;
     text-decoration: none;
+    
+    &:hover
+    {
+        color: $red !important;
+    }
 }
