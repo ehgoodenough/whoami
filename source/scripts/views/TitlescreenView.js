@@ -7,8 +7,11 @@ var TitlescreenView = React.createClass({
     mixins: [
         //KeyboardMixin
     ],
-    componentWillMount: function() {
+    componentDidMount: function() {
         //this.connect("enter", this.gotoNextView)
+    },
+    componentWillUnmount: function() {
+        new Audio("./assets/sounds/hoo.mp3").play()
     },
     render: function() {
         return (
@@ -26,7 +29,6 @@ var TitlescreenView = React.createClass({
         )
     },
     onExitView: function(event) {
-        new Audio("./assets/sounds/hoo.mp3").play()
     }
 })
 

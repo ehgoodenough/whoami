@@ -11,6 +11,7 @@ var GameListView = React.createClass({
         this.firebase.on("value", this.updateState)
     },
     componentWillUnmount: function() {
+        new Audio("./assets/sounds/ahoo.mp3").play()
         this.firebase.off("value", this.updateState)
     },
     updateState: function(data) {
@@ -21,6 +22,21 @@ var GameListView = React.createClass({
             <div className="game-list view">
                 <div id="make-game">
                     <h3>Make Game</h3>
+                    <form onSubmit={this.onMakeGame}>
+                        <div className="make-game-section">
+                            <label htmlFor="name">Name of session?</label>
+                            <input ref="name" id="name" type="text"/>
+                        </div>
+                        <div className="make-game-section">
+                            <label htmlFor="maxsize">Number of players?</label>
+                            <input ref="maxsize" id="maxsize" type="text"
+                                placeholder="5"/>
+                        </div>
+                        <br/>
+                        <div className="make-game-section">
+                            <input type="submit"/>
+                        </div>
+                    </form>
                 </div>
                 <div id="join-game">
                     <h3>Join Game</h3>
@@ -37,7 +53,8 @@ var GameListView = React.createClass({
                 var size = Object.keys(game.players).length
                 renderings.push(
                     <div className="joinable-game" key={name}>
-                        <Link to="game-lobby" params={{"name": name}}>
+                        <Link to="game-lobby" params={{"name": name}}
+                            onClick={this.onExitView}>
                             {name + " (" + size + "/" + game.maxsize + ")"}
                         </Link>
                     </div>
@@ -52,6 +69,17 @@ var GameListView = React.createClass({
             )
         }
         return renderings
+    },
+    onMakeGame: function(event) {
+        event.preventDefault()
+        var name = this.refs["name"].getDOMNode().value
+        var maxsize = this.refs["maxsize"].getDOMNode().value || 5
+        if(name) {
+            console.log(name, maxsize)
+            window.location += "/" + name
+        } else {
+            console.error("..?")
+        }
     }
 })
 

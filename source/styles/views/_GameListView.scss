@@ -57,5 +57,53 @@
         position: absolute;
         
         background-color: $light-green;
+        
+        form
+        {
+            font-size: 0.7em;
+            
+            .make-game-section
+            {
+                &:not(:last-of-type)
+                {
+                    margin-bottom: 0.35em;
+                }
+                
+                label
+                {
+                    font-size: 0.75em;
+                }
+                
+                input[type=text]
+                {
+                    width: 100%;
+                    padding: 0.2em;
+                    
+                    cursor: auto;
+                    font: inherit;
+                }
+                
+                input[type=submit]
+                {
+                    width: 50%;
+                    margin: auto;
+                    display: block;
+                    padding: 0.25em;
+                    
+                    color: $white;
+                    border: none;
+                    outline: none;
+                    font: inherit;
+                    cursor: auto;
+                    border-radius: 0.15em;
+                    background-color: $dark-green;
+                    
+                    &:active
+                    {
+                        background-color: $red;
+                    }
+                }
+            }
+        }
     }
 }
