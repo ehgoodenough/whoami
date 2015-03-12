@@ -1,6 +1,6 @@
 var Link = ReactRouter.Link
 
-var GameListView = React.createClass({
+var OnlineGameListView = React.createClass({
     getInitialState: function() {
         return {
             "games": {}
@@ -32,10 +32,8 @@ var GameListView = React.createClass({
                             <input ref="maxsize" id="maxsize" type="text"
                                 placeholder="5"/>
                         </div>
-                        <br/>
-                        <div className="make-game-section">
-                            <input type="submit"/>
-                        </div>
+                        {this.renderMakeGameErrors()}
+                        <input type="submit"/>
                     </form>
                 </div>
                 <div id="join-game">
@@ -56,7 +54,7 @@ var GameListView = React.createClass({
                 }
                 renderings.push(
                     <div className="joinable-game" key={name}>
-                        <Link to="game-lobby" params={{"name": name}}
+                        <Link to="online-game" params={{"name": name}}
                             onClick={this.onExitView}>
                             {name + " (" + size + "/" + game.maxsize + ")"}
                         </Link>
@@ -66,26 +64,38 @@ var GameListView = React.createClass({
         }
         if(renderings.length == 0) {
             renderings = (
-                <div id="no-joinable-games">
+                <div id="join-game-error">
                     There are no games to join!
                 </div>
             )
         }
         return renderings
     },
+    renderMakeGameErrors: function() {
+        if(this.state.error) {
+            return (
+                <div id="make-game-error">
+                    {this.state.error}
+                </div>
+            )
+        }
+    },
     onMakeGame: function(event) {
         event.preventDefault()
         var name = this.refs["name"].getDOMNode().value
         var maxsize = this.refs["maxsize"].getDOMNode().value || 5
         if(!name) {
-            console.error("no name")
+            this.setState({"error": "Whoops! You forgot to give a name."})
             return
         }
         if(this.state.games[name] != undefined) {
-            console.error("already exists")
+            this.setState({"error": "Uh oh! That name already exists."})
             return
         }
-        
+        if(maxsize > 20) {
+            this.setState({"error": "Wowza! That's too many players!"})
+            return
+        }
         this.firebase.child(name).set({
             "maxsize": maxsize
         })
@@ -93,4 +103,4 @@ var GameListView = React.createClass({
     }
 })
 
-module.exports = GameListView
+module.exports = OnlineGameListView
