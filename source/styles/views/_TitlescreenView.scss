@@ -1,9 +1,9 @@
-.titlescreen.view
+.title-screen.view
 {
     background-size: 100%;
     background-repeat: no-repeat;
     background-color: $light-green;
-    background-image: url("./assets/images/titlescreen.png");
+    background-image: url("./assets/images/background.png");
     
     header
     {
@@ -50,5 +50,22 @@
             animation-iteration-count: infinite;
             animation-duration: 1.5s;
         }
+    }
+    
+    aside
+    {
+        left: 0.5em;
+        bottom: 0.5em;
+        position: absolute;
+    }
+    
+    img
+    {
+        width: 7em;
+        right: 0em;
+        bottom: 0em;
+        position: absolute;
+        animation-name: slide-in;
+        animation-duration: 0.5s;
     }
 }

@@ -1,21 +1,12 @@
-var ViewActions = require("<scripts>/actions/ViewActions")
-var KeyboardMixin = require("<scripts>/mixins/KeyboardMixin")
-
 var Link = ReactRouter.Link
 
-var TitlescreenView = React.createClass({
-    mixins: [
-        //KeyboardMixin
-    ],
-    componentDidMount: function() {
-        //this.connect("enter", this.gotoNextView)
-    },
+var TitleScreenView = React.createClass({
     componentWillUnmount: function() {
         new Audio("./assets/sounds/hoo.mp3").play()
     },
     render: function() {
         return (
-            <div className="titlescreen view">
+            <div className="title-screen view">
                 <header>
                     <h1>whoami?</h1>
                     <h2>a game of utter confusion</h2>
@@ -25,9 +16,13 @@ var TitlescreenView = React.createClass({
                         Play!! :D
                     </Link>
                 </menu>
+                <aside>
+                    2.0!
+                </aside>
+                <img src="./assets/images/player.pose.png"/>
             </div>
         )
     }
 })
 
-module.exports = TitlescreenView
+module.exports = TitleScreenView
