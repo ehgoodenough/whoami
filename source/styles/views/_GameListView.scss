@@ -18,6 +18,7 @@
         width: 50%;
         bottom: 0em;
         padding: 0.5em;
+        overflow-x: hidden;
         overflow-y: scroll;
         position: absolute;
         
@@ -25,15 +26,24 @@
         
         .joinable-game
         {
-            font-size: 0.65em;
-            font-weight: bold;
-            margin-bottom: 0.25em;
+            font-size: 0.7em;
+            
+            &:not(:last-of-type)
+            {
+                margin-bottom: 0.35em;
+            }
             
             a:hover
             {
                 color: $red;
                 cursor: pointer;
             }
+        }
+        
+        #no-joinable-games
+        {
+            font-weight: bold;
+            text-align: center;
         }
     }
     

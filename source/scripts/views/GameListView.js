@@ -30,29 +30,28 @@ var GameListView = React.createClass({
         )
     },
     renderJoinableGames: function() {
-        if(this.state.games.length == 0) {
-            return (
-                <div>
+        var renderings = []
+        for(var name in this.state.games) {
+            var game = this.state.games[name]
+            if(game.type != "private") {
+                var size = Object.keys(game.players).length
+                renderings.push(
+                    <div className="joinable-game" key={name}>
+                        <Link to="game-lobby" params={{"name": name}}>
+                            {name + " (" + size + "/" + game.maxsize + ")"}
+                        </Link>
+                    </div>
+                )
+            }
+        }
+        if(renderings.length == 0) {
+            renderings = (
+                <div id="no-joinable-games">
                     There are no games to join!
                 </div>
             )
-        } else {
-            var renderings = []
-            for(var name in this.state.games) {
-                var game = this.state.games[name]
-                if(game.type != "private") {
-                    var size = Object.keys(game.players).length
-                    renderings.push(
-                        <div className="joinable-game" key={name}>
-                            <Link to="game-lobby" params={{"name": name}}>
-                                {name + " (" + size + "/" + game.maxsize + ")"}
-                            </Link>
-                        </div>
-                    )
-                }
-            }
-            return renderings
         }
+        return renderings
     }
 })
 
