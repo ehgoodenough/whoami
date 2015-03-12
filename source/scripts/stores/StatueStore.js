@@ -16,23 +16,11 @@ var StatueStore = Reflux.createStore({
         this.listenTo(PlayerActions.PlayerIsAwesome, this.onPlayerIsAwesome)
     },
     onBeginPlaythrough: function(playthrough) {
-        this.data = {
-            "A": {
-                x: 5,
-                y: 5,
-                scale: 0.7*2,
-                status: "normal"
-            },
-            "B": {
-                x: 15,
-                y: 3,
-                scale: 0.8*2,
-                status: "normal"
-            },
-            "C": {
-                x: 11,
-                y: 13,
-                scale: 0.9*2,
+        for(var iterator = 0; iterator < 4; iterator++) {
+            this.data[iterator] = {
+                x: Math.floor(Math.random() * (WIDTH - 4) + 2),
+                y: Math.floor(Math.random() * (HEIGHT - 4) + 2),
+                scale: Math.floor(Math.random() * 5 + 13) / 10,
                 status: "normal"
             }
         }
@@ -56,7 +44,6 @@ var StatueStore = Reflux.createStore({
         this.retrigger()
     },
     onPlayerIsAwesome: function(pid) {
-        console.log("it's done")
         for(var sid in this.data) {
             var statue = this.data[sid]
             statue.status = "awesome"

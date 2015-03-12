@@ -22,7 +22,7 @@ var PlaythroughView = React.createClass({
     componentDidMount: function() {
         //new Audio("./assets/sounds/ahoo.mp3").play()
         PlaythroughActions.BeginPlaythrough({
-            size: 3
+            size: 4
         })
     },
     componentWillUnmount: function() {
