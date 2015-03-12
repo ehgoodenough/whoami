@@ -4,7 +4,7 @@
     left: 0em;
     width: 1em;
     height: 1em;
-    z-index: 1;
+    z-index: 2;
     position: absolute;
     
     background-size: contain;
@@ -56,6 +56,7 @@
 
 .player.dead
 {
+    z-index: 1;
     background-image: url("./assets/images/player.dead.png") !important;
 }
 

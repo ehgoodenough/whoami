@@ -1,5 +1,5 @@
-var PlayerActions = require("<scripts>/actions/PlayerActions")
 var PlaythroughActions = require("<scripts>/actions/PlaythroughActions")
+var PlayerActions = require("<scripts>/actions/PlayerActions")
 var LoopActions = require("<scripts>/actions/LoopActions")
 var SmokeActions = require("<scripts>/actions/SmokeActions")
 
@@ -23,7 +23,7 @@ var PlayerStore = Reflux.createStore({
                 scale: 1,
                 velocity: 1,
                 direction: "south",
-                status: "NORMAL",
+                status: "normal",
                 touches: {},
                 isAttacking: 0,
                 hasBomb: true
@@ -43,7 +43,7 @@ var PlayerStore = Reflux.createStore({
             }
             if(player.isAttacking < 1) {
                 player.isAttacking = 0
-                if(player.status != "AWESOME") {
+                if(player.status != "awesome") {
                     player.velocity = 1
                     player.scale = 1
                 }
@@ -54,7 +54,7 @@ var PlayerStore = Reflux.createStore({
     onPlayerMoveNorth: function(id, tick) {
         var player = this.data[id]
         if(player) {
-            if(player.status != "DEAD") {
+            if(player.status != "dead") {
                 player.y -= (player.velocity * tick)
                 player.direction = "north"
                 this.retrigger()
@@ -64,7 +64,7 @@ var PlayerStore = Reflux.createStore({
     onPlayerMoveSouth: function(id, tick) {
         var player = this.data[id]
         if(player) {
-            if(player.status != "DEAD") {
+            if(player.status != "dead") {
                 player.y += (player.velocity * tick)
                 player.direction = "south"
                 this.retrigger()
@@ -74,7 +74,7 @@ var PlayerStore = Reflux.createStore({
     onPlayerMoveEast: function(id, tick) {
         var player = this.data[id]
         if(player) {
-            if(player.status != "DEAD") {
+            if(player.status != "dead") {
                 player.x += (player.velocity * tick)
                 player.direction = "east"
                 this.retrigger()
@@ -84,7 +84,7 @@ var PlayerStore = Reflux.createStore({
     onPlayerMoveWest: function(id, tick) {
         var player = this.data[id]
         if(player) {
-            if(player.status != "DEAD") {
+            if(player.status != "dead") {
                 player.x -= (player.velocity * tick)
                 player.direction = "west"
                 this.retrigger()
@@ -94,15 +94,16 @@ var PlayerStore = Reflux.createStore({
     onPlayerAttack: function(id) {
         var player = this.data[id]
         if(player) {
-            if(player.status != "DEAD"
+            if(player.status != "dead"
             && player.isAttacking == 0) {
                 player.scale = 2
                 player.velocity = 2
                 player.isAttacking = 1.5
                 player.sound = new Audio("./assets/sounds/hoo.mp3")
+                PlayerActions.PlayerHasAttacked(player)
                 for(var oid in this.data) {
                     if(id != oid) {
-                        if(this.data[oid].status == "NORMAL") {
+                        if(this.data[oid].status == "normal") {
                             if(this.arePlayersOverlapping(id, oid)) {
                                 player.sound = new Audio("./assets/sounds/ahoo.mp3")
                                 PlayerActions.PlayerDies(oid)
@@ -122,7 +123,7 @@ var PlayerStore = Reflux.createStore({
                 player.touches[sid] = true
                 new Audio("./assets/sounds/ding.wav").play()
                 if(Object.keys(player.touches).length == 3) {
-                    player.status = "AWESOME"
+                    player.status = "awesome"
                     player.velocity = 2
                     player.scale = 2
                 }
@@ -146,7 +147,7 @@ var PlayerStore = Reflux.createStore({
     onPlayerDies: function(id) {
         var player = this.data[id]
         if(player) {
-            this.data[id].status = "DEAD"
+            this.data[id].status = "dead"
             this.retrigger()
         }
     },

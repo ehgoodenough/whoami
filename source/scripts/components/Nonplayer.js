@@ -8,7 +8,7 @@ var Nonplayer = React.createClass({
         return React.addons.classSet({
             "player": true,
             "moving": true,
-            "dead": this.props.data.status == 0,
+            "dead": this.props.data.status == "dead",
             "north": this.props.data.direction == "north",
             "south": this.props.data.direction == "south",
             "east": this.props.data.direction == "east",
@@ -17,10 +17,10 @@ var Nonplayer = React.createClass({
     },
     renderStyles: function() {
         return {
-            top: this.props.data.y - this.props.data.radius + "em",
-            left: this.props.data.x - this.props.data.radius + "em",
-            width: this.props.data.radius * 2 + "em",
-            height: this.props.data.radius * 2 + "em"
+            top: this.props.data.y - (this.props.data.scale / 2) + "em",
+            left: this.props.data.x - (this.props.data.scale / 2) + "em",
+            width: this.props.data.scale + "em",
+            height: this.props.data.scale + "em"
         }
     }
 })

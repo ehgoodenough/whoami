@@ -1,5 +1,6 @@
-var LoopActions = require("<scripts>/actions/LoopActions")
 var PlaythroughActions = require("<scripts>/actions/PlaythroughActions")
+var PlayerActions = require("<scripts>/actions/PlayerActions")
+var LoopActions = require("<scripts>/actions/LoopActions")
 
 var NonplayerStore = Reflux.createStore({
     data: new Array(),
@@ -8,73 +9,94 @@ var NonplayerStore = Reflux.createStore({
     },
     listenables: [
         PlaythroughActions,
+        PlayerActions,
         LoopActions
     ],
-    onBeginPlaythrough: function(data) {
-        this.data = []
-        var amount = data.size * 12.5
-        for(var i = 0; i < amount; i++) {
+    onBeginPlaythrough: function(playthrough) {
+        this.data = new Array()
+        var size = playthrough.size * 12.5
+        for(var i = 0; i < size; i++) {
             this.data.push({
-                x: Math.floor(Math.random() * ((WIDTH - 2) + 1)),
-                y: Math.floor(Math.random() * ((HEIGHT - 2) + 1)),
-                radius: 0.5,
+                x: Math.floor(Math.random() * (WIDTH - 2) + 1),
+                y: Math.floor(Math.random() * (HEIGHT - 2) + 1),
+                scale: 1,
                 velocity: 1,
                 direction: "south",
-                status: 1,
-                gotocooldown: Math.floor(Math.random() * 5),
-                gotodist: Math.floor(Math.random() * (5 - 1)) + 1,
-                gotodir: Math.floor(Math.random() * 8)
+                status: "normal",
+                angle: Math.floor(Math.random() * 8),
+                destination: Math.floor(Math.random() * (5 - 1)) + 1,
+                cooldown: Math.floor(Math.random() * 5)
             })
         }
-        this.trigger(this.data)
+        this.retrigger()
     },
-    onQuitPlaythrough: function(data) {
-        this.data = []
-        this.trigger(this.data)
+    onQuitPlaythrough: function() {
+        this.data = new Array()
+        this.retrigger()
     },
-    onTick: function(delta) {
-        for(var i = 0; i < this.data.length; i++) {
-            var nonplayer = this.data[i]
-            
-            if(nonplayer.gotodist > 0) {
-                nonplayer.x += Math.cos(nonplayer.gotodir * (180 / Math.PI)) * (nonplayer.velocity * delta)
-                nonplayer.y += Math.sin(nonplayer.gotodir * (180 / Math.PI)) * (nonplayer.velocity * delta)
-                nonplayer.gotodist -= nonplayer.velocity * delta
-            } else {
-                nonplayer.gotocooldown -= delta
-                if(nonplayer.gotocooldown <= 0) {
-                    nonplayer.gotocooldown = Math.floor(Math.random() * 5)
-                    nonplayer.gotodist = Math.floor(Math.random() * (5 - 1)) + 1,
-                    nonplayer.gotodir = Math.floor(Math.random() * 8)
-                }
-            }
-            
-            if(nonplayer.x <= 1 && nonplayer.gotodir >= 3 && nonplayer.gotodir <= 5
-            || nonplayer.y <= 1 && nonplayer.gotodir >= 5 && nonplayer.gotodir <= 7
-            || nonplayer.x >= 20 - 1 && (nonplayer.gotodir == 7 || nonplayer.gotodir <= 1)
-            || nonplayer.y >= 15 - 1 && nonplayer.gotodir >= 1 && nonplayer.gotodir <= 3)
-            {
-                nonplayer.gotodir = (nonplayer.gotodir + 4) % 8
-            }
-            
-            if(nonplayer.gotodir == 0
-            || nonplayer.gotodir == 7) {
-                nonplayer.direction = "east"
-            } else if(nonplayer.gotodir == 6
-            || nonplayer.gotodir == 5) {
-                nonplayer.direction = "north"
-            } else if(nonplayer.gotodir == 4) {
-                nonplayer.direction = "west"
-            } else if(nonplayer.gotodir == 3
-            || nonplayer.gotodir == 2
-            || nonplayer.gotodir == 1) {
-                nonplayer.direction = "south"
+    onPlayerHasAttacked: function(player) {
+        for(var index = 0; index < this.data.length; index++) {
+            var nonplayer = this.data[index]
+            if(this.isIntersecting(player, nonplayer)) {
+                nonplayer.status = "dead"
+                nonplayer.respawn = 7.5
             }
         }
-        this.trigger(this.data)
+        this.retrigger()
     },
-    getInitialData: function() {
-        return this.data
+    onTick: function(tick) {
+        for(var index = 0; index < this.data.length; index++) {
+            var nonplayer = this.data[index]
+            if(nonplayer.status == "dead") {
+                nonplayer.respawn -= tick
+                if(nonplayer.respawn < 0) {
+                    nonplayer.respawn = 0
+                    nonplayer.status = "normal"
+                }
+            } else {
+                if(nonplayer.destination > 0) {
+                    nonplayer.x += Math.cos(nonplayer.angle * (180 / Math.PI)) * (nonplayer.velocity * tick)
+                    nonplayer.y += Math.sin(nonplayer.angle * (180 / Math.PI)) * (nonplayer.velocity * tick)
+                    nonplayer.destination -= nonplayer.velocity * tick
+                } else {
+                    nonplayer.cooldown -= tick
+                    if(nonplayer.cooldown <= 0) {
+                        nonplayer.cooldown = Math.floor(Math.random() * 5)
+                        nonplayer.destination = Math.floor(Math.random() * (5 - 1)) + 1,
+                        nonplayer.angle = Math.floor(Math.random() * 8)
+                    }
+                }
+                if(nonplayer.x <= 1 && nonplayer.angle >= 3 && nonplayer.angle <= 5
+                || nonplayer.y <= 1 && nonplayer.angle >= 5 && nonplayer.angle <= 7
+                || nonplayer.x >= 20 - 1 && (nonplayer.angle == 7 || nonplayer.angle <= 1)
+                || nonplayer.y >= 15 - 1 && nonplayer.angle >= 1 && nonplayer.angle <= 3) {
+                    nonplayer.angle = (nonplayer.angle + 4) % 8
+                }
+                if(nonplayer.angle == 0
+                || nonplayer.angle == 7) {
+                    nonplayer.direction = "east"
+                } else if(nonplayer.angle == 6
+                || nonplayer.angle == 5) {
+                    nonplayer.direction = "north"
+                } else if(nonplayer.angle == 4) {
+                    nonplayer.direction = "west"
+                } else if(nonplayer.angle == 3
+                || nonplayer.angle == 2
+                || nonplayer.angle == 1) {
+                    nonplayer.direction = "south"
+                }
+            }
+        }
+        this.retrigger()
+    },
+    isIntersecting: function(alpha, omega) {
+        var x = alpha.x - omega.x
+        var y = alpha.y - omega.y
+        
+        var d = Math.sqrt(x * x + y * y)
+        var l = (alpha.scale / 2) + (omega.scale / 2)
+        
+        return d < l
     }
 })
 

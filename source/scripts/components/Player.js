@@ -35,14 +35,14 @@ var Player = React.createClass({
     renderClasses: function() {
         return React.addons.classSet({
             "player": true,
-            "dead": this.props.data.status == "DEAD",
+            "dead": this.props.data.status == "dead",
             "moving": this.props.data.isAttacking <= 1,
             "attacking": this.props.data.isAttacking > 1,
             "north": this.props.data.direction == "north",
             "south": this.props.data.direction == "south",
             "east": this.props.data.direction == "east",
             "west": this.props.data.direction == "west",
-            "victory": this.props.data.status != "DEAD" && this.state.playthrough.finished
+            "victory": this.props.data.status != "dead" && this.state.playthrough.finished
         })
     },
     renderStyles: function() {
