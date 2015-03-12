@@ -4,151 +4,158 @@ var LoopActions = require("<scripts>/actions/LoopActions")
 var SmokeActions = require("<scripts>/actions/SmokeActions")
 
 var PlayerStore = Reflux.createStore({
-    data: {},
-    getInitialState: function() {
+    data: new Object(),
+    getData: function() {
         return this.data
     },
     listenables: [
-        PlayerActions,
         PlaythroughActions,
+        PlayerActions,
         LoopActions
     ],
-    onBeginPlaythrough: function(data) {
-        this.data = {}
-        for(var index = 0; index < data.players; index++) {
-            this.data[index] = {
-                x: Math.floor(Math.random() * (20 - 2) + 1),
-                y: Math.floor(Math.random() * (15 - 2) + 1),
-                radius: 0.5,
+    onBeginPlaythrough: function(playthrough) {
+        this.data = new Object()
+        for(var id = 0; id < playthrough.size; id++) {
+            this.data[id] = {
+                id: id,
+                x: Math.floor(Math.random() * (WIDTH - 2) + 1),
+                y: Math.floor(Math.random() * (HEIGHT - 2) + 1),
                 scale: 1,
                 velocity: 1,
                 direction: "south",
-                attacking: 0,
-                status: 1,
-                touches: [],
-                hasBomb: true,
-                id: index
+                status: "NORMAL",
+                touches: {},
+                isAttacking: 0,
+                hasBomb: true
             }
         }
-        this.trigger(this.data)
+        this.retrigger()
     },
     onQuitPlaythrough: function() {
-        this.data = {}
-        this.trigger(this.data)
+        this.data = new Object()
+        this.retrigger()
     },
-    onTick: function(delta) {
-        for(var index in this.data) {
-            var player = this.data[index]
-            if(player.attacking > 0) {
-                player.attacking -= delta
+    onTick: function(tick) {
+        for(var id in this.data) {
+            var player = this.data[id]
+            if(player.isAttacking > 0) {
+                player.isAttacking -= tick
             }
-            if(player.attacking < 1) {
-                if(player.status != 2) {
+            if(player.isAttacking < 1) {
+                player.isAttacking = 0
+                if(player.status != "AWESOME") {
+                    player.velocity = 1
                     player.scale = 1
                 }
             }
         }
-        this.trigger(this.data)
+        this.retrigger()
     },
-    onPlayerMoveNorth: function(id, delta) {
+    onPlayerMoveNorth: function(id, tick) {
         var player = this.data[id]
-        if(player && player.status != 0) {
-            player.direction = "north"
-            player.y -= (player.velocity * delta)
-            this.trigger(this.data)
+        if(player) {
+            if(player.status != "DEAD") {
+                player.y -= (player.velocity * tick)
+                player.direction = "north"
+                this.retrigger()
+            }
         }
     },
-    onPlayerMoveSouth: function(id, delta) {
+    onPlayerMoveSouth: function(id, tick) {
         var player = this.data[id]
-        if(player && player.status != 0) {
-            player.direction = "south"
-            player.y += (player.velocity * delta)
-            this.trigger(this.data)
+        if(player) {
+            if(player.status != "DEAD") {
+                player.y += (player.velocity * tick)
+                player.direction = "south"
+                this.retrigger()
+            }
         }
     },
-    onPlayerMoveEast: function(id, delta) {
+    onPlayerMoveEast: function(id, tick) {
         var player = this.data[id]
-        if(player && player.status != 0) {
-            player.direction = "east"
-            player.x += (player.velocity * delta)
-            this.trigger(this.data)
+        if(player) {
+            if(player.status != "DEAD") {
+                player.x += (player.velocity * tick)
+                player.direction = "east"
+                this.retrigger()
+            }
         }
     },
-    onPlayerMoveWest: function(id, delta) {
+    onPlayerMoveWest: function(id, tick) {
         var player = this.data[id]
-        if(player && player.status != 0) {
-            player.direction = "west"
-            player.x -= (player.velocity * delta)
-            this.trigger(this.data)
+        if(player) {
+            if(player.status != "DEAD") {
+                player.x -= (player.velocity * tick)
+                player.direction = "west"
+                this.retrigger()
+            }
         }
     },
     onPlayerAttack: function(id) {
         var player = this.data[id]
-        if(player && player.status != 0) {
-            if(player.attacking <= 0) {
-                player.attacking = 1.5
+        if(player) {
+            if(player.status != "DEAD"
+            && player.isAttacking == 0) {
                 player.scale = 2
-                var attacked = false
-                for(var index in this.data) {
-                    if(id != index) {
-                        if(this.data[index].status == 1) {
-                            if(this.PlayerCanAttack(id, index)) {
-                                PlayerActions.PlayerDies(index)
-                                attacked = true
+                player.velocity = 2
+                player.isAttacking = 1.5
+                player.sound = new Audio("./assets/sounds/hoo.mp3")
+                for(var oid in this.data) {
+                    if(id != oid) {
+                        if(this.data[oid].status == "NORMAL") {
+                            if(this.arePlayersOverlapping(id, oid)) {
+                                player.sound = new Audio("./assets/sounds/ahoo.mp3")
+                                PlayerActions.PlayerDies(oid)
                             }
                         }
                     }
                 }
-                if(attacked) {
-                    new Audio("./assets/sounds/ahoo.mp3").play()
-                } else {
-                    new Audio("./assets/sounds/hoo.mp3").play()
-                }
-                this.trigger(this.data)
+                player.sound.play()
+                this.retrigger()
             }
         }
     },
-    PlayerCanAttack: function(p1id, p2id) {
-        var player1 = this.data[p1id]
-        var player2 = this.data[p2id]
-        var x = player1.x - player2.x
-        var y = player1.y - player2.y
-        var d = Math.sqrt(x * x + y * y)
-        var l = (player1.radius * 2) + player2.radius
-        return d < l
-    },
     onPlayerTouchStatue: function(id, sid) {
         var player = this.data[id]
-        if(player && player.touches.indexOf(sid) == -1) {
-            player.touches.push(sid)
-            if(player.touches.length == 3) {
-                player.scale = 2
-                player.status = 2
-                player.velocity = 1.5
+        if(player) {
+            if(!player.touches[sid]) {
+                player.touches[sid] = true
+                new Audio("./assets/sounds/ding.wav").play()
+                if(Object.keys(player.touches).length == 3) {
+                    player.status = "AWESOME"
+                    player.velocity = 2
+                    player.scale = 2
+                }
+                this.retrigger()
             }
-            new Audio("./assets/sounds/ding.wav").play()
-            for(var i = 1; i < player.touches.length; i++) {
-                setTimeout(function() {
-                    new Audio("./assets/sounds/ding.wav").play()
-                }, i * player.touches.length * 100)
-            }
-            this.trigger(this.data)
         }
     },
     onPlayerDropBomb: function(id) {
         var player = this.data[id]
-        if(player && player.hasBomb) {
-            player.hasBomb = false
-            SmokeActions.CreateSmoke(player)
-            this.trigger(this.data)
+        if(player) {
+            if(player.hasBomb) {
+                SmokeActions.CreateSmoke({
+                    x: player.x,
+                    y: player.y
+                })
+                player.hasBomb = false
+                this.retrigger()
+            }
         }
     },
     onPlayerDies: function(id) {
         var player = this.data[id]
         if(player) {
-            this.data[id].status = 0
-            this.trigger(this.data)
+            this.data[id].status = "DEAD"
+            this.retrigger()
         }
+    },
+    arePlayersOverlapping: function(p1id, p2id) {
+        var x = this.data[p1id].x - this.data[p2id].x
+        var y = this.data[p1id].y - this.data[p2id].y
+        var d = Math.sqrt(x * x + y * y)
+        var l = (this.data[p1id].scale / 2) + (this.data[p2id].scale / 2)
+        return d < l
     }
 })
 

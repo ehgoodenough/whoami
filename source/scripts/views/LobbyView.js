@@ -11,6 +11,7 @@ var LobbyView = React.createClass({
             "y": 1
         })
         //this.firebase.child("players").child("andrew").onDisconnect().remove()
+        new Audio("./assets/sounds/ahoo.mp3").play()
     },
     render: function() {
         return (

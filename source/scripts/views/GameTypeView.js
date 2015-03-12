@@ -1,21 +1,21 @@
 var Link = ReactRouter.Link
 
 var GameTypeView = React.createClass({
-    componentWillUnmount: function() {
+    componentDidMount: function() {
         new Audio("./assets/sounds/hoo.mp3").play()
     },
     render: function() {
         return (
             <div className="game-type view">
                 <div className="selectable-game-type">
-                    <Link to="classic-game">
+                    <Link to="offline-game">
                         Classic
                     </Link>
                     <small>
                         Local Offline Multiplayer
                     </small>
                     <small>
-                        Particullarly Confusing
+                        (Particullarly Confusing)
                     </small>
                 </div>
                 <div className="selectable-game-type">
@@ -26,7 +26,7 @@ var GameTypeView = React.createClass({
                          Global Online Multiplayer
                     </small>
                     <small>
-                        Still Just as Confusing
+                        (Still Just as Confusing)
                     </small>
                 </div>
             </div>

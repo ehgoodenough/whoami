@@ -1,9 +1,6 @@
 var Link = ReactRouter.Link
 
 var TitleScreenView = React.createClass({
-    componentWillUnmount: function() {
-        new Audio("./assets/sounds/hoo.mp3").play()
-    },
     render: function() {
         return (
             <div className="title-screen view">

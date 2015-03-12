@@ -12,17 +12,10 @@
 @import "./styles/views/View.scss";
 @import "./styles/views/TitleScreenView.scss";
 @import "./styles/views/GameTypeView.scss";
-@import "./styles/views/GameListView.scss";
-@import "./styles/views/HowmanyView.scss";
-@import "./styles/views/PlaythroughView.scss";
+@import "./styles/views/OnlineGameListView.scss";
+@import "./styles/views/OfflineGameView.scss";
 
-html
+#game-frame
 {
-    background-color: $black;
-    font-family: goldfish, monospace;
-
-    #game-frame
-    {
-    	background-color: $white;
-    }
+    background-color: $white;
 }

@@ -35,22 +35,22 @@ var Player = React.createClass({
     renderClasses: function() {
         return React.addons.classSet({
             "player": true,
-            "dead": this.props.data.status == 0,
-            "moving": this.props.data.attacking < 1,
-            "attacking": this.props.data.attacking > 1,
+            "dead": this.props.data.status == "DEAD",
+            "moving": this.props.data.isAttacking <= 1,
+            "attacking": this.props.data.isAttacking > 1,
             "north": this.props.data.direction == "north",
             "south": this.props.data.direction == "south",
             "east": this.props.data.direction == "east",
             "west": this.props.data.direction == "west",
-            "victory": this.props.data.status != 0 && this.state.playthrough.finished
+            "victory": this.props.data.status != "DEAD" && this.state.playthrough.finished
         })
     },
     renderStyles: function() {
         return {
-            top: this.props.data.y - this.props.data.radius * this.props.data.scale + "em",
-            left: this.props.data.x - this.props.data.radius * this.props.data.scale + "em",
-            width: this.props.data.radius * 2 * this.props.data.scale + "em",
-            height: this.props.data.radius * 2 * this.props.data.scale + "em"
+            top: this.props.data.y - (this.props.data.scale / 2) + "em",
+            left: this.props.data.x - (this.props.data.scale / 2) + "em",
+            width: this.props.data.scale + "em",
+            height: this.props.data.scale + "em"
         }
     }
 })

@@ -9,9 +9,9 @@ var OnlineGameListView = React.createClass({
     componentDidMount: function() {
         this.firebase = new Firebase("https://uhwhoami.firebaseIO.com/games")
         this.firebase.on("value", this.updateState)
+        new Audio("./assets/sounds/hoo.mp3").play()
     },
     componentWillUnmount: function() {
-        new Audio("./assets/sounds/ahoo.mp3").play()
         this.firebase.off("value", this.updateState)
     },
     updateState: function(data) {

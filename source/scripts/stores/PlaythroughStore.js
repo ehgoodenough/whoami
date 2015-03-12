@@ -35,6 +35,9 @@ var PlaythroughStore = Reflux.createStore({
             PlaythroughActions.FinishPlaythrough()
         }
     },
+    data: {
+        message: ""
+    },
     getInitialState: function() {
         return this.data
     }

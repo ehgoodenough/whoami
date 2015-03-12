@@ -62,10 +62,11 @@
     img
     {
         width: 7em;
-        right: 0em;
+        right: -7em;
         bottom: 0em;
         position: absolute;
         animation-name: slide-in;
         animation-duration: 0.5s;
+        animation-fill-mode: forwards;
     }
 }

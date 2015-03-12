@@ -2,21 +2,21 @@ var LoopActions = require("<scripts>/actions/LoopActions")
 var PlaythroughActions = require("<scripts>/actions/PlaythroughActions")
 
 var NonplayerStore = Reflux.createStore({
-    data: [],
+    data: new Array(),
+    getData: function() {
+        return this.data
+    },
     listenables: [
         PlaythroughActions,
         LoopActions
     ],
     onBeginPlaythrough: function(data) {
         this.data = []
-        var amount = data.players * 12.5
-        if(data.players == 1) {
-            amount = 0;
-        }
+        var amount = data.size * 12.5
         for(var i = 0; i < amount; i++) {
             this.data.push({
-                x: Math.floor(Math.random() * (20 - 2) + 1),
-                y: Math.floor(Math.random() * (15 - 2) + 1),
+                x: Math.floor(Math.random() * ((WIDTH - 2) + 1)),
+                y: Math.floor(Math.random() * ((HEIGHT - 2) + 1)),
                 radius: 0.5,
                 velocity: 1,
                 direction: "south",

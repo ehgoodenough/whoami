@@ -3,8 +3,6 @@ var Statue = require("<scripts>/components/Statue")
 var Smoke = require("<scripts>/components/Smoke")
 var Nonplayer = require("<scripts>/components/Nonplayer")
 
-var KeyboardMixin = require("<scripts>/mixins/KeyboardMixin")
-
 var PlayerStore = require("<scripts>/stores/PlayerStore")
 var StatueStore = require("<scripts>/stores/StatueStore")
 var SmokeStore = require("<scripts>/stores/SmokeStore")
@@ -15,27 +13,32 @@ var PlaythroughActions = require("<scripts>/actions/PlaythroughActions")
 
 var PlaythroughView = React.createClass({
     mixins: [
-        KeyboardMixin,
         Reflux.connect(PlayerStore, "players"),
         Reflux.connect(StatueStore, "statues"),
         Reflux.connect(SmokeStore, "smokes"),
         Reflux.connect(NonplayerStore, "nonplayers"),
         Reflux.connect(PlaythroughStore, "playthrough"),
     ],
-    componentWillMount: function() {
-        this.connect("escape", PlaythroughActions.QuitPlaythrough)
+    componentDidMount: function() {
+        //new Audio("./assets/sounds/ahoo.mp3").play()
+        PlaythroughActions.BeginPlaythrough({
+            size: 4
+        })
+    },
+    componentWillUnmount: function() {
+        PlaythroughActions.QuitPlaythrough()
     },
     render: function() {
-        var message = new String()
+        var message = ""
         if(this.state.playthrough.message) {
             message = <b>{this.state.playthrough.message}</b>
         }
         return (
             <div id="playthrough" className="view">
                 {this.renderEntities(Player, "players")}
+                {this.renderEntities(Nonplayer, "nonplayers")}
                 {this.renderEntities(Statue, "statues")}
                 {this.renderEntities(Smoke, "smokes")}
-                {this.renderEntities(Nonplayer, "nonplayers")}
                 {message}
             </div>
         )
