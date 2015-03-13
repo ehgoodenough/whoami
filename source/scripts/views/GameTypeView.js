@@ -8,7 +8,7 @@ var GameTypeView = React.createClass({
         return (
             <div className="game-type view">
                 <div className="selectable-game-type">
-                    <Link to="offline-game">
+                    <Link to="offline-game-list">
                         Classic
                     </Link>
                     <small>

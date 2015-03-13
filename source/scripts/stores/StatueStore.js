@@ -16,15 +16,19 @@ var StatueStore = Reflux.createStore({
         this.listenTo(PlayerActions.PlayerIsAwesome, this.onPlayerIsAwesome)
     },
     onBeginPlaythrough: function(playthrough) {
-        for(var iterator = 0; iterator < 4; iterator++) {
-            this.data[iterator] = {
-                x: Math.floor(Math.random() * (WIDTH - 4) + 2),
-                y: Math.floor(Math.random() * (HEIGHT - 4) + 2),
-                scale: Math.floor(Math.random() * 5 + 13) / 10,
-                status: "normal"
-            }
-        }
+        this.addStatue("A", WIDTH * 0.25, HEIGHT * 0.25)
+        this.addStatue("B", WIDTH * 0.25, HEIGHT * 0.75)
+        this.addStatue("C", WIDTH * 0.75, HEIGHT * 0.25)
+        this.addStatue("D", WIDTH * 0.75, HEIGHT * 0.75)
         this.retrigger()
+    },
+    addStatue: function(id, x, y) {
+        this.data[id] = {
+            x: x,
+            y: y,
+            scale: Math.floor(Math.random() * 5 + 13) / 10,
+            status: "normal"
+        }
     },
     onQuitPlaythrough: function() {
         this.data = new Object()

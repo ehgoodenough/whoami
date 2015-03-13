@@ -1,3 +1,5 @@
+var Link = ReactRouter.Link
+
 var Player = require("<scripts>/components/Player")
 var Statue = require("<scripts>/components/Statue")
 var Smoke = require("<scripts>/components/Smoke")
@@ -11,7 +13,7 @@ var PlaythroughStore = require("<scripts>/stores/PlaythroughStore")
 
 var PlaythroughActions = require("<scripts>/actions/PlaythroughActions")
 
-var PlaythroughView = React.createClass({
+var OfflineGameView = React.createClass({
     mixins: [
         Reflux.connect(PlayerStore, "players"),
         Reflux.connect(StatueStore, "statues"),
@@ -20,26 +22,22 @@ var PlaythroughView = React.createClass({
         Reflux.connect(PlaythroughStore, "playthrough"),
     ],
     componentDidMount: function() {
-        //new Audio("./assets/sounds/ahoo.mp3").play()
+        new Audio("./assets/sounds/ahoo.mp3").play()
         PlaythroughActions.BeginPlaythrough({
-            size: 4
+            size: this.props.params.size
         })
     },
     componentWillUnmount: function() {
         PlaythroughActions.QuitPlaythrough()
     },
     render: function() {
-        var message = ""
-        if(this.state.playthrough.message) {
-            message = <b>{this.state.playthrough.message}</b>
-        }
         return (
-            <div id="playthrough" className="view">
+            <div id="offline-game" className="view">
                 {this.renderEntities(Player, "players")}
                 {this.renderEntities(Nonplayer, "nonplayers")}
                 {this.renderEntities(Statue, "statues")}
                 {this.renderEntities(Smoke, "smokes")}
-                {message}
+                {this.renderMessage()}
             </div>
         )
     },
@@ -52,7 +50,28 @@ var PlaythroughView = React.createClass({
             )
         }
         return renderings
+    },
+    renderMessage: function() {
+        if(this.state.playthrough.message) {
+            var message = this.state.playthrough.message
+            if(message == "Game Over!") {
+                return (
+                    <div className="message">
+                        <h3>Game Over!</h3>
+                        <Link to="offline-game-list">
+                            Click here to go back.
+                        </Link>
+                    </div>
+                )
+            } else {
+                return (
+                    <div className="message">
+                        {message}
+                    </div>
+                )
+            }
+        }
     }
 })
 
-module.exports = PlaythroughView
+module.exports = OfflineGameView

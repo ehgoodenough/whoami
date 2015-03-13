@@ -122,7 +122,7 @@ var PlayerStore = Reflux.createStore({
             if(!player.touches[sid]) {
                 player.touches[sid] = true
                 new Audio("./assets/sounds/ding.wav").play()
-                if(Object.keys(player.touches).length == 3) {
+                if(Object.keys(player.touches).length == 4) {
                     PlayerActions.PlayerIsAwesome(id)
                     player.status = "awesome"
                     player.velocity = 2

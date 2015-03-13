@@ -50,10 +50,12 @@ var NonplayerStore = Reflux.createStore({
         for(var index in this.data) {
             var nonplayer = this.data[index]
             if(nonplayer.status == "dead") {
-                nonplayer.respawn -= tick
-                if(nonplayer.respawn < 0) {
-                    nonplayer.respawn = 0
-                    nonplayer.status = "normal"
+                if(!this.awesome) {
+                    nonplayer.respawn -= tick
+                    if(nonplayer.respawn < 0) {
+                        nonplayer.respawn = 0
+                        nonplayer.status = "normal"
+                    }
                 }
             } else {
                 if(nonplayer.destination > 0) {
@@ -90,7 +92,11 @@ var NonplayerStore = Reflux.createStore({
             }
         }
         this.retrigger()
-    }
+    },
+    onPlayerIsAwesome: function() {
+        this.awesome = true
+    },
+    awesome: false
 })
 
 module.exports = NonplayerStore

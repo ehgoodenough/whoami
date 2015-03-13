@@ -1,45 +1,34 @@
-var LoopActions = require("<scripts>/actions/LoopActions")
-var PlayerActions = require("<scripts>/actions/PlayerActions")
 var PlaythroughActions = require("<scripts>/actions/PlaythroughActions")
-var ViewActions = require("<scripts>/actions/ViewActions")
+var PlayerActions = require("<scripts>/actions/PlayerActions")
+var LoopActions = require("<scripts>/actions/LoopActions")
 
 var PlaythroughStore = Reflux.createStore({
+    data: new Object(),
+    getData: function() {
+        return this.data
+    },
     listenables: [
         PlaythroughActions,
+        PlayerActions,
         LoopActions,
-        PlayerActions
     ],
     onBeginPlaythrough: function(data) {
-        ViewActions.ChangeView("PlaythroughView")
         this.data = {
-            dead_players: 0,
-            players: data.players,
-            finished: false,
+            count: 0,
+            size: data.size,
             message: ""
         }
+        this.retrigger()
     },
     onFinishPlaythrough: function() {
-        this.data.finished = true
         this.data.message = "Game Over!"
-        this.trigger(this.data)
-        setTimeout(function() {
-            PlaythroughActions.QuitPlaythrough()
-        }, 5 * 1000)
-    },
-    onQuitPlaythrough: function() {
-        ViewActions.ChangeView("TitlescreenView")
+        this.retrigger()
     },
     onPlayerDies: function(id) {
-        this.data.dead_players += 1
-        if(this.data.dead_players == this.data.players - 1) {
+        this.data.count += 1
+        if(this.data.count == this.data.size - 1) {
             PlaythroughActions.FinishPlaythrough()
         }
-    },
-    data: {
-        message: ""
-    },
-    getInitialState: function() {
-        return this.data
     }
 })
 

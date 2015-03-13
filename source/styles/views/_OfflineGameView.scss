@@ -1,20 +1,26 @@
-#playthrough.view
+#offline-game.view
 {
     background-color: $white;
     
-    b
+    .message
     {
         top: 0em;
         left: 0em;
         right: 0em;
         bottom: 0em;
-        z-index: 3;
+        z-index: 5;
+        height: 3.25em;
+        margin: auto;
         position: absolute;
         
-        color: $white;
-        font-size: 2em;
-        line-height: 15em;
+        font-weight: bold;
         text-align: center;
-        @include stroke($black);
+        
+        h3
+        {
+            color: $white;
+            font-size: 2em;
+            @include stroke($black);
+        }
     }
 }

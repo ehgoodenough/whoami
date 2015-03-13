@@ -1,0 +1,52 @@
+#offline-game-list.view
+{
+    .box
+    {
+        width: 50%;
+        height: 50%;
+        padding: 3em 1em;
+        position: absolute;
+        
+        color: $white;
+        font-weight: bold;
+        text-align: center;
+        
+        &:nth-child(1)
+        {
+            top: 0em;
+            left: 0em;
+            
+            background-color: $light-green;
+        }
+        
+        &:nth-child(2)
+        {
+            top: 0em;
+            right: 0em;
+            
+            background-color: $dark-green;
+        }
+        
+        &:nth-child(3)
+        {
+            left: 0em;
+            bottom: 0em;
+            
+            background-color: $dark-green;
+        }
+        
+        &:nth-child(4)
+        {
+            right: 0em;
+            bottom: 0em;
+            
+            background-color: $light-green;
+        }
+        
+        h3
+        {
+            font-size: 1.5em;
+            @include stroke($black);
+        }
+    }
+}
