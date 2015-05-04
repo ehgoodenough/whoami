@@ -18,8 +18,7 @@ var GameFrame = React.createClass({
             bottom: "0rem",
             margin: "auto",
             position: "fixed",
-            overflow: "hidden",
-            backgroundColor: "#EEE"
+            overflow: "hidden"
         }
         var width = this.props["aspect-ratio"].split("x")[0]
         var height = this.props["aspect-ratio"].split("x")[1]

@@ -15,12 +15,12 @@ var Person = React.createClass({
             left: this.props.data.position.x - (this.props.data.scale / 2) + "em",
             width: this.props.data.scale + "em",
             height: this.props.data.scale + "em",
-            borderRadius: "100em",
-            backgroundColor: "#ED1C24",
         }
         if(this.props.data.status == "dead") {
             styles.backgroundImage = "url(assets/images/player.dead.png)"
             styles.zIndex = 1
+        } else if(this.props.data.status == "everyone else is dead") {
+            styles.backgroundImage = "url(assets/images/player.win.png)"
         } else {
             if(this.props.data.attacking > 0) {
                 styles.backgroundImage = "url(assets/images/player.attack."

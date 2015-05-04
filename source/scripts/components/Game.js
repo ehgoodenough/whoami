@@ -9,89 +9,107 @@ var isOverlapping = function(a, b) {
     return d < l
 }
 
+var PlayerKeyconfigs = {
+    "1": {
+        "move north": "W",
+        "move south": "S",
+        "move west": "A",
+        "move east": "D",
+        "attack": "E",
+    },
+    "2": {
+        "move north": "T",
+        "move south": "G",
+        "move west": "F",
+        "move east": "H",
+        "attack": "Y",
+    },
+    "3": {
+        "move north": "I",
+        "move south": "K",
+        "move west": "J",
+        "move east": "L",
+        "attack": "O",
+    },
+    "4": {
+        "move north": "<up>",
+        "move south": "<down>",
+        "move west": "<left>",
+        "move east": "<right>",
+        "attack": "<enter>",
+    }
+}
+
+var dead_player_count = 0
+var player_count = 3
+
 var PlayerStore = Phlux.createStore({
-    data: {
-        "a": {
-            id: "a",
-            status: "not dead",
-            direction: "south",
-            position: {
-                x: 5,
-                y: 5
-            },
-            scale: 1,
-            speed: 2.5,
-            attacking: 0,
-            input: {
-                "move north": "W",
-                "move south": "S",
-                "move west": "A",
-                "move east": "D",
-                "attack": "E",
-            }
-        },
-        "b": {
-            id: "b",
-            status: "not dead",
-            direction: "south",
-            position: {
-                x: 10,
-                y: 10
-            },
-            scale: 1,
-            speed: 2.5,
-            attacking: 0,
-            input: {
-                "move north": "<up>",
-                "move south": "<down>",
-                "move west": "<left>",
-                "move east": "<right>",
-                "attack": ".",
+    startPlaythrough: function(count) {
+        for(var id = 1; id <= count; id++) {
+            this.data[id] = {
+                id: id,
+                position: {
+                    x: Math.floor(Math.random() * (WIDTH - 2)) + 1,
+                    y: Math.floor(Math.random() * (HEIGHT - 2)) + 1
+                },
+                scale: 1,
+                speed: 2.5,
+                attacking: 0,
+                status: "not dead",
+                direction: "south",
+                keyconfig: PlayerKeyconfigs[id]
             }
         }
+        this.trigger()
+        dead_player_count = 0 //?!
+        player_count = count //?!
     },
-    update: function(tick) {
+    finishPlaythrough: function() {
+        this.data = {}
+    },
+    updatePlayers: function(tick) {
         for(var id in this.data) {
             var player = this.data[id]
-            if(player.state == "dead") {
+            if(player == undefined
+            || player.state == "dead") {
                 continue
             }
-            if(Keyb.isDown(player.input["move north"])) {
+            if(Keyb.isDown(player.keyconfig["move north"])) {
                 player.position.y -= player.speed * tick
                 player.direction = "north"
             }
-            if(Keyb.isDown(player.input["move south"])) {
+            if(Keyb.isDown(player.keyconfig["move south"])) {
                 player.position.y += player.speed * tick
                 player.direction = "south"
             }
-            if(Keyb.isDown(player.input["move west"])) {
+            if(Keyb.isDown(player.keyconfig["move west"])) {
                 player.position.x -= player.speed * tick
                 player.direction = "west"
             }
-            if(Keyb.isDown(player.input["move east"])) {
+            if(Keyb.isDown(player.keyconfig["move east"])) {
                 player.position.x += player.speed * tick
                 player.direction = "east"
             }
-            if(Keyb.isDown(player.input["attack"])) {
+            if(Keyb.isDown(player.keyconfig["attack"])) {
                 if(player.attacking <= 0) {
-                    this.handleAttack(player)
-                    player.attacking = 3/4
-                    player.scale *= 1.5
+                    player.scale *= 2
                     player.speed *= 1.5
+                    player.attacking = 3/4
+                    this.handleAttacking(player)
                 }
             }
             if(player.attacking > 0) {
                 player.attacking -= tick
                 if(player.attacking <= 0) {
                     player.attacking = 0
-                    player.scale /= 1.5
+                    player.scale /= 2
                     player.speed /= 1.5
                 }
             }
             this.trigger()
         }
     },
-    handleAttack: function(attacker) {
+    handleAttacking: function(attacker) {
         for(var id in this.data) {
             var attackee = this.data[id]
             if(attackee.status == "dead") {
@@ -100,22 +118,47 @@ var PlayerStore = Phlux.createStore({
             if(attackee.id != attacker.id) {
                 if(isOverlapping(attacker, attackee)) {
                     attackee.status = "dead"
+                    dead_player_count += 1
+                    if(dead_player_count == player_count - 1) {
+                        attacker.status = "everyone else is dead"
+                        finishPlaythrough()
+                    }
                 }
             }
         }
     }
 })
 
-var Game = React.createClass({
+var startPlaythrough = function(count) {
+    PlayerStore.startPlaythrough(count)
+    ViewStore.startPlaythrough()
+}
+
+var finishPlaythrough = function(count) {
+    PlayerStore.finishPlaythrough(count)
+    ViewStore.finishPlaythrough()
+}
+
+var PlaythroughView = React.createClass({
     mixins: [
         Phlux.connectStore(PlayerStore, "players")
     ],
     render: function() {
         return (
-            <GameFrame>
-                {this.renderEntities(Person, this.state.players)}
-            </GameFrame>
+            <div style={this.renderStyles()}>
+                {this.renderEntities(Person, this.state["players"])}
+            </div>
         )
+    },
+    renderStyles: function() {
+        return {
+            top: "0em",
+            left: "0em",
+            right: "0em",
+            bottom: "0em",
+            position: "absolute",
+            backgroundColor: "#EEE"
+        }
     },
     renderEntities: function(Class, data) {
         var renderings = []
@@ -129,8 +172,33 @@ var Game = React.createClass({
     },
     componentDidMount: function() {
         Tickly.loop(function(tick) {
-            PlayerStore.update(tick)
-        }.bind(this))
+            PlayerStore.updatePlayers(tick)
+        })
+    }
+})
+
+var ViewStore = Phlux.createStore({
+    data: PlaythroughView,
+    startPlaythrough: function() {
+        this.data = PlaythroughView
+        this.trigger()
+    }
+})
+
+var Game = React.createClass({
+    mixins: [
+        Phlux.connectStore(ViewStore, "view")
+    ],
+    render: function() {
+        var CurrentView = this.state["view"]
+        return (
+            <GameFrame>
+                <CurrentView/>
+            </GameFrame>
+        )
+    },
+    componentDidMount: function() {
+        startPlaythrough(4)
     }
 })
 
