@@ -31,6 +31,17 @@ var Person = React.createClass({
             "west": this.props.data.direction == "west",
             "victory": this.props.data.status != "dead" && this.state.playthrough.finished
         })
+    },
+    renderClasses: function() {
+        return React.addons.classSet({
+            "player": true,
+            "moving": true,
+            "dead": this.props.data.status == "dead",
+            "north": this.props.data.direction == "north",
+            "south": this.props.data.direction == "south",
+            "east": this.props.data.direction == "east",
+            "west": this.props.data.direction == "west"
+        })
     }*/
 })
 
