@@ -5,19 +5,32 @@ var Person = React.createClass({
         )
     },
     renderStyles: function() {
-        return {
+        var styles = {
             zIndex: 2,
             position: "absolute",
             backgroundSize: "contain",
             backgroundPosition: "center",
             backgroundRepeat: "no-repeat",
-            top: this.props.data.y - (this.props.data.scale / 2) + "em",
-            left: this.props.data.x - (this.props.data.scale / 2) + "em",
+            top: this.props.data.position.y - (this.props.data.scale / 2) + "em",
+            left: this.props.data.position.x - (this.props.data.scale / 2) + "em",
             width: this.props.data.scale + "em",
             height: this.props.data.scale + "em",
-            borderRadius: "1em",
+            borderRadius: "100em",
             backgroundColor: "#ED1C24",
         }
+        if(this.props.data.status == "dead") {
+            styles.backgroundImage = "url(assets/images/player.dead.png)"
+            styles.zIndex = 1
+        } else {
+            if(this.props.data.attacking > 0) {
+                styles.backgroundImage = "url(assets/images/player.attack."
+                    + this.props.data.direction + ".png)"
+            } else {
+                styles.backgroundImage = "url(assets/images/player.move."
+                    + this.props.data.direction + ".png)"
+            }
+        }
+        return styles
     }
     /*renderClasses: function() {
         return React.addons.classSet({
