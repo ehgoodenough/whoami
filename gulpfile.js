@@ -2,7 +2,6 @@ var gulp = require("gulp")
 var gulp_if = require("gulp-if")
 var gulp_util = require("gulp-util")
 var gulp_sass = require("gulp-sass")
-var gulp_watch = require("gulp-watch")
 var gulp_uglify = require("gulp-uglify")
 var gulp_connect = require("gulp-connect")
 var gulp_minify_css = require("gulp-minify-css")
@@ -48,13 +47,12 @@ gulp.task("build", function() {
         "build:scripts",
         "build:styles",
         "build:markup",
-        "build:assets",
-        "build:package"
+        "build:assets"
     ])
 })
 
 gulp.task("build:scripts", function() {
-    return browserify.bundle()
+    browserify.bundle()
         .pipe(vinyl_source("index.js"))
         .pipe(vinyl_buffer())
         .pipe(gulp_if(yargs.argv.minify, gulp_uglify()))
@@ -63,7 +61,7 @@ gulp.task("build:scripts", function() {
 })
 
 gulp.task("build:styles", function() {
-    return gulp.src("./source/index.scss")
+    gulp.src("./source/index.scss")
         .pipe(gulp_sass())
         .pipe(gulp_prefixify_css())
         .pipe(gulp_if(yargs.argv.minify, gulp_minify_css()))
@@ -72,25 +70,15 @@ gulp.task("build:styles", function() {
 })
 
 gulp.task("build:markup", function() {
-    return gulp.src("./source/index.html")
+    gulp.src("./source/index.html")
         .pipe(gulp_if(yargs.argv.minify, gulp_minify_html()))
         .pipe(gulp.dest("./build"))
 })
 
 gulp.task("build:assets", function() {
-    return gulp.src("./source/assets/**/*", {base: "./source"})
+    gulp.src("./source/assets/**/*", {base: "./source"})
         .pipe(gulp.dest("./build"))
         .pipe(gulp_connect.reload())
-})
-
-gulp.task("build:package", function() {
-    return gulp.src("./package.json")
-        .pipe(gulp_json_transform(function(data) {
-            delete data["dependencies"]
-            delete data["devDependencies"]
-            return data
-        }, 2))
-        .pipe(gulp.dest("./build"))
 })
 
 gulp.task("watch", function() {
@@ -98,8 +86,7 @@ gulp.task("watch", function() {
         "watch:scripts",
         "watch:styles",
         "watch:markup",
-        "watch:assets",
-        "watch:package"
+        "watch:assets"
     ])
 })
 
@@ -112,29 +99,22 @@ gulp.task("watch:scripts", function() {
 
 gulp.task("watch:styles", function() {
     gulp.start("build:styles")
-    gulp_watch("./source/**/*.scss", function() {
+    gulp.watch("./source/**/*.scss", function() {
         gulp.start("build:styles")
     })
 })
 
 gulp.task("watch:markup", function() {
     gulp.start("build:markup")
-    gulp_watch("./source/**/*.html", function() {
+    gulp.watch("./source/**/*.html", function() {
         gulp.start("build:markup")
     })
 })
 
 gulp.task("watch:assets", function() {
     gulp.start("build:assets")
-    gulp_watch("./source/assets/**/*", function() {
+    gulp.watch("./source/assets/**/*", function() {
         gulp.start("build:assets")
-    })
-})
-
-gulp.task("watch:package", function() {
-    gulp.start("build:package")
-    gulp_watch("./package.json", function() {
-        gulp.start("build:package")
     })
 })
 
@@ -150,4 +130,5 @@ gulp.task("server", function() {
 
 process.on("uncaughtException", function (error) {
     console.log(chalk.red(error))
+    gulp_util.beep()
 })

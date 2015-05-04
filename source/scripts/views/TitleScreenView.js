@@ -14,7 +14,7 @@ var TitleScreenView = React.createClass({
                     </Link>
                 </menu>
                 <aside>
-                    2.0!
+                    1.9!
                 </aside>
                 <img src="./assets/images/player.pose.png"/>
             </div>

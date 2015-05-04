@@ -1,15 +1,10 @@
-window.React = require("react/addons")
-window.Reflux = require("reflux")
-window.ReactRouter = require("react-router")
-window.Firebase = require("firebase")
-
-window.Reflux.StoreMethods.getInitialState = function() {if(this.getData) {return this.getData()}}
-window.Reflux.StoreMethods.retrigger = function() {if(this.getData) {this.trigger(this.getData())}}
+window.React = require("react")
+window.Phlux = require("phlux")
+window.Tickly = require("tickly")
+window.Keyb = require("keyb")
 
 window.WIDTH = 20
 window.HEIGHT = 15
 
-var ViewRoutes = require("<scripts>/references/ViewRoutes")
-ReactRouter.run(ViewRoutes, function(RouteHandler, state) {
-    React.render(<RouteHandler params={state.params}/>, document.body)
-})
+var Game = require("<scripts>/components/Game")
+React.render(<Game/>, document.body)

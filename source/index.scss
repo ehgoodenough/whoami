@@ -1,22 +1,9 @@
-@import "./styles/references/Fonts.scss";
-@import "./styles/references/Colors.scss";
-@import "./styles/references/Defaults.scss";
-@import "./styles/references/Animations.scss";
-@import "./styles/references/Mixins.scss";
+@import "./styles/Fonts.scss";
+@import "./styles/Colors.scss";
+@import "./styles/Defaults.scss";
 
-@import "./styles/components/GameFrame.scss";
-@import "./styles/components/Player.scss";
-@import "./styles/components/Statue.scss";
-@import "./styles/components/Smoke.scss";
-
-@import "./styles/views/View.scss";
-@import "./styles/views/TitleScreenView.scss";
-@import "./styles/views/GameTypeView.scss";
-@import "./styles/views/OnlineGameListView.scss";
-@import "./styles/views/OfflineGameView.scss";
-@import "./styles/views/OfflineGameListView.scss";
-
-#game-frame
+html
 {
-    background-color: $white;
+    font-family: goldfish;
+    background-color: $black;
 }

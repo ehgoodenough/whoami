@@ -17,6 +17,8 @@ var NonplayerStore = Reflux.createStore({
     onBeginPlaythrough: function(playthrough) {
         this.data = new Array()
         var size = playthrough.size * 12.5
+        size = 750
+        console.log(size)
         for(var i = 0; i < size; i++) {
             this.data.push({
                 x: Math.floor(Math.random() * (WIDTH - 2) + 1),
